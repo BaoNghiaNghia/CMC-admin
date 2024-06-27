@@ -298,7 +298,7 @@
             rtl: isRtl,
             labels: {
               font: {
-                family: 'Inter'
+                family: 'Be Vietnam Pro'
               },
               usePointStyle: true,
               padding: 35,
@@ -381,7 +381,7 @@
               padding: 25,
               color: legendColor,
               font: {
-                family: 'Inter'
+                family: 'Be Vietnam Pro'
               }
             }
           },
@@ -454,7 +454,7 @@
               boxHeight: 8,
               color: legendColor,
               font: {
-                family: 'Inter'
+                family: 'Be Vietnam Pro'
               }
             }
           }
@@ -759,7 +759,7 @@
               boxHeight: 6,
               color: legendColor,
               font: {
-                family: 'Inter'
+                family: 'Be Vietnam Pro'
               }
             }
           },
@@ -1087,7 +1087,7 @@
               boxHeight: 6,
               color: legendColor,
               font: {
-                family: 'Inter'
+                family: 'Be Vietnam Pro'
               }
             }
           },

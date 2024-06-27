@@ -80,7 +80,7 @@
               show: true,
               value: {
                 fontSize: '1.5rem',
-                fontFamily: 'Inter',
+                fontFamily: 'Be Vietnam Pro',
                 color: headingColor,
                 fontWeight: 500,
                 offsetY: -15,
@@ -90,7 +90,7 @@
               },
               name: {
                 offsetY: 20,
-                fontFamily: 'Inter'
+                fontFamily: 'Be Vietnam Pro'
               },
               total: {
                 show: true,
@@ -164,7 +164,7 @@
           colors: ['#fff'],
           fontWeight: 200,
           fontSize: '13px',
-          fontFamily: 'Inter'
+          fontFamily: 'Be Vietnam Pro'
         },
         formatter: function (val, opts) {
           return horizontalBarChartConfig.labels[opts.dataPointIndex];
@@ -204,7 +204,7 @@
         labels: {
           style: {
             colors: [labelColor],
-            fontFamily: 'Inter',
+            fontFamily: 'Be Vietnam Pro',
             fontSize: '13px'
           }
         }
@@ -250,7 +250,7 @@
               offsetY: -10,
               fontSize: '15px',
               fontWeight: 500,
-              fontFamily: 'Inter',
+              fontFamily: 'Be Vietnam Pro',
               color: headingColor
             }
           },

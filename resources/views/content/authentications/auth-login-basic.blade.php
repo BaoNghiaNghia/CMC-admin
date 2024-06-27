@@ -10,6 +10,7 @@
 @section('vendor-style')
     <!-- Vendor -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/@form-validation/umd/styles/index.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 @endsection
 
 @section('page-style')
@@ -21,11 +22,25 @@
     <script src="{{ asset('assets/vendor/libs/@form-validation/umd/bundle/popular.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 @endsection
 
 @section('page-script')
     <script type="module" src="{{ asset('assets/js/pages-auth.js') }}"></script>
+    <script type="text/javascript">
+      document.addEventListener("DOMContentLoaded", function() {
+        @if(session('status'))
+          Toastify({
+            text: "{{ session('status')['message'] }}",
+            duration: 3000,
+            close: true,
+            gravity: "bottom", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            backgroundColor: "{{ session('status')['success'] ? 'green' : 'red' }}",
+          }).showToast();
+        @endif
+      });
+    </script>
 @endsection
 
 @section('content')
@@ -49,7 +64,8 @@
                         <h4 class="mb-2">Welcome to {{ config('variables.templateName') }}! 👋</h4>
                         <p class="mb-4">Please sign-in to your account</p>
 
-                        <form id="formAuthentication" class="mb-3" action="{{ url('api.authLoginUser') }}" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="{{ route('api.loginUser') }}" method="POST">
+                            @csrf
                             <div class="form-floating form-floating-outline mb-3">
                                 <input type="text" class="form-control" id="email" name="email"
                                     placeholder="Enter your email or username" autofocus>
@@ -70,7 +86,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100 kt_docs_formvalidation_textarea_submit" type="submit">Sign in</button>
+                                <button class="btn btn-primary d-grid w-100 kt_docs_formvalidation_textarea_submit" type="submit">Login</button>
                             </div>
                         </form>
                     </div>

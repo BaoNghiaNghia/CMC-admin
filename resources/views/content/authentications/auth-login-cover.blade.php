@@ -10,6 +10,7 @@
 @section('vendor-style')
     <!-- Vendor -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/@form-validation/umd/styles/index.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 @endsection
 
 @section('page-style')
@@ -21,10 +22,25 @@
     <script src="{{ asset('assets/vendor/libs/@form-validation/umd/bundle/popular.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 @endsection
 
 @section('page-script')
-    <script src="{{ asset('assets/js/pages-auth.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/pages-auth.js') }}"></script>
+    <script type="text/javascript">
+      document.addEventListener("DOMContentLoaded", function() {
+        @if(session('status'))
+          Toastify({
+            text: "{{ session('status')['message'] }}",
+            duration: 3000,
+            close: true,
+            gravity: "bottom", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            backgroundColor: "{{ session('status')['success'] ? 'green' : 'red' }}",
+          }).showToast();
+        @endif
+      });
+    </script>
 @endsection
 
 @section('content')
@@ -56,40 +72,30 @@
                     <h4 class="mb-2">Welcome to {{ config('variables.templateName') }}! 👋</h4>
                     <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-                    <form id="formAuthentication" class="mb-3" action="{{ url('/') }}" method="GET">
-                        <div class="form-floating form-floating-outline mb-3">
-                            <input type="text" class="form-control" id="email" name="email-username"
-                                placeholder="Enter your email or username" autofocus>
-                            <label for="email">Email or Username</label>
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-password-toggle">
-                                <div class="input-group input-group-merge">
-                                    <div class="form-floating form-floating-outline">
-                                        <input type="password" id="password" class="form-control" name="password"
-                                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                            aria-describedby="password" />
-                                        <label for="password">Password</label>
-                                    </div>
-                                    <span class="input-group-text cursor-pointer"><i
-                                            class="mdi mdi-eye-off-outline"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3 d-flex justify-content-between">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="remember-me">
-                                <label class="form-check-label" for="remember-me">
-                                    Remember Me
-                                </label>
-                            </div>
-                            <a href="{{ url('auth/forgot-password-cover') }}" class="float-end mb-1">
-                                <span>Forgot Password?</span>
-                            </a>
-                        </div>
-                        <button class="btn btn-primary d-grid w-100">
-                            Sign in
-                        </button>
+                    <form id="formAuthentication" class="mb-3" action="{{ route('api.loginUser') }}" method="POST">
+                      @csrf
+                      <div class="form-floating form-floating-outline mb-3">
+                          <input type="text" class="form-control" id="email" name="email"
+                              placeholder="Enter your email or username" autofocus>
+                          <label for="email">Email</label>
+                      </div>
+                      <div class="mb-3">
+                          <div class="form-password-toggle">
+                              <div class="input-group input-group-merge">
+                                  <div class="form-floating form-floating-outline">
+                                      <input type="password" id="password" class="form-control" name="password"
+                                          placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                          aria-describedby="password" />
+                                      <label for="password">Password</label>
+                                  </div>
+                                  <span class="input-group-text cursor-pointer"><i
+                                          class="mdi mdi-eye-off-outline"></i></span>
+                              </div>
+                          </div>
+                      </div>
+                      <button class="btn btn-primary d-grid w-100">
+                          Login
+                      </button>
                     </form>
                 </div>
             </div>

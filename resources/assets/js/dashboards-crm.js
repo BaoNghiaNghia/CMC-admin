@@ -200,7 +200,7 @@
               show: true,
               value: {
                 fontSize: '1rem',
-                fontFamily: 'Inter',
+                fontFamily: 'Be Vietnam Pro',
                 color: bodyColor,
                 fontWeight: 500,
                 offsetY: 4,
@@ -268,14 +268,14 @@
               name: {
                 offsetY: 25,
                 fontSize: '50rem',
-                fontFamily: 'Inter',
+                fontFamily: 'Be Vietnam Pro',
                 color: bodyColor
               },
               value: {
                 offsetY: -15,
                 fontWeight: 500,
                 fontSize: '2.125rem',
-                fontFamily: 'Inter',
+                fontFamily: 'Be Vietnam Pro',
                 color: headingColor,
                 formatter: function (val) {
                   return parseInt(val) + 'K';
@@ -285,7 +285,7 @@
                 show: true,
                 label: '2022',
                 fontSize: '1rem',
-                fontFamily: 'Inter',
+                fontFamily: 'Be Vietnam Pro',
                 color: bodyColor,
                 formatter: function (w) {
                   return '89K';
@@ -301,7 +301,7 @@
       },
       legend: {
         position: 'bottom',
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         fontSize: '15px',
         markers: { offsetX: -5 },
         itemMargin: { horizontal: 10 },
@@ -556,7 +556,7 @@
           },
           style: {
             fontSize: '0.75rem',
-            fontFamily: 'Inter',
+            fontFamily: 'Be Vietnam Pro',
             colors: labelColor
           }
         }

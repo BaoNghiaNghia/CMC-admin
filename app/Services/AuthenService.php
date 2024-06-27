@@ -11,14 +11,23 @@ class AuthenService implements AuthenInterface
 {
   public function loginUser($email, $password)
   {
-    $curl = new CurlRequest();
+    try {
+      $curl = new CurlRequest();
 
-    $response = $curl->get(Config::get('constants.LOGIN_ENDPOINT'), [
-      'email' => $email,
-      'password' => $password
-    ]);
+      $response = $curl->post(Config::get('constants.LOGIN_ENDPOINT'), [
+        'email' => $email,
+        'password' => $password
+      ]);
 
-    return $response['data'];
+      return $response;
+    } catch (\Exception $e) {
+      // Handle exception if HTTP request fails
+      // Log error or return appropriate response
+      return response()->json([
+        'success' => false,
+        'message' => $e,
+      ]);
+    }
   }
 
   public function registerUser($params)

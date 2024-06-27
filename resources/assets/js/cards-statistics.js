@@ -227,7 +227,7 @@
               offsetY: 5,
               fontWeight: 500,
               fontSize: '1rem',
-              fontFamily: 'Inter',
+              fontFamily: 'Be Vietnam Pro',
               color: headingColor
             }
           },
@@ -470,7 +470,7 @@
               show: true,
               value: {
                 fontSize: '1rem',
-                fontFamily: 'Inter',
+                fontFamily: 'Be Vietnam Pro',
                 color: bodyColor,
                 fontWeight: 500,
                 offsetY: 4,

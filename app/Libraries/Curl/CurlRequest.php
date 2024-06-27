@@ -20,24 +20,34 @@ class CurlRequest
 
   private function request($method, $route, $data = [])
   {
-    $options = [
-      'headers' => $this->headers,
-      'method' => $method,
-    ];
+    try {
+      $options = [
+        'headers' => $this->headers,
+        'method' => $method,
+      ];
 
-    $base_api = env('BASE_API_URL');
-    $route_api = $base_api . $route;
+      $base_api = env('BASE_API_URL');
+      $route_api = $base_api . $route;
 
-    if (!empty($data)) {
-      if ($method == 'GET') {
-        $route_api .= '?' . http_build_query($data);
-      } else {
-        $options['body'] = json_encode($data);
+      if (!empty($data)) {
+        if ($method == 'GET') {
+          $route_api .= '?' . http_build_query($data);
+        } else {
+          $options['body'] = json_encode($data);
+        }
       }
-    }
 
-    $response = Http::withHeaders($this->headers)->send($method, $route_api, $options);
-    return $response;
+      $response = Http::withHeaders($this->headers)->send($method, $route_api, $options);
+      return $response;
+    } catch (\Exception $e) {
+      // Handle exception if HTTP request fails
+      // Log error or return appropriate response
+      return response()->json([
+        'success' => false,
+        'message' => 'Error ',
+        'data' => $e
+      ]);
+    }
   }
 
   public function get($url, $data = [])

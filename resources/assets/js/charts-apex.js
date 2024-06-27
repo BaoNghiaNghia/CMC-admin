@@ -65,7 +65,7 @@
     areaChartConfig = {
       chart: {
         height: 400,
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         type: 'area',
         parentHeightOffset: 0,
         toolbar: {
@@ -168,7 +168,7 @@
     barChartConfig = {
       chart: {
         height: 400,
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         type: 'bar',
         stacked: true,
         parentHeightOffset: 0,
@@ -264,7 +264,7 @@
     scatterChartConfig = {
       chart: {
         height: 400,
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         type: 'scatter',
         zoom: {
           enabled: true,
@@ -387,7 +387,7 @@
     lineChartConfig = {
       chart: {
         height: 400,
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         type: 'line',
         parentHeightOffset: 0,
         zoom: {
@@ -482,7 +482,7 @@
     horizontalBarChartConfig = {
       chart: {
         height: 400,
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         type: 'bar',
         toolbar: {
           show: false
@@ -556,7 +556,7 @@
     candlestickChartConfig = {
       chart: {
         height: 410,
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         type: 'candlestick',
         parentHeightOffset: 0,
         toolbar: {
@@ -685,7 +685,7 @@
     heatMapChartConfig = {
       chart: {
         height: 350,
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         type: 'heatmap',
         parentHeightOffset: 0,
         toolbar: {
@@ -852,7 +852,7 @@
     radialBarChartConfig = {
       chart: {
         height: 380,
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         type: 'radialBar'
       },
       colors: [chartColors.donut.series1, chartColors.donut.series2, chartColors.donut.series4],
@@ -919,7 +919,7 @@
     radarChartConfig = {
       chart: {
         height: 350,
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         type: 'radar',
         toolbar: {
           show: false
@@ -1001,7 +1001,7 @@
     donutChartConfig = {
       chart: {
         height: 390,
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         type: 'donut'
       },
       labels: ['Operational', 'Networking', 'Hiring', 'R&D'],

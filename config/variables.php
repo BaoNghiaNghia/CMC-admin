@@ -1,7 +1,7 @@
 <?php
 // Variables
 return [
-  "creatorName" => "Pixinvent",
+  "creatorName" => "CMC",
   "creatorUrl" => "https://pixinvent.com",
   "templateName" => "CMC",
   "templateSuffix" => "CMC - Bootstrap 5 HTML Laravel Admin Template",

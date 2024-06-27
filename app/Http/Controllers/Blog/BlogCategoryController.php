@@ -10,11 +10,10 @@ use Illuminate\Support\Facades\Log;
 
 class BlogCategoryController extends Controller
 {
-    protected $blogCategoryService;
+  protected $blogCategoryService;
 
-    public function __construct(BlogCategoryService $blogCategoryService)
-    {
-        $this->blogCategoryService = $blogCategoryService;
-    }
-
+  public function __construct(BlogCategoryService $blogCategoryService)
+  {
+    $this->blogCategoryService = $blogCategoryService;
+  }
 }

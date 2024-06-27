@@ -102,7 +102,7 @@
           },
           style: {
             colors: labelColor,
-            fontFamily: 'Inter'
+            fontFamily: 'Be Vietnam Pro'
           }
         }
       },
@@ -318,14 +318,14 @@
               name: {
                 offsetY: 25,
                 fontSize: '50rem',
-                fontFamily: 'Inter',
+                fontFamily: 'Be Vietnam Pro',
                 color: bodyColorLabel
               },
               value: {
                 offsetY: -15,
                 fontWeight: 500,
                 fontSize: '2.125rem',
-                fontFamily: 'Inter',
+                fontFamily: 'Be Vietnam Pro',
                 color: headingColor,
                 formatter: function (val) {
                   return parseInt(val) + 'K';
@@ -335,7 +335,7 @@
                 show: true,
                 label: '2022',
                 fontSize: '1rem',
-                fontFamily: 'Inter',
+                fontFamily: 'Be Vietnam Pro',
                 color: bodyColorLabel,
                 formatter: function (w) {
                   return '89K';
@@ -351,7 +351,7 @@
       },
       legend: {
         position: 'bottom',
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         fontSize: '15px',
         markers: { offsetX: -5 },
         itemMargin: { horizontal: 10 },
@@ -730,7 +730,7 @@
         show: true,
         markers: { offsetX: -2 },
         itemMargin: { horizontal: 10 },
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         fontSize: '15px',
         labels: {
           colors: bodyColorLabel,
@@ -766,7 +766,7 @@
           style: {
             colors: [bodyColorLabel, bodyColorLabel, bodyColorLabel, bodyColorLabel, bodyColorLabel, bodyColorLabel],
             fontSize: '15px',
-            fontFamily: 'Inter'
+            fontFamily: 'Be Vietnam Pro'
           }
         }
       },
@@ -964,7 +964,7 @@
         style: {
           fontWeight: 500,
           fontSize: '0.9375rem',
-          fontFamily: 'Inter'
+          fontFamily: 'Be Vietnam Pro'
         }
       },
       tooltip: {
@@ -1001,7 +1001,7 @@
           style: {
             fontSize: '0.9375rem',
             colors: labelColor,
-            fontFamily: 'Inter'
+            fontFamily: 'Be Vietnam Pro'
           }
         },
         axisBorder: {
@@ -1017,7 +1017,7 @@
             fontWeight: 500,
             fontSize: '0.9375rem',
             colors: headingColor,
-            fontFamily: 'Inter'
+            fontFamily: 'Be Vietnam Pro'
           }
         }
       },
@@ -1132,7 +1132,7 @@
           },
           style: {
             fontSize: '0.75rem',
-            fontFamily: 'Inter',
+            fontFamily: 'Be Vietnam Pro',
             colors: labelColor
           }
         }
@@ -1208,7 +1208,7 @@
           colors: ['#fff'],
           fontWeight: 200,
           fontSize: '13px',
-          fontFamily: 'Inter'
+          fontFamily: 'Be Vietnam Pro'
         },
         formatter: function (val, opts) {
           return horizontalBarChartConfig.labels[opts.dataPointIndex];
@@ -1249,7 +1249,7 @@
         labels: {
           style: {
             colors: [labelColor],
-            fontFamily: 'Inter',
+            fontFamily: 'Be Vietnam Pro',
             fontSize: '13px'
           }
         }
@@ -1332,7 +1332,7 @@
           vertical: 0
         },
         fontSize: '15px',
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         fontWeight: 400,
         labels: {
           colors: headingColor,
@@ -1365,7 +1365,7 @@
           style: {
             colors: labelColor,
             fontSize: '13px',
-            fontFamily: 'Inter',
+            fontFamily: 'Be Vietnam Pro',
             fontWeight: 400
           }
         },
@@ -1384,7 +1384,7 @@
           style: {
             colors: labelColor,
             fontSize: '13px',
-            fontFamily: 'Inter',
+            fontFamily: 'Be Vietnam Pro',
             fontWeight: 400
           },
           formatter: function (val) {
@@ -1497,7 +1497,7 @@
           vertical: 5
         },
         fontSize: '13px',
-        fontFamily: 'Inter',
+        fontFamily: 'Be Vietnam Pro',
         fontWeight: 400,
         labels: {
           colors: headingColor,
@@ -1520,7 +1520,7 @@
               show: true,
               value: {
                 fontSize: '26px',
-                fontFamily: 'Inter',
+                fontFamily: 'Be Vietnam Pro',
                 color: headingColor,
                 fontWeight: 500,
                 offsetY: -30,
@@ -1530,7 +1530,7 @@
               },
               name: {
                 offsetY: 20,
-                fontFamily: 'Inter'
+                fontFamily: 'Be Vietnam Pro'
               },
               total: {
                 show: true,
