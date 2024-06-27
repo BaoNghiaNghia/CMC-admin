@@ -7,11 +7,10 @@ axios.defaults.timeout = TIMEOUT_REQUEST_API;
 
 axios.defaults.headers = {
   'Content-Type': 'application/json;charset=UTF-8',
-  "Access-Control-Allow-Origin": "*",
-}
+  'Access-Control-Allow-Origin': '*'
+};
 
 class ApiFactory {
-
   constructor({ url }) {
     this.url = url || BASE_URL;
     this.endpoints = {};
@@ -40,7 +39,7 @@ class ApiFactory {
   createBasicCRUDEndpoints({ name }) {
     var endpoints = {};
 
-    const resourceURL = `${this.url}/${name}`
+    const resourceURL = `${this.url}/${name}`;
 
     /**
      * GET WITH NO TOKEN
@@ -57,7 +56,7 @@ class ApiFactory {
     /**
      * GET WITH HEADER
      */
-    endpoints.getWithHeader = (query, config) =>  {
+    endpoints.getWithHeader = (query, config) => {
       const customHeaders = {};
 
       return axios.get(resourceURL, {
@@ -67,7 +66,7 @@ class ApiFactory {
           authorization: token ? `Bearer ${token}` : null
         }
       });
-    }
+    };
 
     /**
      * SUBMIT GET
@@ -82,10 +81,10 @@ class ApiFactory {
           authorization: token ? `Bearer ${token}` : null,
           ...{ ...config?.headers }
         }
-      }
+      };
 
-      return axios.get(resourceURL.replace("id", id), headers);
-    }
+      return axios.get(resourceURL.replace('id', id), headers);
+    };
 
     /**
      * GET/{:ID}
@@ -110,7 +109,7 @@ class ApiFactory {
           ...customHeaders
         }
       });
-    }
+    };
 
     /**
      * SUBMIT POST
@@ -125,10 +124,10 @@ class ApiFactory {
           authorization: token ? `Bearer ${token}` : null,
           ...{ ...config?.headers }
         }
-      }
+      };
 
-      return axios.post(resourceURL.replace("id", id), query, headers);
-    }
+      return axios.post(resourceURL.replace('id', id), query, headers);
+    };
 
     /**
      * POST
@@ -142,7 +141,7 @@ class ApiFactory {
           ...customHeaders
         }
       });
-    }
+    };
 
     /**
      * PUT
@@ -156,21 +155,21 @@ class ApiFactory {
           ...customHeaders
         }
       });
-    }
+    };
 
     /**
      * SUBMIT PUT
      */
     endpoints.submitPut = (toSubmit, config) => {
       const customHeaders = config && config.headers && { ...config.headers };
-      return axios.put(resourceURL.replace("id", toSubmit.id), toSubmit, {
+      return axios.put(resourceURL.replace('id', toSubmit.id), toSubmit, {
         ...config,
         headers: {
           authorization: token ? `Bearer ${token}` : null,
           ...customHeaders
         }
       });
-    }
+    };
 
     /**
      * SUBMIT DELETE
@@ -179,14 +178,14 @@ class ApiFactory {
       const customHeaders = config && config.headers && { ...config.headers };
       // console.log('---- resource url -----', resourceURL.replace("id", toSubmit), toSubmit);
       // const id = toSubmit && (toSubmit.id || toSubmit.get('id'));
-      return axios.delete(resourceURL.replace("id", toSubmit), toSubmit, {
+      return axios.delete(resourceURL.replace('id', toSubmit), toSubmit, {
         ...config,
         headers: {
           authorization: token ? `Bearer ${token}` : null,
           ...customHeaders
         }
       });
-    }
+    };
 
     /**
      * UPDATE
@@ -201,7 +200,7 @@ class ApiFactory {
           ...customHeaders
         }
       });
-    }
+    };
 
     /**
      * PATCH
@@ -216,8 +215,8 @@ class ApiFactory {
           authorization: token ? `Bearer ${token}` : null,
           ...customHeaders
         }
-      })
-    }
+      });
+    };
 
     /**
      * PATCH
@@ -231,14 +230,14 @@ class ApiFactory {
           authorization: token ? `Bearer ${token}` : null,
           ...customHeaders
         }
-      })
-    }
+      });
+    };
 
     /**
      * DELETE
      */
     endpoints.delete = ({ id }, config = { headers: { authorization: token ? `Bearer ${token}` : null } }) =>
-      axios.delete(`${resourceURL}/${id}`, { ...config })
+      axios.delete(`${resourceURL}/${id}`, { ...config });
 
     return endpoints;
   }

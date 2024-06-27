@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\laravel_example\UserManagement;
 use App\Http\Controllers\dashboard\Analytics;
@@ -247,6 +248,7 @@ Route::get('/pages/misc-server-error', [MiscServerError::class, 'index'])->name(
 
 // authentication
 Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
+Route::post('/auth/submit-login-form', [LoginBasic::class, 'loginUser'])->name('api.authLoginUser');
 Route::get('/auth/login-cover', [LoginCover::class, 'index'])->name('auth-login-cover');
 Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
 Route::get('/auth/register-cover', [RegisterCover::class, 'index'])->name('auth-register-cover');
@@ -259,6 +261,9 @@ Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])
 Route::get('/auth/forgot-password-cover', [ForgotPasswordCover::class, 'index'])->name('auth-forgot-password-cover');
 Route::get('/auth/two-steps-basic', [TwoStepsBasic::class, 'index'])->name('auth-two-steps-basic');
 Route::get('/auth/two-steps-cover', [TwoStepsCover::class, 'index'])->name('auth-two-steps-cover');
+
+
+
 
 // wizard example
 Route::get('/wizard/ex-checkout', [WizardCheckout::class, 'index'])->name('wizard-ex-checkout');

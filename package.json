@@ -172,6 +172,7 @@
     "shepherd.js": "10.0.1",
     "sortablejs": "1.15.0",
     "spinkit": "2.0.1",
+    "sweetalert": "^2.1.2",
     "sweetalert2": "11.7.12",
     "swiper": "9.4.1",
     "timepicker": "1.14.0",

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 export const LOGIN_ENDPOINT = 'api/v1/users/login';
 export const UPDATE_PASSWORD_ENDPOINT = 'api/v1/users/password';
