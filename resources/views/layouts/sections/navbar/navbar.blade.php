@@ -468,24 +468,24 @@ $navbarDetached = ($navbarDetached ?? '');
             <li>
               <div class="dropdown-divider"></div>
             </li>
-            @if (Auth::check())
             <li>
-              <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+              <a class="dropdown-item" href="{{ route('api.logoutUser') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class='mdi mdi-logout me-2'></i>
                 <span class="align-middle">Logout</span>
               </a>
             </li>
-            <form method="POST" id="logout-form" action="{{ route('logout') }}">
+            <form method="POST" id="logout-form" action="{{ route('api.logoutUser') }}">
               @csrf
             </form>
+            {{-- @if (Auth::check())
             @else
-            <li>
-              <a class="dropdown-item" action="{{ route('api.logoutUser') }}">
-                <i class='mdi mdi-login me-2'></i>
-                <span class="align-middle">Log out</span>
-              </a>
-            </li>
-            @endif
+              <li>
+                <a class="dropdown-item" href="{{ route('api.logoutUser') }}">
+                  <i class='mdi mdi-login me-2'></i>
+                  <span class="align-middle">Log out</span>
+                </a>
+              </li>
+            @endif --}}
           </ul>
         </li>
         <!--/ User -->

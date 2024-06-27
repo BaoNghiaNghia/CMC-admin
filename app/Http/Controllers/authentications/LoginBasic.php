@@ -68,7 +68,7 @@ class LoginBasic extends Controller
       Cookie::queue(Cookie::forget('user'));
 
       // Redirect to the login page with a success message
-      return redirect()->route('login')->with('status', [
+      return redirect()->route('auth-login-cover')->with('status', [
         'success' => true,
         'message' => 'Logout successful'
       ]);
