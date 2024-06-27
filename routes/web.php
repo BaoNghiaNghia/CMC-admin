@@ -249,6 +249,7 @@ Route::get('/pages/misc-server-error', [MiscServerError::class, 'index'])->name(
 // authentication
 Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
 Route::post('/auth/submit-login-form', [LoginBasic::class, 'loginUser'])->name('api.loginUser');
+Route::post('/auth/submit-logout-form', [LoginBasic::class, 'logoutUser'])->name('api.logoutUser');
 Route::get('/auth/login-cover', [LoginCover::class, 'index'])->name('auth-login-cover');
 Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
 Route::get('/auth/register-cover', [RegisterCover::class, 'index'])->name('auth-register-cover');

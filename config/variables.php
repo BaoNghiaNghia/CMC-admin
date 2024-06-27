@@ -4,7 +4,7 @@ return [
   "creatorName" => "CMC",
   "creatorUrl" => "https://pixinvent.com",
   "templateName" => "CMC",
-  "templateSuffix" => "CMC - Bootstrap 5 HTML Laravel Admin Template",
+  "templateSuffix" => "Dashboard SMM",
   "templateVersion" => "1.3.0",
   "templateFree" => false,
   "templateDescription" => "CMC – is the most developer friendly & highly customizable Admin Dashboard Template.",

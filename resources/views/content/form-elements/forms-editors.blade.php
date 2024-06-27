@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Editors - Forms')
+@section('title', 'Blog - Add New Post')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/typography.css')}}" />
@@ -12,10 +12,12 @@
 @section('vendor-script')
 <script src="{{asset('assets/vendor/libs/quill/katex.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/quill/quill.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/dropzone/dropzone.js')}}"></script>
 @endsection
 
 @section('page-script')
 <script src="{{asset('assets/js/forms-editors.js')}}"></script>
+<script src="{{asset('assets/js/forms-file-upload.js')}}"></script>
 @endsection
 
 @section('content')
@@ -32,12 +34,13 @@
         <label for="username">Add Title</label>
       </div>
       <div class="card-body">
-        <button class="btn btn-sm btn-label-secondary mb-2" type="button">Add Media</button>
+        <button class="btn btn-sm btn-label-primary mb-2" type="button"><i class="mdi mdi-image-filter-black-white pr-2"></i>Add Media</button>
         <div id="full-editor">
           <h6>Quill Rich Text Editor</h6>
           <p> Cupcake ipsum dolor sit amet. Halvah cheesecake chocolate bar gummi bears cupcake. Pie macaroon bear claw. Soufflé I love candy canes I love cotton candy I love. </p>
         </div>
       </div>
+
     </div>
   </div>
   <div class="col-3">
@@ -55,6 +58,27 @@
             <div class="d-flex justify-content-between flex-wrap gap-2">
               <button class="btn btn-xs btn-outline-primary" type="button">Save Draft</button>
               <button class="btn btn-xs btn-outline-primary" type="button">Preview</button>
+            </div>
+            <div class="my-3">
+              <ul class="list-group">
+                <li class="list-group-item d-flex align-items-center">
+                  <i class="mdi mdi-television me-2"></i>
+                  Status: <strong>Draft</strong>
+                </li>
+                <li class="list-group-item d-flex align-items-center">
+                  <i class="mdi mdi-bell-outline me-2"></i>
+                  Visibility: <strong>Public</strong>
+                </li>
+                <li class="list-group-item d-flex align-items-center">
+                  <i class="mdi mdi-headphones me-2"></i>
+                  Publish <strong>immediately</strong>
+                </li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="col-12  text-right">
+                <button class="btn btn-xs btn-primary" type="button">Publish</button>
+              </div>
             </div>
           </div>
         </div>

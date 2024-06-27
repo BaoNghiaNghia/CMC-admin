@@ -40,7 +40,7 @@ class LoginBasic extends Controller
         Cookie::queue('user', json_encode($response['data']['user']), Config::get('COOKIES_SESSION_TIME')); // Cookie for 60 minutes
 
         // Redirect to the desired path with success message
-        return redirect()->route('dashboard-analytics')->with('status', [
+        return redirect()->route('forms-editors')->with('status', [
           'success' => true,
           'message' => 'Login successful'
         ]);
@@ -56,6 +56,27 @@ class LoginBasic extends Controller
       return redirect()->back()->with('status', [
         'success' => false,
         'message' => 'Failed to login user'
+      ]);
+    }
+  }
+
+  public function logoutUser(Request $request)
+  {
+    try {
+      // Clear all cookies
+      Cookie::queue(Cookie::forget('token'));
+      Cookie::queue(Cookie::forget('user'));
+
+      // Redirect to the login page with a success message
+      return redirect()->route('login')->with('status', [
+        'success' => true,
+        'message' => 'Logout successful'
+      ]);
+    } catch (\Exception $e) {
+      // Handle exception if logout fails
+      return redirect()->back()->with('status', [
+        'success' => false,
+        'message' => 'Failed to logout user'
       ]);
     }
   }

@@ -480,9 +480,9 @@ $navbarDetached = ($navbarDetached ?? '');
             </form>
             @else
             <li>
-              <a class="dropdown-item" href="{{ Route::has('login') ? route('login') : url('auth/login-cover') }}">
+              <a class="dropdown-item" action="{{ route('api.logoutUser') }}">
                 <i class='mdi mdi-login me-2'></i>
-                <span class="align-middle">Log out </span>
+                <span class="align-middle">Log out</span>
               </a>
             </li>
             @endif
