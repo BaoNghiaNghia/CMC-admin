@@ -84,7 +84,7 @@ $customizerHidden = 'customizer-hide';
 
         <p class="text-center mt-2">
           <span>Already have an account?</span>
-          <a href="{{url('auth/login-cover')}}">
+          <a href="{{url('auth/cmc-login')}}">
             <span>Sign in instead</span>
           </a>
         </p>

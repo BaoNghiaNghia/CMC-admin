@@ -348,7 +348,7 @@
     {
       "name": "Login Cover",
       "icon": "mdi-login",
-      "url": "auth/login-cover"
+      "url": "auth/cmc-login"
     },
     {
       "name": "Register Basic",

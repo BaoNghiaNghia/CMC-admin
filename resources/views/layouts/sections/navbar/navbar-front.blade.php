@@ -96,7 +96,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link mega-dropdown-link d-flex align-items-center" href="{{url('/auth/login-cover')}}" target="_blank">
+                    <a class="nav-link mega-dropdown-link d-flex align-items-center" href="{{url('/auth/cmc-login')}}" target="_blank">
                       <i class='mdi mdi-radiobox-blank mdi-14px me-2'></i>
                       Login (Cover)
                     </a>
@@ -249,7 +249,7 @@
 
       <!-- navbar button: Start -->
       <li>
-        <a href="{{url('/auth/login-cover')}}" class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4" target="_blank"><span class="tf-icons mdi mdi-account me-md-1"></span><span class="d-none d-md-block">Login/Register</span></a>
+        <a href="{{url('/auth/cmc-login')}}" class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4" target="_blank"><span class="tf-icons mdi mdi-account me-md-1"></span><span class="d-none d-md-block">Login/Register</span></a>
       </li>
       <!-- navbar button: End -->
     </ul>

@@ -542,7 +542,7 @@
               "target": "_blank"
             },
             {
-              "url": "auth/login-cover",
+              "url": "auth/cmc-login",
               "name": "Cover",
               "slug": "auth-login-cover",
               "target": "_blank"

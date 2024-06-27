@@ -70,7 +70,7 @@
                 class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg position-relative py-sm-5 px-4 py-4">
                 <div class="w-px-400 mx-auto pt-5 pt-lg-0">
                     <h4 class="mb-2">Welcome to {{ config('variables.templateName') }}! 👋</h4>
-                    <p class="mb-4">Please sign-in to your account and start the adventure</p>
+                    <p class="mb-4">Please sign-in to your account</p>
 
                     <form id="formAuthentication" class="mb-3" action="{{ route('api.loginUser') }}" method="POST">
                       @csrf

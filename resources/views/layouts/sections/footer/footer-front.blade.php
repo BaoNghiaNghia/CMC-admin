@@ -58,7 +58,7 @@
               <a href="{{url('/front-pages/help-center')}}" class="footer-link">Help Center</a>
             </li>
             <li></li>
-              <a href="{{url('/auth/login-cover')}}" target="_blank" class="footer-link">Login/Register</a>
+              <a href="{{url('/auth/cmc-login')}}" target="_blank" class="footer-link">Login/Register</a>
             </li>
           </ul>
         </div>

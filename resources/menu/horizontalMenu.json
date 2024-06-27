@@ -615,7 +615,7 @@
                   "target": "_blank"
                 },
                 {
-                  "url": "auth/login-cover",
+                  "url": "auth/cmc-login",
                   "name": "Cover",
                   "icon": "menu-icon tf-icons mdi mdi-circle-medium mdi-20px",
                   "slug": "auth-login-cover",

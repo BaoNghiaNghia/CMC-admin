@@ -57,7 +57,7 @@ $customizerHidden = 'customizer-hide';
           <button class="btn btn-primary d-grid w-100">Send Reset Link</button>
         </form>
         <div class="text-center">
-          <a href="{{url('auth/login-cover')}}" class="d-flex align-items-center justify-content-center">
+          <a href="{{url('auth/cmc-login')}}" class="d-flex align-items-center justify-content-center">
             <i class="mdi mdi-chevron-left scaleX-n1-rtl mdi-24px"></i>
             Back to login
           </a>

@@ -50,7 +50,7 @@ $customizerHidden = 'customizer-hide';
         <div class="w-px-400 mx-auto pt-5 pt-lg-0">
           <h4 class="mb-2">Reset Password 🔒</h4>
           <p class="mb-4">Your new password must be different from previously used passwords</p>
-          <form id="formAuthentication" class="mb-3" action="{{url('auth/login-cover')}}" method="GET">
+          <form id="formAuthentication" class="mb-3" action="{{url('auth/cmc-login')}}" method="GET">
             <div class="mb-3 form-password-toggle">
               <div class="input-group input-group-merge">
                 <div class="form-floating form-floating-outline">
@@ -73,7 +73,7 @@ $customizerHidden = 'customizer-hide';
               Set new password
             </button>
             <div class="text-center">
-              <a href="{{url('auth/login-cover')}}" class="d-flex align-items-center justify-content-center">
+              <a href="{{url('auth/cmc-login')}}" class="d-flex align-items-center justify-content-center">
                 <i class="mdi mdi-chevron-left scaleX-n1-rtl mdi-24px"></i>
                 Back to login
               </a>
