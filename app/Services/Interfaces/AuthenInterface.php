@@ -8,7 +8,7 @@ interface AuthenInterface
 {
   public function loginUser($email, $password);
 
-  public function registerUser($params);
+  public function registerUser($fullname, $email, $password, $phone);
 
   public function fetchProfile($params);
 

@@ -50,10 +50,10 @@ $customizerHidden = 'customizer-hide';
         <h4 class="mb-2">Adventure starts here 🚀</h4>
         <p class="mb-4">Make your app management easy and fun!</p>
 
-        <form id="formAuthentication" class="mb-3" action="{{url('/')}}" method="GET">
+        <form id="formAuthentication" class="mb-3" action="{{ route('api.registerUser') }}" method="POST">
           <div class="form-floating form-floating-outline mb-3">
-            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" autofocus>
-            <label for="username">Username</label>
+            <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter your fullname" autofocus>
+            <label for="fullname">Full name</label>
           </div>
           <div class="form-floating form-floating-outline mb-3">
             <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email">
@@ -67,6 +67,10 @@ $customizerHidden = 'customizer-hide';
               </div>
               <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
             </div>
+          </div>
+          <div class="form-floating form-floating-outline mb-3">
+            <input type="text" class="form-control" type="number" id="phone" name="phone" placeholder="Enter your phone">
+            <label for="phone">Phone</label>
           </div>
           <div class="mb-3">
             <div class="form-check">
@@ -88,28 +92,6 @@ $customizerHidden = 'customizer-hide';
             <span>Sign in instead</span>
           </a>
         </p>
-
-        <div class="divider my-4">
-          <div class="divider-text">or</div>
-        </div>
-
-        <div class="d-flex justify-content-center gap-2">
-          <a href="javascript:;" class="btn btn-icon btn-lg rounded-pill btn-text-facebook">
-            <i class="tf-icons mdi mdi-24px mdi-facebook"></i>
-          </a>
-
-          <a href="javascript:;" class="btn btn-icon btn-lg rounded-pill btn-text-twitter">
-            <i class="tf-icons mdi mdi-24px mdi-twitter"></i>
-          </a>
-
-          <a href="javascript:;" class="btn btn-icon btn-lg rounded-pill btn-text-github">
-            <i class="tf-icons mdi mdi-24px mdi-github"></i>
-          </a>
-
-          <a href="javascript:;" class="btn btn-icon btn-lg rounded-pill btn-text-google-plus">
-            <i class="tf-icons mdi mdi-24px mdi-google"></i>
-          </a>
-        </div>
       </div>
     </div>
     <!-- /Register -->

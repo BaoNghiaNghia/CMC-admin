@@ -97,6 +97,13 @@
                           Login
                       </button>
                     </form>
+
+                    <p class="text-center mt-2">
+                      <span>Don't have an account?</span>
+                      <a href="{{url('auth/register-cover')}}">
+                        <span>Register new account</span>
+                      </a>
+                    </p>
                 </div>
             </div>
             <!-- /Login -->

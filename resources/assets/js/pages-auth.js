@@ -32,6 +32,17 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
+          fullname: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter fullname'
+              },
+              stringLength: {
+                min: 6,
+                message: 'Username must be more than 6 characters'
+              }
+            }
+          },
           'email-username': {
             validators: {
               notEmpty: {
@@ -68,6 +79,17 @@ document.addEventListener('DOMContentLoaded', function (e) {
               stringLength: {
                 min: 6,
                 message: 'Password must be more than 6 characters'
+              }
+            }
+          },
+          phone: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter your phone number'
+              },
+              regexp: {
+                regexp: /^[0-9]{10,12}$/, // adjust this regex as per your phone number format
+                message: 'Please enter a valid phone number'
               }
             }
           },

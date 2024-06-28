@@ -30,16 +30,17 @@ class AuthenService implements AuthenInterface
     }
   }
 
-  public function registerUser($params)
+  public function registerUser($fullname, $email, $password, $phone)
   {
     $curl = new CurlRequest();
     $response = $curl->post(Config::get('constants.REGISTER_ENDPOINT'), [
-      'name' => $params->name,
-      'email' => $params->email,
-      'password' => $params->password
+      'email' => $email,
+      'fullname' => $fullname,
+      'password' => $password,
+      'phone' => $phone
     ]);
 
-    return $response['data'];
+    return $response;
   }
 
   public function updatePassword($params)

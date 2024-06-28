@@ -17,7 +17,7 @@ class CheckAuthToken
    */
   public function handle(Request $request, Closure $next)
   {
-    if (!Cookie::has('token')) {
+    if (!Cookie::has('token') || !Cookie::has('user')) {
       return redirect()->route('auth-login-cover');
     }
 
