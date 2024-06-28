@@ -39,6 +39,18 @@
     });
   }
 
+  const dropzoneFeatureImage = document.querySelector('#dropzone-feature-image');
+  if (dropzoneFeatureImage) {
+    const myDropzone = new Dropzone(dropzoneBasic, {
+      previewTemplate: previewTemplate,
+      parallelUploads: 1,
+      maxFilesize: 5,
+      acceptedFiles: '.jpg,.jpeg,.png,.gif',
+      addRemoveLinks: true,
+      maxFiles: 1
+    });
+  }
+
   // Multiple Dropzone
   // --------------------------------------------------------------------
   const dropzoneMulti = document.querySelector('#dropzone-multi');

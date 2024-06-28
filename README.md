@@ -8,6 +8,7 @@
 </p>
 
 ## Cear caching
+
 ```
 php artisan cache:clear
 php artisan config:clear
