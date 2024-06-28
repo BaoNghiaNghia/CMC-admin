@@ -48,6 +48,7 @@
                         <p class="mb-4">Make your app management easy and fun!</p>
 
                         <form id="formAuthentication" class="mb-3" action="{{ route('api.registerUser') }}" method="POST">
+                          @csrf
                           <div class="form-floating form-floating-outline mb-3">
                             <input type="text" class="form-control" id="username" name="username"
                                 placeholder="Enter your username" autofocus>
@@ -80,7 +81,7 @@
                                   </label>
                               </div>
                           </div>
-                          <button class="btn btn-primary d-grid w-100">
+                          <button class="btn btn-primary d-grid w-100" type="submit">
                               Sign up
                           </button>
                         </form>

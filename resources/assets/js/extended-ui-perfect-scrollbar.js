@@ -5,9 +5,9 @@
 
 document.addEventListener('DOMContentLoaded', function () {
   (function () {
-    const verticalExample = document.getElementById('vertical-example'),
-      horizontalExample = document.getElementById('horizontal-example'),
-      horizVertExample = document.getElementById('both-scrollbars-example');
+    const verticalExample = document.getElementById('vertical-scrolling'),
+      horizontalExample = document.getElementById('horizontal-scrolling'),
+      horizVertExample = document.getElementById('both-scrollbars-scrolling');
 
     // Vertical Example
     // --------------------------------------------------------------------

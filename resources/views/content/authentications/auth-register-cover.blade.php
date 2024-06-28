@@ -5,26 +5,42 @@ $customizerHidden = 'customizer-hide';
 
 @extends('layouts/layoutMaster')
 
-@section('title', 'Register Cover - Pages')
+@section('title', 'Register')
 
 @section('vendor-style')
-<!-- Vendor -->
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/@form-validation/umd/styles/index.min.css')}}" />
+  <!-- Vendor -->
+  <link rel="stylesheet" href="{{asset('assets/vendor/libs/@form-validation/umd/styles/index.min.css')}}" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 @endsection
 
 @section('page-style')
-<!-- Page -->
-<link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-auth.css')}}">
+  <!-- Page -->
+  <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-auth.css')}}">
 @endsection
 
 @section('vendor-script')
-<script src="{{asset('assets/vendor/libs/@form-validation/umd/bundle/popular.min.js')}}"></script>
-<script src="{{asset('assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js')}}"></script>
-<script src="{{asset('assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/libs/@form-validation/umd/bundle/popular.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js')}}"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/pages-auth.js')}}"></script>
+  <script src="{{asset('assets/js/pages-auth.js')}}"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+      @if(session('status'))
+        Toastify({
+          text: "{{ session('status')['message'] }}",
+          duration: 3000,
+          close: true,
+          gravity: "bottom", // `top` or `bottom`
+          position: "center", // `left`, `center` or `right`
+          backgroundColor: "{{ session('status')['success'] ? 'green' : 'red' }}",
+        }).showToast();
+      @endif
+    });
+  </script>
 @endsection
 
 @section('content')
@@ -51,6 +67,7 @@ $customizerHidden = 'customizer-hide';
         <p class="mb-4">Make your app management easy and fun!</p>
 
         <form id="formAuthentication" class="mb-3" action="{{ route('api.registerUser') }}" method="POST">
+          @csrf
           <div class="form-floating form-floating-outline mb-3">
             <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter your fullname" autofocus>
             <label for="fullname">Full name</label>
@@ -81,7 +98,7 @@ $customizerHidden = 'customizer-hide';
               </label>
             </div>
           </div>
-          <button class="btn btn-primary d-grid w-100">
+          <button class="btn btn-primary d-grid w-100" type="submit">
             Sign up
           </button>
         </form>

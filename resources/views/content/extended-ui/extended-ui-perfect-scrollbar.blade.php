@@ -3,15 +3,15 @@
 @section('title', 'Perfect Scrollbar - Extended UI')
 
 @section('vendor-style')
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
+  <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
 @endsection
 
 @section('vendor-script')
-<script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
+  <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/extended-ui-perfect-scrollbar.js')}}"></script>
+  <script src="{{asset('assets/js/extended-ui-perfect-scrollbar.js')}}"></script>
 @endsection
 
 @section('content')
@@ -25,7 +25,7 @@
   <div class="col-md-6 col-sm-12">
     <div class="card overflow-hidden mb-4" style="height: 300px;">
       <h5 class="card-header">Vertical Scrollbar</h5>
-      <div class="card-body" id="vertical-example">
+      <div class="card-body" id="vertical-scrolling">
         <p>
           Sweet roll I love I love. Tiramisu I love soufflé cake tart sweet roll
           cotton candy cookie. Macaroon biscuit dessert. Bonbon cake soufflé
@@ -105,7 +105,7 @@
   <div class="col-md-6 col-sm-12">
     <div class="card overflow-hidden mb-4" style="height: 300px;">
       <h5 class="card-header">Horizontal Scrollbar</h5>
-      <div class="card-body" id="horizontal-example">
+      <div class="card-body" id="horizontal-scrolling">
         <img src="{{asset('assets/img/backgrounds/18.jpg')}}" alt="scrollbar-image" />
       </div>
     </div>
@@ -116,7 +116,7 @@
   <div class="col-12">
     <div class="card overflow-hidden" style="height: 500px;">
       <h5 class="card-header">Vertical & Horizontal Scrollbars</h5>
-      <div class="card-body" id="both-scrollbars-example">
+      <div class="card-body" id="both-scrollbars-scrolling">
         <img src="{{asset('assets/img/backgrounds/18.jpg')}}" alt="scrollbar-image" />
       </div>
     </div>

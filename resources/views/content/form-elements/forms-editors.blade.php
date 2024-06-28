@@ -2,26 +2,6 @@
 
 @section('title', 'Blog - Add New Post')
 
-@section('vendor-style')
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/typography.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/katex.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/dropzone/dropzone.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/editor.css') }}" />
-@endsection
-
-@section('vendor-script')
-    <script src="{{ asset('assets/vendor/libs/quill/katex.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/quill/quill.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/dropzone/dropzone.js') }}"></script>
-
-@endsection
-
-@section('page-script')
-    <script src="{{ asset('assets/js/forms-editors.js') }}"></script>
-    <script src="{{ asset('assets/js/forms-file-upload.js') }}"></script>
-    <script src="{{ asset('assets/js/ui-modals.js') }}"></script>
-@endsection
-
 @section('content')
     <h4 class="">
         <span class="text-muted fw-light">Posts /</span> New Post
@@ -29,98 +9,55 @@
 
     <!-- Extra Large Modal -->
     <div class="modal fade" id="modalAddMedia" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+            <div class="modal-content ">
                 <div class="modal-header">
                     <h4 class="modal-title" id="exampleModalLabel4">Add Media</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body overflow-hidden" id="vertical-example">
                     <div class="row">
                         <div class="col-9">
-                            <div class="row">
-                                <div class="col-md mb-md-0 mb-2">
-                                    <div class="form-check custom-option custom-option-image custom-option-image-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="customCheckboxImg4" checked />
-                                        <label class="form-check-label custom-option-content" for="customCheckboxImg4">
-                                            <span class="custom-option-body">
-                                                <img src="{{ asset('assets/img/backgrounds/3.jpg') }}" alt="cbImg" />
-                                            </span>
-                                        </label>
-                                    </div>
+                            @for($row = 1; $row <= 10; $row++)
+                                <div class="row mb-3">
+                                    @for($column = 1; $column <= 2; $column++)
+                                        <div class="col-md-2">
+                                            <div class="form-check custom-option custom-option-image custom-option-image-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="customCheckboxImg4" checked />
+                                                <label class="form-check-label custom-option-content" for="customCheckboxImg4">
+                                                    <span class="custom-option-body">
+                                                        <img src="{{ asset('assets/img/backgrounds/5.jpg') }}" alt="cbImg" />
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-check custom-option custom-option-image custom-option-image-check">
+                                                <input class="form-check-input " type="checkbox" value="" id="customCheckboxImg2" />
+                                                <label class="form-check-label custom-option-content" for="customCheckboxImg2">
+                                                    <span class="custom-option-body">
+                                                        <img src="{{ asset('assets/img/backgrounds/16.jpg') }}" alt="cbImg" />
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-check custom-option custom-option-image custom-option-image-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="customCheckboxImg53" />
+                                                <label class="form-check-label custom-option-content" for="customCheckboxImg53">
+                                                    <span class="custom-option-body">
+                                                        <img src="{{ asset('assets/img/backgrounds/15.jpg') }}" alt="cbImg" />
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    @endfor
                                 </div>
-                                <div class="col-md mb-md-0 mb-2">
-                                    <div class="form-check custom-option custom-option-image custom-option-image-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="customCheckboxImg1" />
-                                        <label class="form-check-label custom-option-content" for="customCheckboxImg1">
-                                            <span class="custom-option-body">
-                                                <img src="{{ asset('assets/img/backgrounds/3.jpg') }}" alt="cbImg" />
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md mb-md-0 mb-2">
-                                    <div class="form-check custom-option custom-option-image custom-option-image-check">
-                                        <input class="form-check-input " type="checkbox" value=""
-                                            id="customCheckboxImg2" />
-                                        <label class="form-check-label custom-option-content" for="customCheckboxImg2">
-                                            <span class="custom-option-body">
-                                                <img src="{{ asset('assets/img/backgrounds/8.jpg') }}" alt="cbImg" />
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md">
-                                    <div class="form-check custom-option custom-option-image custom-option-image-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="customCheckboxImg53" />
-                                        <label class="form-check-label custom-option-content" for="customCheckboxImg53">
-                                            <span class="custom-option-body">
-                                                <img src="{{ asset('assets/img/backgrounds/15.jpg') }}" alt="cbImg" />
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md mb-md-0 mb-2">
-                                    <div class="form-check custom-option custom-option-image custom-option-image-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="customCheckboxImg7" />
-                                        <label class="form-check-label custom-option-content" for="customCheckboxImg7">
-                                            <span class="custom-option-body">
-                                                <img src="{{ asset('assets/img/backgrounds/3.jpg') }}" alt="cbImg" />
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md mb-md-0 mb-2">
-                                    <div class="form-check custom-option custom-option-image custom-option-image-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="customCheckboxImg19" />
-                                        <label class="form-check-label custom-option-content" for="customCheckboxImg19">
-                                            <span class="custom-option-body">
-                                                <img src="{{ asset('assets/img/backgrounds/3.jpg') }}" alt="cbImg" />
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md mb-md-0 mb-2">
-                                    <div class="form-check custom-option custom-option-image custom-option-image-check">
-                                        <input class="form-check-input " type="checkbox" value=""
-                                            id="customCheckboxImg0" />
-                                        <label class="form-check-label custom-option-content" for="customCheckboxImg0">
-                                            <span class="custom-option-body">
-                                                <img src="{{ asset('assets/img/backgrounds/8.jpg') }}" alt="cbImg" />
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                            @endfor
                         </div>
                         <div class="col-3">
                             <div class="card">
-                                <h6 class="card-header">ATTACHMENT DETAILS</h6>
+                                <h6 class="card-header" style="">ATTACHMENT DETAILS</h6>
                                 <div class="card-body">
                                     <div class="row no-gutters">
                                         <div class="col-6">
@@ -136,30 +73,38 @@
                                             </div>
                                         </div>
                                         <div class="col-6">
-                                            <span style="text-sm">MeoTwitter_Logo.png</span>
-                                            <span>June 27, 2024</span>
+                                            <p class="text-sm-start">MeoTwitter_Logo.png</p>
+                                            <p>June 27, 2024</p>
+                                        </div>
+                                    </div>
+                                    <div class="row no-gutters">
+                                        <div class="col-6">
+                                            <p>498 KB</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p>1792 x 1024 pixels</p>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div>
                                             <label for="smallInput" class="form-label">Alt Text</label>
-                                            <input id="smallInput" class="form-control form-control-sm" type="text" placeholder=".form-control-sm" />
+                                            <input id="smallInput" class="form-control form-control-sm" type="text" placeholder="" />
                                         </div>
                                         <div>
                                             <label for="smallInput" class="form-label">Title</label>
-                                            <input id="smallInput" class="form-control form-control-sm" type="text" placeholder=".form-control-sm" />
+                                            <input id="smallInput" class="form-control form-control-sm" type="text" placeholder="" />
                                         </div>
                                         <div>
                                             <label for="smallInput" class="form-label">Caption</label>
-                                            <input id="smallInput" class="form-control form-control-sm" type="text" placeholder=".form-control-sm" />
+                                            <input id="smallInput" class="form-control form-control-sm" type="text" placeholder="" />
                                         </div>
                                         <div>
                                             <label for="smallInput" class="form-label">Description</label>
-                                            <input id="smallInput" class="form-control form-control-sm" type="text" placeholder=".form-control-sm" />
+                                            <input id="smallInput" class="form-control form-control-sm" type="text" placeholder="" />
                                         </div>
                                         <div>
                                             <label for="smallInput" class="form-label">File URL</label>
-                                            <input id="smallInput" class="form-control form-control-sm" type="text" placeholder=".form-control-sm" />
+                                            <input id="smallInput" class="form-control form-control-sm" type="text" placeholder="" />
                                         </div>
                                     </div>
                                 </div>

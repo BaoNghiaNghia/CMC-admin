@@ -158,6 +158,7 @@ use App\Http\Controllers\charts\ApexCharts;
 use App\Http\Controllers\charts\ChartJs;
 use App\Http\Controllers\maps\Leaflet;
 
+# ------------------ PROTECTED ROUTE ------------------ #
 Route::middleware(['checkAuthToken'])->group(function () {
   // Main Page Route
   Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
@@ -251,8 +252,6 @@ Route::middleware(['checkAuthToken'])->group(function () {
 
   Route::post('/auth/submit-logout-form', [LoginBasic::class, 'logoutUser'])->name('api.logoutUser');
 
-  Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
-  Route::get('/auth/register-cover', [RegisterCover::class, 'index'])->name('auth-register-cover');
   Route::get('/auth/register-multisteps', [RegisterMultiSteps::class, 'index'])->name('auth-register-multisteps');
   Route::get('/auth/verify-email-basic', [VerifyEmailBasic::class, 'index'])->name('auth-verify-email-basic');
   Route::get('/auth/verify-email-cover', [VerifyEmailCover::class, 'index'])->name('auth-verify-email-cover');
@@ -363,8 +362,11 @@ Route::middleware(['checkAuthToken'])->group(function () {
 
 
 
-// Public Route
-Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
+# ------------------ PUBLIC ROUTE ------------------ #
+// Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
 Route::get('/auth/cmc-login', [LoginCover::class, 'index'])->name('auth-login-cover');
-Route::post('/auth/submit-login-form', [LoginBasic::class, 'loginUser'])->name('api.loginUser');
+// Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
+Route::get('/auth/register-cover', [RegisterCover::class, 'index'])->name('auth-register-cover');
+
 Route::post('/auth/submit-register-form', [RegisterCover::class, 'registerUser'])->name('api.registerUser');
+Route::post('/auth/submit-login-form', [LoginCover::class, 'loginUser'])->name('api.loginUser');

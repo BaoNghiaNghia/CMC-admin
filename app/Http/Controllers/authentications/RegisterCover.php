@@ -23,7 +23,7 @@ class RegisterCover extends Controller
     return view('content.authentications.auth-register-cover', ['pageConfigs' => $pageConfigs]);
   }
 
-  public function register(Request $request)
+  public function registerUser(Request $request)
   {
     try {
       // Retrieve user input from request
@@ -38,7 +38,7 @@ class RegisterCover extends Controller
       // Check if registration was successful
       if ($response['error_code'] === 0) {
         // Redirect to the login page with success message
-        return redirect()->route('auth-login-basic')->with('status', [
+        return redirect()->route('auth-login-cover')->with('status', [
           'success' => true,
           'message' => 'Registration successful. Please login.'
         ]);
