@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\blogs;
 
 use App\Services\BlogCategoryService;
 use App\Services\BlogService;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 class BlogController extends Controller
 {
@@ -42,5 +44,28 @@ class BlogController extends Controller
       'detailedBlog' => $detailedBlog,
       'categories' => $blogCategories,
     ]);
+  }
+
+  public function getLibraryImages()
+  {
+    try {
+      $LatestBlogs = $this->blogService->getLibraryImages();
+      // Fetch media data from the database or any source
+      $media = [
+        // Example data structure
+        ['id' => 1, 'url' => asset('assets/img/backgrounds/5.jpg')],
+        ['id' => 2, 'url' => asset('assets/img/backgrounds/16.jpg')],
+        ['id' => 3, 'url' => asset('assets/img/backgrounds/15.jpg')],
+        // Add more media items as needed
+      ];
+      return view('content.form-elements.forms-editors', ['media' => $media]);
+    } catch (\Exception $e) {
+      // Handle exception if HTTP request fails
+      // Log error or return appropriate response
+      return redirect()->back()->with('status', [
+        'success' => false,
+        'message' => 'Failed to login user'
+      ]);
+    }
   }
 }

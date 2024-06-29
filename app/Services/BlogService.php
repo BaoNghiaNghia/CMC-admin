@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Libraries\Curl\CurlRequest;
 use App\Services\Interfaces\BlogServiceInterface;
+use Illuminate\Support\Facades\Config;
 
 class BlogService implements BlogServiceInterface
 {
@@ -24,5 +25,15 @@ class BlogService implements BlogServiceInterface
     $curl = new CurlRequest();
     $response = $curl->getDetail('/news', $id);
     return $response['data'];
+  }
+
+  public function getLibraryImages()
+  {
+    $curl = new CurlRequest();
+    $response = $curl->get(Config::get('constants.IMAGES_LIBRARY_ENDPOINT'), [
+      'language' => 'en',
+    ]);
+
+    return $response;
   }
 }

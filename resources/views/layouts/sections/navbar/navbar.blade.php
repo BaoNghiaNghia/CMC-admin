@@ -391,10 +391,10 @@ $navbarDetached = ($navbarDetached ?? '');
                       @if (Auth::check())
                       {{ Auth::user()->name }}
                       @else
-                      John Doe
+                      {{ $userData['fullname'] }}
                       @endif
                     </span>
-                    <small class="text-muted">Admin</small>
+                    <small class="text-muted">{{ $userData['email'] }}</small>
                   </div>
                 </div>
               </a>

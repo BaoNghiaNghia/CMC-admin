@@ -3,6 +3,7 @@
 @endisset
 @php
 $configData = Helper::appClasses();
+$userData = Helper::getUserInfoData();
 @endphp
 @extends('layouts/commonMaster' )
 

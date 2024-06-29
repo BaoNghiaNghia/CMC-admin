@@ -24,7 +24,6 @@
   <span class="text-muted fw-light">Blog /</span> Articles
 </h4>
 <div class="card">
-  <h5 class="card-header">Advanced Search</h5>
   <!--Search Form -->
   <div class="card-body">
     <form class="dt_adv_search" method="POST">

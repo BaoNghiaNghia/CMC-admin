@@ -91,6 +91,7 @@ use App\Http\Controllers\authentications\ForgotPasswordBasic;
 use App\Http\Controllers\authentications\ForgotPasswordCover;
 use App\Http\Controllers\authentications\TwoStepsBasic;
 use App\Http\Controllers\authentications\TwoStepsCover;
+use App\Http\Controllers\blogs\BlogController;
 use App\Http\Controllers\wizard_example\Checkout as WizardCheckout;
 use App\Http\Controllers\wizard_example\PropertyListing;
 use App\Http\Controllers\wizard_example\CreateDeal;
@@ -157,6 +158,7 @@ use App\Http\Controllers\tables\DatatableExtensions;
 use App\Http\Controllers\charts\ApexCharts;
 use App\Http\Controllers\charts\ChartJs;
 use App\Http\Controllers\maps\Leaflet;
+use App\Services\BlogService;
 
 # ------------------ PROTECTED ROUTE ------------------ #
 Route::middleware(['checkAuthToken'])->group(function () {
@@ -323,6 +325,7 @@ Route::middleware(['checkAuthToken'])->group(function () {
   Route::get('/forms/input-groups', [InputGroups::class, 'index'])->name('forms-input-groups');
   Route::get('/forms/custom-options', [CustomOptions::class, 'index'])->name('forms-custom-options');
   Route::get('/forms/editors', [Editors::class, 'index'])->name('forms-editors');
+  Route::get('/forms/get-list-images-library', [BlogController::class, 'getLibraryImages'])->name('api.get-library-images');
   Route::get('/forms/file-upload', [FileUpload::class, 'index'])->name('forms-file-upload');
   Route::get('/forms/pickers', [Picker::class, 'index'])->name('forms-pickers');
   Route::get('/forms/selects', [Selects::class, 'index'])->name('forms-selects');

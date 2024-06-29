@@ -9,4 +9,6 @@ interface BlogServiceInterface
   public function getBlogs($page, $limit, $categoryId);
 
   public function getBlog($id);
+
+  public function getLibraryImages();
 }

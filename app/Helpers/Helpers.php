@@ -2,8 +2,8 @@
 
 namespace App\Helpers;
 
-use Config;
-
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Cookie;
 
 class Helpers
 {
@@ -201,5 +201,11 @@ class Helpers
         }
       }
     }
+  }
+
+  public static function getUserInfoData()
+  {
+    $userData = json_decode(Cookie::get('user'), true);
+    return $userData;
   }
 }

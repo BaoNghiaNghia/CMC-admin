@@ -2,11 +2,18 @@
 
 namespace App\Libraries\Curl;
 
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class CurlRequest
 {
   private $headers;
+
+  private function getToken()
+  {
+    return Cookie::get('token');
+  }
 
   public function __construct($headers = [])
   {
@@ -21,8 +28,21 @@ class CurlRequest
   private function request($method, $route, $data = [])
   {
     try {
+
+      $token = $this->getToken();
+
+      if (!$token) {
+        // Token does not exist or expired, block request
+        return response()->json([
+          'success' => false,
+          'message' => 'Unauthorized: Token is missing or expired.',
+        ], 401);
+      }
+
       $options = [
-        'headers' => $this->headers,
+        'headers' => array_merge($this->headers, [
+          'Authorization' => 'Bearer ' . $token,
+        ]),
         'method' => $method,
       ];
 
