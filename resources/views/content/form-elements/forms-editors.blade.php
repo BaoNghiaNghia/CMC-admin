@@ -116,7 +116,19 @@
               <ul class="nav nav-tabs" role="tablist">
                 @foreach($languages as $language)
                   <li class="nav-item">
-                      <button style="font-size: 13px; padding: 5px;" type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-media-library" aria-controls="navs-media-library" aria-selected="true">{{ $language['name'] }}</button>
+                    <button
+                      style="font-size: 13px; padding: 9px;"
+                      type="button"
+                      class="nav-link active"
+                      role="tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#navs-media-library"
+                      aria-controls="navs-media-library"
+                      aria-selected="true"
+                    >
+                      <img src="{{asset($language['flag_path'])}}" alt="google home" width="15" heigh="15" class="mr-1" style="margin-right: 4px;"/>
+                      <span>{{ $language['name'] }}</span>
+                    </button>
                   </li>
                 @endforeach
               </ul>

@@ -55,7 +55,10 @@
                       <input class="form-check-input" type="checkbox" value="" id={{ $language['iso_code'] }}
                           checked />
                       <span class="custom-option-header">
-                          <span class="h6 mb-0">{{ $language['name'] }}</span>
+                          <span class="h6 mb-0">
+                            <img src="{{asset($language['flag_path'])}}" alt="google home" class="w-px-20 mr-1" />
+                            {{ $language['name'] }}
+                          </span>
                           <span style="font-size: 11px;">{{ $language['iso_code'] }}</span>
                       </span>
                   </label>
