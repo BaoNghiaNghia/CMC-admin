@@ -13,8 +13,8 @@
 @endsection
 
 @section('vendor-script')
-<script src="{{asset('assets/vendor/libs/masonry/masonry.js')}}"></script>
   <script src="{{ asset('assets/vendor/libs/quill/katex.js') }}"></script>
+  <script src="{{asset('assets/vendor/libs/masonry/masonry.js')}}"></script>
   <script src="{{ asset('assets/vendor/libs/quill/quill.js') }}"></script>
   <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
   <script src="{{asset('assets/vendor/libs/toastr/toastr.js')}}"></script>
@@ -29,19 +29,6 @@
   <script src="{{asset('assets/js/ui-toasts.js')}}"></script>
 
   <script>
-    document.getElementById('addMediaButton').addEventListener('click', function() {
-      fetch('{{ route('api.get-library-images') }}')
-        .then(response => response.json())
-        .then(data => {
-          // Assuming 'media' is the key in the returned JSON
-          const media = data.media;
-          console.log('--- data nè -----', media);
-          // Update the media library section dynamically
-        })
-        .catch(error => {
-            console.error('Error fetching media:', error);
-        });
-    });
     document.addEventListener("DOMContentLoaded", function() {
       @if(session('status'))
         Toastify({
@@ -53,6 +40,47 @@
           backgroundColor: "{{ session('status')['success'] ? 'green' : 'red' }}",
         }).showToast();
       @endif
+
+      document.addEventListener("DOMContentLoaded", function() {
+        // Function to handle inserting selected images into CKEditor and logging to console
+        function insertImagesIntoEditor() {
+          // Select all checkboxes that are checked
+          const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+          // Array to store selected image URLs
+          const selectedImages = [];
+
+          checkboxes.forEach(checkbox => {
+              // Extract image URL from the checkbox's data attribute or other relevant attribute
+              const imageUrl = checkbox.parentElement.querySelector('img').src;
+              selectedImages.push(imageUrl); // Push image URL into array
+          });
+
+          // Log selected image URLs to console
+          console.log('Selected Images:', selectedImages);
+
+          // Insert selected images into CKEditor with ID 'full-editor'
+          const editor = document.getElementById('full-editor');
+          selectedImages.forEach(imageUrl => {
+              editor.innerHTML += `<img src="${imageUrl}" alt="image" style="max-width: 100%;" />`;
+          });
+
+          // Close the modal or perform any other necessary actions
+          const modal = document.getElementById('modalAddMedia');
+          const bootstrapModal = bootstrap.Modal.getInstance(modal); // Assuming Bootstrap modal
+          bootstrapModal.hide(); // Hide the modal after insertion
+        }
+
+        // Event listener for the "Insert into post" button
+        const insertButton = document.querySelector('#modalAddMedia .modal-footer button.btn-primary');
+        if (insertButton) {
+            insertButton.addEventListener('click', insertImagesIntoEditor);
+            console.log('Insert imge ne ---- ');
+        }
+      });
+
+
+
     });
   </script>
 @endsection

@@ -14,7 +14,7 @@ class AuthenService implements AuthenInterface
     try {
       $curl = new CurlRequest();
 
-      $response = $curl->post(Config::get('constants.LOGIN_ENDPOINT'), [
+      $response = $curl->postWithoutToken(Config::get('constants.LOGIN_ENDPOINT'), [
         'email' => $email,
         'password' => $password
       ]);
@@ -33,7 +33,7 @@ class AuthenService implements AuthenInterface
   public function registerUser($fullname, $email, $password, $phone)
   {
     $curl = new CurlRequest();
-    $response = $curl->post(Config::get('constants.REGISTER_ENDPOINT'), [
+    $response = $curl->postWithoutToken(Config::get('constants.REGISTER_ENDPOINT'), [
       'email' => $email,
       'fullname' => $fullname,
       'password' => $password,

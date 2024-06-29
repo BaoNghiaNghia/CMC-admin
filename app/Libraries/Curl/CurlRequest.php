@@ -69,11 +69,54 @@ class CurlRequest
       ]);
     }
   }
+  private function requestWithoutToken($method, $route, $data = [])
+  {
+    try {
+      $headers = $this->headers;
+      $options = [
+        'headers' => $headers,
+        'method' => $method,
+      ];
+
+      $base_api = env('BASE_API_URL');
+      $route_api = $base_api . $route;
+
+      if (!empty($data)) {
+        if ($method == 'GET') {
+          $route_api .= '?' . http_build_query($data);
+        } else {
+          $options['body'] = json_encode($data);
+        }
+      }
+
+      $response = Http::withHeaders($this->headers)->send($method, $route_api, $options);
+      return $response;
+    } catch (\Exception $e) {
+      // Handle exception if HTTP request fails
+      // Log error or return appropriate response
+      return response()->json([
+        'success' => false,
+        'message' => 'Error ',
+        'data' => $e
+      ]);
+    }
+  }
 
   public function get($url, $data = [])
   {
     return $this->request('GET', $url, $data);
   }
+
+  public function getWithoutToken($url, $data = [])
+  {
+    return $this->requestWithoutToken('GET', $url, $data);
+  }
+
+  public function postWithoutToken($url, $data = [])
+  {
+    return $this->requestWithoutToken('POST', $url, $data);
+  }
+
 
   public function getDetail($url, $id)
   {
