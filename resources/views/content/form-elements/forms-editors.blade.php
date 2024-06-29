@@ -13,12 +13,12 @@
 @endsection
 
 @section('vendor-script')
+<script src="{{asset('assets/vendor/libs/masonry/masonry.js')}}"></script>
   <script src="{{ asset('assets/vendor/libs/quill/katex.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/quill/quill.js') }}"></script>
   <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
   <script src="{{asset('assets/vendor/libs/toastr/toastr.js')}}"></script>
   <script src="{{asset('assets/vendor/libs/dropzone/dropzone.js')}}"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
 @endsection
 
 @section('page-script')
@@ -71,23 +71,7 @@
     </h4>
 
     <!-- Extra Large Modal -->
-    <div class="modal fade" id="modalAddMedia" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
-            <div class="modal-content ">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLabel4">Add Media</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body overflow-hidden" id="vertical-example">
-                  @include('content.form-elements.body-insert-media')
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-sm btn-primary">Insert into post</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('content.form-elements.body-insert-media')
 
     <div class="row">
         <div class="col-9">
