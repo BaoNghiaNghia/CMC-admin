@@ -21,26 +21,47 @@ class Editors extends Controller
   {
     try {
       $blogCategories = $this->blogCategoryService->getCategories(1, 10, 'blog');
-      return view(
-        'content.form-elements.forms-editors',
-        [
-          'blogCategories' => $blogCategories,
-          'languages' => Config::get('constants.LANGUAGE_LOCALE')
-        ]
-      );
 
-      // return response()->json([
-      //   'data' => $blogCategories,
-      // ]);
+      $latestBlogs = $this->blogService->getLibraryImages();
+
+      $data = [
+        'languages' => Config::get('constants.LANGUAGE_LOCALE'),
+        'blogCategories' => [],
+        'blogCategoriesMeta' => null,
+        'status' => [
+          'success' => true,
+          'message' => 'Data fetched successfully'
+        ]
+      ];
+
+      if ($blogCategories['error_code'] === 0) {
+        $data['blogCategories'] = $blogCategories['data']['item'];
+        $data['blogCategoriesMeta'] = $blogCategories['data']['meta'];
+      } else {
+        $data['status'] = [
+          'success' => false,
+          'message' => 'Failed to fetch data'
+        ];
+      }
+
+      if ($latestBlogs['error_code'] === 0) {
+        $data['imageLibrary'] = $latestBlogs['data'];
+      } else {
+        $data['status'] = [
+          'success' => false,
+          'message' => 'Failed to fetch data'
+        ];
+      }
+      return view('content.form-elements.forms-editors', $data);
     } catch (\Exception $e) {
-      /// Log the error if needed
       logger()->error('Failed to fetch data initialize', ['exception' => $e]);
 
-      // Return view with error message
-      return view('content.form-elements.forms-editors')->with('status', [
-        'success' => false,
-        'message' => 'Failed to fetch data initialize'
-      ]);
+      // return view('content.form-elements.forms-editors')->with('status', [
+      //   'success' => false,
+      //   'message' => 'Failed to fetch data initialize'
+      // ])->with('languages', Config::get('constants.LANGUAGE_LOCALE'))
+      //   ->with('blogCategories', [])
+      //   ->with('blogCategoriesMeta', null);
     }
   }
 
@@ -49,13 +70,6 @@ class Editors extends Controller
     try {
       $LatestBlogs = $this->blogService->getLibraryImages();
       // Fetch media data from the database or any source
-      $media = [
-        // Example data structure
-        ['id' => 1, 'url' => asset('assets/img/backgrounds/5.jpg')],
-        ['id' => 2, 'url' => asset('assets/img/backgrounds/16.jpg')],
-        ['id' => 3, 'url' => asset('assets/img/backgrounds/15.jpg')],
-        // Add more media items as needed
-      ];
 
       return view('content.form-elements.forms-editors', ['media' => $media]);
     } catch (\Exception $e) {

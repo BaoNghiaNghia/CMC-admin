@@ -363,8 +363,6 @@ Route::middleware(['checkAuthToken'])->group(function () {
 
 
 
-
-
 # ------------------ PUBLIC ROUTE ------------------ #
 // Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
 Route::get('/auth/cmc-login', [LoginCover::class, 'index'])->name('auth-login-cover');

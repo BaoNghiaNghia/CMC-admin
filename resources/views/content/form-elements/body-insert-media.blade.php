@@ -12,22 +12,24 @@
   <div class="tab-pane fade show active" id="navs-media-library" role="tabpanel">
       <div class="row mt-2">
           <div class="col-9">
-            @isset($media)
-              @forelse($media as $image)
-                <div class="col-md-2" style="margin: 0px; padding: 2px;">
-                    <div class="form-check custom-option custom-option-image custom-option-image-check">
-                        <input class="form-check-input" type="checkbox" value="" id="customCheckboxImg{{ $image['id'] }}" />
-                        <label class="form-check-label custom-option-content" for="customCheckboxImg{{ $image['id'] }}">
-                            <span class="custom-option-body">
-                                <img src="{{ $image['url'] }}" alt="cbImg" />
-                            </span>
-                        </label>
-                    </div>
-                </div>
-              @empty
-                  <p>No media found.</p>
-              @endforelse
-            @endisset
+            <div class="row" data-masonry='{"percentPosition": true }'>
+              @isset($imageLibrary)
+                @forelse($imageLibrary as $image)
+                  <div class="col-md-2" style="margin: 0px; padding: 0px;">
+                      <div class="form-check custom-option custom-option-image custom-option-image-check">
+                          <input class="form-check-input" type="checkbox" value="" id="customCheckboxImg{{ $image['id'] }}" />
+                          <label class="form-check-label custom-option-content" for="customCheckboxImg{{ $image['id'] }}">
+                              <span class="custom-option-body">
+                                  <img src="{{ $image['url'] }}" alt="{{ $image['name'] }}" />
+                              </span>
+                          </label>
+                      </div>
+                  </div>
+                @empty
+                    <p>No media found.</p>
+                @endforelse
+              @endisset
+            </div>
           </div>
           <div class="col-3">
               <div class="card">

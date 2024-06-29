@@ -21,7 +21,7 @@ class BlogCategoryService implements BlogCategoryServiceInterface
         'section' => $section,
       ]);
 
-      return $response['data'];
+      return $response;
     } catch (\Exception $e) {
       // Log the error if needed
       Log::error('Failed to fetch blog categories', ['exception' => $e]);
