@@ -78,9 +78,6 @@
             console.log('Insert imge ne ---- ');
         }
       });
-
-
-
     });
   </script>
 @endsection
@@ -117,7 +114,7 @@
                 @foreach($languages as $language)
                   <li class="nav-item">
                     <button
-                      style="font-size: 13px; padding: 9px;"
+                      style="font-size: 13px; padding: 8px 11px;"
                       type="button"
                       class="nav-link active"
                       role="tab"

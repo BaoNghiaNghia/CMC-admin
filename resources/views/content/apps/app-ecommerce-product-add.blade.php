@@ -40,9 +40,9 @@
       <h4 class="mb-1 mt-3">Add a new Product</h4>
       <p>Orders placed across your store</p>
     </div>
-    <div class="d-flex align-content-center flex-wrap gap-3">
-      <button class="btn btn-outline-secondary">Discard</button>
-      <button class="btn btn-outline-primary">Save draft</button>
+    <div class="d-flex align-content-center flex-wrap m-0">
+      <button class="btn btn-outline-secondary m-0">Discard</button>
+      <button class="btn btn-outline-primary m-0">Save draft</button>
       <button type="submit" class="btn btn-primary">Publish product</button>
     </div>
   </div>

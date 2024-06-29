@@ -3,17 +3,17 @@
       <h4 class="accordion-header d-flex align-items-center">
           <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionWithIcon-1" aria-expanded="true">
               <i class="mdi mdi-chart-bar me-2"></i>
-              Publish
+              <span style="font-size: 15px;">Publish</span>
           </button>
       </h4>
 
       <div id="accordionWithIcon-1" class="accordion-collapse collapse show">
           <div class="accordion-body">
-              <div class="d-flex justify-content-between flex-wrap gap-2">
-                  <button class="btn btn-xs btn-outline-primary" type="button">Save Draft</button>
-                  <button class="btn btn-xs btn-outline-primary" type="button">Preview</button>
+              <div class="d-flex justify-content-between flex-wrap m-0">
+                  <button class="btn btn-xs btn-outline-primary m-0" type="button">Save Draft</button>
+                  <button class="btn btn-xs btn-outline-primary m-0" type="button">Preview</button>
               </div>
-              <div class="my-3">
+              <div class="my-2">
                   <ul class="list-group">
                       <li class="list-group-item d-flex align-items-center" style="font-size: 13px; padding: 5px;">
                           <i class="mdi mdi-television me-2"></i>
@@ -29,10 +29,8 @@
                       </li>
                   </ul>
               </div>
-              <div class="row float-end">
-                  <div class="col-12">
-                      <button class="btn btn-xs btn-primary" type="button">Publish</button>
-                  </div>
+              <div class="d-grid">
+                  <button class="btn btn-sm btn-primary" type="button">Publish</button>
               </div>
           </div>
       </div>
@@ -43,7 +41,7 @@
           <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
               data-bs-target="#accordionWithIcon-2" aria-expanded="false">
               <i class="mdi mdi-briefcase me-2"></i>
-              Language
+              <span style="font-size: 15px;">Language</span>
           </button>
       </h4>
       <div id="accordionWithIcon-2" class="accordion-collapse collapse show">
@@ -76,7 +74,7 @@
           <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
               data-bs-target="#accordionWithIcon-2" aria-expanded="false">
               <i class="mdi mdi-briefcase me-2"></i>
-              Category
+              <span style="font-size: 15px;">Category</span>
           </button>
       </h4>
       <div id="accordionWithIcon-2" class="accordion-collapse collapse show">
@@ -105,7 +103,7 @@
           <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
               data-bs-target="#accordionWithIcon-3" aria-expanded="false">
               <i class="mdi mdi-gift me-2"></i>
-              Feature Image
+              <span style="font-size: 15px;">Feature Image</span>
           </button>
       </h4>
       <div id="accordionWithIcon-3" class="accordion-collapse collapse show">
