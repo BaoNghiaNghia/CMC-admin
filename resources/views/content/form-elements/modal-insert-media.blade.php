@@ -113,7 +113,7 @@
                 </div>
                 <span style="font-size: 12px;">Tổng cộng {{ count($imageLibrary) }} hình ảnh</span>
                 <button type="reset" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-sm btn-primary me-sm-3 me-1">Add into post</button>
+                <button type="button" id="addIntoPostButton" class="add-into-post btn btn-sm btn-primary me-sm-3 me-1">Add into post</button>
               </div>
         </div>
     </div>
