@@ -24,14 +24,7 @@ $(function () {
 // Add New Address form validation
 document.addEventListener('DOMContentLoaded', function () {
   (function () {
-    // initCustomOptionCheck on modal show to update the custom select
-    let addNewAddress = document.getElementById('addNewAddress');
-    addNewAddress.addEventListener('show.bs.modal', function (event) {
-      // Init custom option check
-      window.Helpers.initCustomOptionCheck();
-    });
-
-    FormValidation.formValidation(document.getElementById('addNewAddressForm'), {
+    FormValidation.formValidation(document.getElementById('imageSelectionForm'), {
       fields: {
         modalAddressFirstName: {
           validators: {

@@ -18,14 +18,14 @@ class CurlRequest
   public function __construct($headers = [])
   {
     $this->headers = array_merge([
-      'accept' => 'application/json',
+      'Accept' => 'application/json',
       'Access-Control-Allow-Origin' => '*',
       'User-Agent' => 'Swagger-Codegen/1.0.0/go',
       'Language' => 'en',
     ], $headers);
   }
 
-  private function request($method, $route, $data = [])
+  private function request($method, $route, $data = [], $extraHeaders = [])
   {
     try {
 
@@ -42,7 +42,7 @@ class CurlRequest
       $options = [
         'headers' => array_merge($this->headers, [
           'Authorization' => 'Bearer ' . $token,
-        ]),
+        ], $extraHeaders),
         'method' => $method,
       ];
 
@@ -69,10 +69,10 @@ class CurlRequest
       ]);
     }
   }
-  private function requestWithoutToken($method, $route, $data = [])
+  private function requestWithoutToken($method, $route, $data = [], $extraHeaders = [])
   {
     try {
-      $headers = $this->headers;
+      $headers = array_merge($this->headers, $extraHeaders);
       $options = [
         'headers' => $headers,
         'method' => $method,
@@ -102,39 +102,85 @@ class CurlRequest
     }
   }
 
-  public function get($url, $data = [])
+  private function uploadFile($method, $route, $file, $data = [], $extraHeaders = [])
   {
-    return $this->request('GET', $url, $data);
+    try {
+      $token = $this->getToken();
+
+      if (!$token) {
+        // Token does not exist or expired, block request
+        return response()->json([
+          'success' => false,
+          'message' => 'Unauthorized: Token is missing or expired.',
+        ], 401);
+      }
+
+      // Merge headers with token authorization and any extra headers
+      $headers = array_merge([
+        'Authorization' => 'Bearer ' . $token,
+      ], $this->headers, $extraHeaders);
+
+      $base_api = env('BASE_API_URL');
+      $route_api = $base_api . $route;
+
+      // Ensure 'from' field is included in the data
+      $data = array_merge($data, ['from' => 'blog']);
+
+      // Prepare the file and additional data for upload
+      $response = Http::withHeaders($headers)
+        ->attach('file', file_get_contents($file->getRealPath()), $file->getClientOriginalName())
+        ->post($route_api, $data);
+
+      return $response;
+    } catch (\Exception $e) {
+      // Handle exception if HTTP request fails
+      // Log error or return appropriate response
+      return response()->json([
+        'success' => false,
+        'message' => 'An error occurred while uploading the file.',
+        'error' => $e->getMessage(),
+      ], 500);
+    }
   }
 
-  public function getWithoutToken($url, $data = [])
+  public function upload($url, $file, $data, $extraHeaders = [])
   {
-    return $this->requestWithoutToken('GET', $url, $data);
+    return $this->uploadFile('POST', $url, $file, $data, $extraHeaders);
   }
 
-  public function postWithoutToken($url, $data = [])
+  public function get($url, $data = [], $extraHeaders = [])
   {
-    return $this->requestWithoutToken('POST', $url, $data);
+    return $this->request('GET', $url, $data, $extraHeaders);
+  }
+
+  public function getWithoutToken($url, $data = [], $extraHeaders = [])
+  {
+    return $this->requestWithoutToken('GET', $url, $data, $extraHeaders);
+  }
+
+  public function postWithoutToken($url, $data = [], $extraHeaders = [])
+  {
+    return $this->requestWithoutToken('POST', $url, $data, $extraHeaders);
   }
 
 
-  public function getDetail($url, $id)
+  public function getDetail($url, $id, $extraHeaders = [])
   {
-    return $this->request('GET', $url . '/' . $id);
+    return $this->request('GET', $url . '/' . $id, $extraHeaders);
   }
 
-  public function post($url, $data = [])
+  public function post($url, $data = [], $extraHeaders = [])
   {
-    return $this->request('POST', $url, $data);
+    return $this->request('POST', $url, $data, $extraHeaders);
   }
 
-  public function put($url, $data = [])
+  public function put($url, $data = [], $extraHeaders = [])
   {
-    return $this->request('PUT', $url, $data);
+    return $this->request('PUT', $url, $data, $extraHeaders);
   }
 
-  public function patch($url, $data = [])
+  public function patch($url, $data = [], $extraHeaders = [])
   {
-    return $this->request('PATCH', $url, $data);
+    return $this->request('PATCH', $url, $data, $extraHeaders);
   }
 }

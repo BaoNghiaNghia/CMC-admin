@@ -9,6 +9,7 @@ $contentLayout = (isset($container) ? (($container === 'container-xxl') ? "layou
 <html lang="{{ session()->get('locale') ?? app()->getLocale() }}" class="{{ $configData['style'] }}-style {{($contentLayout ?? '')}} {{ ($navbarType ?? '') }} {{ ($menuFixed ?? '') }} {{ $menuCollapsed ?? '' }} {{ $menuFlipped ?? '' }} {{ $menuOffcanvas ?? '' }} {{ $footerFixed ?? '' }} {{ $customizerHidden ?? '' }}" dir="{{ $configData['textDirection'] }}" data-theme="{{ $configData['theme'] }}" data-assets-path="{{ asset('/assets') . '/' }}" data-base-url="{{url('/')}}" data-framework="laravel" data-template="{{ $configData['layout'] . '-menu-' . $configData['theme'] . '-' . $configData['style'] }}">
 
 <head>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
@@ -24,7 +25,7 @@ $contentLayout = (isset($container) ? (($container === 'container-xxl') ? "layou
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
 
-  
+
 
   <!-- Include Styles -->
   <!-- $isFront is used to append the front layout styles only on the front layout otherwise the variable will be blank -->
@@ -36,13 +37,13 @@ $contentLayout = (isset($container) ? (($container === 'container-xxl') ? "layou
 </head>
 
 <body>
-  
+
 
   <!-- Layout Content -->
   @yield('layoutContent')
   <!--/ Layout Content -->
 
-  
+
 
   <!-- Include Scripts -->
   <!-- $isFront is used to append the front layout scripts only on the front layout otherwise the variable will be blank -->

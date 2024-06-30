@@ -36,4 +36,12 @@ class BlogService implements BlogServiceInterface
 
     return $response;
   }
+
+  public function uploadImage($file, $additionalData)
+  {
+    $curl = new CurlRequest();
+    $response = $curl->upload(Config::get('constants.IMAGE_UPLOAD_ENDPOINT'), $file, $additionalData, []);
+
+    return $response;
+  }
 }

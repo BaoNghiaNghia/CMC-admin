@@ -324,8 +324,12 @@ Route::middleware(['checkAuthToken'])->group(function () {
   Route::get('/forms/basic-inputs', [BasicInput::class, 'index'])->name('forms-basic-inputs');
   Route::get('/forms/input-groups', [InputGroups::class, 'index'])->name('forms-input-groups');
   Route::get('/forms/custom-options', [CustomOptions::class, 'index'])->name('forms-custom-options');
+
   Route::get('/forms/editors', [Editors::class, 'index'])->name('forms-editors');
-  Route::get('/forms/get-list-images-library', [BlogController::class, 'getLibraryImages'])->name('api.get-library-images');
+  Route::get('/forms/get-list-images-library', [Editors::class, 'getLibraryImages'])->name('api.get-library-images');
+  Route::post('/forms/upload-single-image', [Editors::class, 'uploadImage'])->name('api.upload-single-image');
+
+
   Route::get('/forms/file-upload', [FileUpload::class, 'index'])->name('forms-file-upload');
   Route::get('/forms/pickers', [Picker::class, 'index'])->name('forms-pickers');
   Route::get('/forms/selects', [Selects::class, 'index'])->name('forms-selects');

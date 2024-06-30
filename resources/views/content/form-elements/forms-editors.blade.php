@@ -1,5 +1,12 @@
 @extends('layouts/layoutMaster')
 
+@php
+  $parsedUrl = parse_url(request()->url());
+  $scheme = isset($parsedUrl['scheme']) ? $parsedUrl['scheme'] . '://' : 'https://';
+  $host = $parsedUrl['host'] ?? '';
+  $fullHostUrl = $scheme . $host;
+@endphp
+
 @section('title', 'Blog - Add New Post')
 
 @section('vendor-style')
@@ -10,6 +17,7 @@
   <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
   <link rel="stylesheet" href="{{asset('assets/vendor/libs/toastr/toastr.css')}}" />
   <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
+  <link rel="stylesheet" href="{{asset('assets/vendor/libs/@form-validation/umd/styles/index.min.css')}}" />
 @endsection
 
 @section('vendor-script')
@@ -19,6 +27,10 @@
   <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
   <script src="{{asset('assets/vendor/libs/toastr/toastr.js')}}"></script>
   <script src="{{asset('assets/vendor/libs/dropzone/dropzone.js')}}"></script>
+
+  <script src="{{asset('assets/vendor/libs/@form-validation/umd/bundle/popular.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js')}}"></script>
 @endsection
 
 @section('page-script')
@@ -29,93 +41,151 @@
   <script src="{{asset('assets/js/ui-toasts.js')}}"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      @if(session('status'))
-        Toastify({
-          text: "{{ session('status')['message'] }}",
-          duration: 3000,
-          close: true,
-          gravity: "bottom", // `top` or `bottom`
-          position: "center", // `left`, `center` or `right`
-          backgroundColor: "{{ session('status')['success'] ? 'green' : 'red' }}",
-        }).showToast();
-      @endif
+    // Convert PHP data to JSON format
+    var data = @json($imageLibrary);
 
-      document.getElementById('insert-button').addEventListener('click', function() {
-        // Get all checkboxes
-        let checkboxes = document.querySelectorAll('.select-image.form-check-input:checked');
-        let selectedImages = [];
+    // Log the data to the console
+    console.log(data);
 
-        // Iterate over checked checkboxes
-        checkboxes.forEach(function(checkbox) {
-          selectedImages.push(checkbox.value);
+    document.getElementById('checkboxForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    const selectedValues = Array.from(checkboxes).map(cb => cb.value);
+
+    const selectedValuesList = document.getElementById('selectedValuesList');
+    selectedValuesList.innerHTML = ''; // Clear the previous list
+
+    selectedValues.forEach(value => {
+      const li = document.createElement('li');
+      li.className = 'list-group-item';
+      li.textContent = value;
+      selectedValuesList.appendChild(li);
+    });
+  });
+
+    document.addEventListener('DOMContentLoaded', function (e) {
+      (function () {
+        // Edit user form validation
+        FormValidation.formValidation(document.getElementById('formAddImage'), {
+          fields: {
+            altText: {
+              validators: {
+                notEmpty: {
+                  message: 'Please enter your first name'
+                },
+                regexp: {
+                  regexp: /^[a-zA-Zs]+$/,
+                  message: 'The first name can only consist of alphabetical'
+                }
+              }
+            },
+          },
+          plugins: {
+            trigger: new FormValidation.plugins.Trigger(),
+            bootstrap5: new FormValidation.plugins.Bootstrap5({
+              // Use this for enabling/changing valid/invalid class
+              // eleInvalidClass: '',
+              eleValidClass: '',
+              rowSelector: '.col-12'
+            }),
+            submitButton: new FormValidation.plugins.SubmitButton(),
+            // Submit the form when all fields are valid
+            // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+            autoFocus: new FormValidation.plugins.AutoFocus()
+          }
         });
+      })();
+    });
+  </script>
 
-        // Log the selected images to the console
-        console.log(selectedImages);
+  <script>
+    // Function to update the selected values list
+    function updateSelectedValues() {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+      const selectedValues = Array.from(checkboxes).map(cb => cb.value);
+      const filteredValues = Array.from(selectedValues).filter(cb => cb);
+
+      const selectedValuesList = document.getElementById('selectedValuesList');
+      selectedValuesList.innerHTML = ''; // Clear the previous list
+
+      filteredValues.forEach(value => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item';
+        li.textContent = value;
+        selectedValuesList.appendChild(li);
       });
+    }
+
+    // Add event listener to all checkboxes
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', updateSelectedValues);
+    });
+
+    // Initial update in case some checkboxes are pre-checked
+    updateSelectedValues();
   </script>
 @endsection
 
-@php
-  $parsedUrl = parse_url(request()->url());
-  $scheme = isset($parsedUrl['scheme']) ? $parsedUrl['scheme'] . '://' : 'https://';
-  $host = $parsedUrl['host'] ?? '';
-  $fullHostUrl = $scheme . $host;
-@endphp
-
-
 @section('content')
-    <h4 class="">
-        <span class="text-muted fw-light">Posts /</span> New Post
-    </h4>
+<h4 class="">
+    <span class="text-muted fw-light">Posts /</span> New Post
+</h4>
 
-    <!-- Extra Large Modal -->
-    @include('content.form-elements.body-insert-media')
-
-    <div class="row">
-        <div class="col-9">
-          <div class="form-floating form-floating-outline mb-2">
-            <input type="text" id="username" class="form-control" placeholder="johndoe" />
-            <label for="username">Add Title</label>
-            <div class="form-text">
-              <span style="font-weight: 800">Permalink: </span>
-              <span>{{ $fullHostUrl }}</span>
-            </div>
-          </div>
-          @if(isset($languages) && count($languages) > 0)
-            <div class="nav-align-top">
-              <ul class="nav nav-tabs" role="tablist">
-                @foreach($languages as $language)
-                  <li class="nav-item">
-                    <button
-                      style="font-size: 13px; padding: 8px 11px;"
-                      type="button"
-                      class="nav-link active"
-                      role="tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#navs-media-library"
-                      aria-controls="navs-media-library"
-                      aria-selected="true"
-                    >
-                      <img src="{{asset($language['flag_path'])}}" alt="google home" width="15" heigh="15" class="mr-1" style="margin-right: 4px;"/>
-                      <span>{{ $language['name'] }}</span>
-                    </button>
-                  </li>
-                @endforeach
-              </ul>
-            </div>
-            <div class="tab-content p-0">
-              <div class="tab-pane fade show active" id="navs-media-library" role="tabpanel">
-                @include('content.form-elements.multilang-editor')
-              </div>
-            </div>
-          @else
-            No languages found
-          @endif
-        </div>
-        <div class="col-3">
-          @include('content.form-elements.right-element-editor')
-        </div>
+<div class="row">
+  @csrf
+  {{-- Editor --}}
+  <div class="col-9">
+    {{-- Title --}}
+    <div class="form-floating form-floating-outline mb-2">
+      <input type="text" id="username" class="form-control" placeholder="johndoe" />
+      <label for="username">Add Title</label>
+      <div class="form-text">
+        <span style="font-weight: 800">Permalink: </span>
+        <span>{{ $fullHostUrl }}</span>
+      </div>
     </div>
+
+    {{-- Editor By lang --}}
+    @if(isset($languages) && count($languages) > 0)
+      <div class="nav-align-top">
+        <ul class="nav nav-tabs" role="tablist">
+          @foreach($languages as $language)
+            <li class="nav-item">
+              <button
+                style="font-size: 13px; padding: 8px 11px;"
+                type="button"
+                class="nav-link active"
+                role="tab"
+                data-bs-toggle="tab"
+                data-bs-target="#navs-media-library"
+                aria-controls="navs-media-library"
+                aria-selected="true"
+              >
+                <img src="{{asset($language['flag_path'])}}" alt="google home" width="15" heigh="15" class="mr-1" style="margin-right: 4px;"/>
+                <span>{{ $language['name'] }}</span>
+              </button>
+            </li>
+          @endforeach
+        </ul>
+      </div>
+      <div class="tab-content p-0">
+        <div class="tab-pane fade show active" id="navs-media-library" role="tabpanel">
+          @include('content.form-elements.multilang-editor')
+        </div>
+      </div>
+    @else
+      No languages found
+    @endif
+  </div>
+
+  {{-- Pubish --}}
+  <div class="col-3">
+    @include('content.form-elements.right-element-editor')
+  </div>
+</div>
+
+{{-- Modal --}}
+<!-- Extra Large Modal -->
+@include('content.form-elements.modal-insert-media')
 @endsection

@@ -11,4 +11,6 @@ interface BlogServiceInterface
   public function getBlog($id);
 
   public function getLibraryImages();
+
+  public function uploadImage($file, $additionalData);
 }
