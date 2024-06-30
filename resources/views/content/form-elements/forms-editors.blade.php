@@ -47,83 +47,23 @@
     // Log the data to the console
     console.log(data);
 
-    document.getElementById('checkboxForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-    const selectedValues = Array.from(checkboxes).map(cb => cb.value);
+    // document.getElementById('checkboxForm').addEventListener('submit', function(event) {
+    //   event.preventDefault();
+    //   const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    //   const selectedValues = Array.from(checkboxes).map(cb => cb.value);
 
-    const selectedValuesList = document.getElementById('selectedValuesList');
-    selectedValuesList.innerHTML = ''; // Clear the previous list
+    //   const selectedValuesList = document.getElementById('selectedValuesList');
+    //   selectedValuesList.innerHTML = ''; // Clear the previous list
 
-    selectedValues.forEach(value => {
-      const li = document.createElement('li');
-      li.className = 'list-group-item';
-      li.textContent = value;
-      selectedValuesList.appendChild(li);
-    });
-  });
+    //   selectedValues.forEach(value => {
+    //     const li = document.createElement('li');
+    //     li.className = 'list-group-item';
+    //     li.textContent = value;
+    //     selectedValuesList.appendChild(li);
+    //   });
+    // });
 
-    document.addEventListener('DOMContentLoaded', function (e) {
-      (function () {
-        // Edit user form validation
-        FormValidation.formValidation(document.getElementById('formAddImage'), {
-          fields: {
-            altText: {
-              validators: {
-                notEmpty: {
-                  message: 'Please enter your first name'
-                },
-                regexp: {
-                  regexp: /^[a-zA-Zs]+$/,
-                  message: 'The first name can only consist of alphabetical'
-                }
-              }
-            },
-          },
-          plugins: {
-            trigger: new FormValidation.plugins.Trigger(),
-            bootstrap5: new FormValidation.plugins.Bootstrap5({
-              // Use this for enabling/changing valid/invalid class
-              // eleInvalidClass: '',
-              eleValidClass: '',
-              rowSelector: '.col-12'
-            }),
-            submitButton: new FormValidation.plugins.SubmitButton(),
-            // Submit the form when all fields are valid
-            // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-            autoFocus: new FormValidation.plugins.AutoFocus()
-          }
-        });
-      })();
-    });
-  </script>
 
-  <script>
-    // Function to update the selected values list
-    function updateSelectedValues() {
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-      const selectedValues = Array.from(checkboxes).map(cb => cb.value);
-      const filteredValues = Array.from(selectedValues).filter(cb => cb);
-
-      const selectedValuesList = document.getElementById('selectedValuesList');
-      selectedValuesList.innerHTML = ''; // Clear the previous list
-
-      filteredValues.forEach(value => {
-        const li = document.createElement('li');
-        li.className = 'list-group-item';
-        li.textContent = value;
-        selectedValuesList.appendChild(li);
-      });
-    }
-
-    // Add event listener to all checkboxes
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(checkbox => {
-      checkbox.addEventListener('change', updateSelectedValues);
-    });
-
-    // Initial update in case some checkboxes are pre-checked
-    updateSelectedValues();
   </script>
 @endsection
 
