@@ -7,6 +7,7 @@ use App\Services\BlogCategoryService;
 use App\Services\BlogService;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class Editors extends Controller
 {
@@ -27,6 +28,7 @@ class Editors extends Controller
 
       $data = [
         'languages' => Config::get('constants.LANGUAGE_LOCALE'),
+        'userCurrent' => json_decode(Cookie::get('user'), true),
         'blogCategories' => [],
         'blogCategoriesMeta' => null,
         'status' => [

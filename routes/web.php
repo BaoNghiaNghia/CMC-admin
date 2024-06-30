@@ -253,6 +253,7 @@ Route::middleware(['checkAuthToken'])->group(function () {
   // authentication
 
   Route::post('/auth/submit-logout-form', [LoginBasic::class, 'logoutUser'])->name('api.logoutUser');
+  Route::get('/auth/get-detail-user', [LoginCover::class, 'detailUser'])->name('api.detailUser');
 
   Route::get('/auth/register-multisteps', [RegisterMultiSteps::class, 'index'])->name('auth-register-multisteps');
   Route::get('/auth/verify-email-basic', [VerifyEmailBasic::class, 'index'])->name('auth-verify-email-basic');

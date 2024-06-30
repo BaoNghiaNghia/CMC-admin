@@ -80,46 +80,52 @@
   {{-- Editor --}}
   <div class="col-9">
     {{-- Title --}}
-    <div class="form-floating form-floating-outline mb-2">
-      <input type="text" id="username" class="form-control" placeholder="johndoe" />
-      <label for="username">Add Title</label>
-      <div class="form-text">
-        <span style="font-weight: 800">Permalink: </span>
-        <span>{{ $fullHostUrl }}</span>
-      </div>
-    </div>
-
-    {{-- Editor By lang --}}
-    @if(isset($languages) && count($languages) > 0)
-      <div class="nav-align-top">
-        <ul class="nav nav-tabs" role="tablist">
-          @foreach($languages as $language)
-            <li class="nav-item">
-              <button
-                style="font-size: 13px; padding: 8px 11px;"
-                type="button"
-                class="nav-link active"
-                role="tab"
-                data-bs-toggle="tab"
-                data-bs-target="#navs-media-library"
-                aria-controls="navs-media-library"
-                aria-selected="true"
-              >
-                <img src="{{asset($language['flag_path'])}}" alt="google home" width="15" heigh="15" class="mr-1" style="margin-right: 4px;"/>
-                <span>{{ $language['name'] }}</span>
-              </button>
-            </li>
-          @endforeach
-        </ul>
-      </div>
-      <div class="tab-content p-0">
-        <div class="tab-pane fade show active" id="navs-media-library" role="tabpanel">
-          @include('content.form-elements.multilang-editor')
+    <form id="newsForm">
+      {{-- Editor By lang --}}
+      @if(isset($languages) && count($languages) > 0)
+        @php
+          $defaultLanguage = 'en_US';
+          $defaultIndex = 0;
+          foreach ($languages as $index => $language) {
+              if ($language['iso_code'] == $defaultLanguage) {
+                  $defaultIndex = $index;
+                  break;
+              }
+          }
+        @endphp
+        <div class="nav-align-top">
+          <ul class="nav nav-tabs" role="tablist">
+            @foreach($languages as $index => $language)
+              <li class="nav-item">
+                <button
+                  style="font-size: 13px; padding: 8px 11px;"
+                  type="button"
+                  class="nav-link @if($index == $defaultIndex) active @endif"
+                  role="tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#tab-content-{{ $index }}"
+                  aria-controls="tab-content-{{ $index }}"
+                  aria-selected="{{ $index == $defaultIndex ? 'true' : 'false' }}"
+                >
+                  <img src="{{ asset($language['flag_path']) }}" alt="{{ $language['name'] }} flag" width="15" height="15" class="mr-1" style="margin-right: 4px;"/>
+                  <span>{{ $language['name'] }}</span>
+                </button>
+              </li>
+            @endforeach
+          </ul>
         </div>
-      </div>
-    @else
-      No languages found
-    @endif
+        <div class="tab-content p-0">
+          @foreach($languages as $index => $language)
+            <div class="tab-pane fade @if($index == $defaultIndex) show active @endif" id="tab-content-{{ $index }}" role="tabpanel">
+              @include('content.form-elements.multilang-editor', ['language' => $language, 'fullHostUrl' => $fullHostUrl])
+            </div>
+          @endforeach
+        </div>
+      @else
+        No languages found
+      @endif
+    </form>
+
   </div>
 
   {{-- Pubish --}}

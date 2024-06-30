@@ -3,7 +3,7 @@
       <h4 class="accordion-header d-flex align-items-center">
           <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionWithIcon-1" aria-expanded="true">
               <i class="mdi mdi-chart-bar me-2"></i>
-              <span style="font-size: 15px;">Publish</span>
+              <span style="font-size: 15px;font-weight: 700;">Publish</span>
           </button>
       </h4>
 
@@ -30,18 +30,18 @@
                   </ul>
               </div>
               <div class="d-grid">
-                  <button class="btn btn-sm btn-primary" type="button">Publish</button>
+                  <button class="btn btn-sm btn-primary" id="publishButton" type="button" style="font-weight: 700">Publish</button>
               </div>
           </div>
       </div>
   </div>
 
-  <div class="accordion-item">
+  {{-- <div class="accordion-item">
       <h4 class="accordion-header d-flex align-items-center">
           <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
               data-bs-target="#accordionWithIcon-2" aria-expanded="false">
               <i class="mdi mdi-briefcase me-2"></i>
-              <span style="font-size: 15px;">Language</span>
+              <span style="font-size: 15px; font-weight: 700;">Language</span>
           </button>
       </h4>
       <div id="accordionWithIcon-2" class="accordion-collapse collapse show">
@@ -67,14 +67,14 @@
             @endif
           </div>
       </div>
-  </div>
+  </div> --}}
 
   <div class="accordion-item">
       <h4 class="accordion-header d-flex align-items-center">
           <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
               data-bs-target="#accordionWithIcon-2" aria-expanded="false">
               <i class="mdi mdi-briefcase me-2"></i>
-              <span style="font-size: 15px;">Category</span>
+              <span style="font-size: 15px;font-weight: 700;">Category</span>
           </button>
       </h4>
       <div id="accordionWithIcon-2" class="accordion-collapse collapse show">
@@ -103,7 +103,7 @@
           <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
               data-bs-target="#accordionWithIcon-3" aria-expanded="false">
               <i class="mdi mdi-gift me-2"></i>
-              <span style="font-size: 15px;">Feature Image</span>
+              <span style="font-size: 15px;font-weight: 700;">Feature Image</span>
           </button>
       </h4>
       <div id="accordionWithIcon-3" class="accordion-collapse collapse show">

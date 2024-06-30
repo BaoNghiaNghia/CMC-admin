@@ -80,4 +80,19 @@ class LoginCover extends Controller
       ]);
     }
   }
+
+  public function detailUser()
+  {
+    try {
+      $userData = json_decode(Cookie::get('user'), true);
+      // Redirect to the login page with a success message
+      return response()->json($userData);
+    } catch (\Exception $e) {
+      // Handle exception if logout fails
+      return redirect()->back()->with('status', [
+        'success' => false,
+        'message' => 'Failed to get detail user'
+      ]);
+    }
+  }
 }
