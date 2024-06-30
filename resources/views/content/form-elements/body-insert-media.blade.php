@@ -25,8 +25,8 @@
                             @forelse($imageLibrary as $image)
                               <div class="col-md-2 p-0 m-0">
                                 <div class="form-check custom-option custom-option-image custom-option-image-check">
-                                  <input class="form-check-input" type="checkbox" value="" id="customCheckboxImg{{ $image['id'] }}" />
-                                  <label class="form-check-label custom-option-content" for="customCheckboxImg{{ $image['id'] }}">
+                                  <input class="select-image form-check-input" type="checkbox" value="" id="customCheckboxImg{{ $image['id'] }}" />
+                                  <label class="select-image form-check-label custom-option-content" for="customCheckboxImg{{ $image['id'] }}">
                                     <span class="custom-option-body">
                                         <img src="{{ $image['url'] }}" alt="{{ $image['name'] }}" class="img-fluid" />
                                     </span>

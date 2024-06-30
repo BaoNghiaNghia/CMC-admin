@@ -22,7 +22,7 @@ class Editors extends Controller
     try {
       $blogCategories = $this->blogCategoryService->getCategories(1, 10, 'blog');
 
-      $latestBlogs = $this->blogService->getLibraryImages();
+      $libraryImg = $this->blogService->getLibraryImages();
 
       $data = [
         'languages' => Config::get('constants.LANGUAGE_LOCALE'),
@@ -44,8 +44,8 @@ class Editors extends Controller
         ];
       }
 
-      if ($latestBlogs['error_code'] === 0) {
-        $data['imageLibrary'] = $latestBlogs['data'];
+      if ($libraryImg['error_code'] === 0) {
+        $data['imageLibrary'] = $libraryImg['data'];
       } else {
         $data['status'] = [
           'success' => false,
@@ -56,22 +56,25 @@ class Editors extends Controller
     } catch (\Exception $e) {
       logger()->error('Failed to fetch data initialize', ['exception' => $e]);
 
-      // return view('content.form-elements.forms-editors')->with('status', [
-      //   'success' => false,
-      //   'message' => 'Failed to fetch data initialize'
-      // ])->with('languages', Config::get('constants.LANGUAGE_LOCALE'))
-      //   ->with('blogCategories', [])
-      //   ->with('blogCategoriesMeta', null);
+      return view('content.form-elements.forms-editors')->with('status', [
+        'success' => false,
+        'message' => 'Failed to fetch data initialize'
+      ])->with('languages', Config::get('constants.LANGUAGE_LOCALE'))
+        ->with('blogCategories', [])
+        ->with('blogCategoriesMeta', null);
     }
   }
 
   public function getLibraryImages()
   {
     try {
-      $LatestBlogs = $this->blogService->getLibraryImages();
+      $libraryImg = $this->blogService->getLibraryImages();
       // Fetch media data from the database or any source
+      if ($libraryImg['error_code'] === 0) {
+        return view('content.form-elements.forms-editors', ['imageLibrary' => $libraryImg['data']]);
+      }
 
-      return view('content.form-elements.forms-editors', ['media' => $media]);
+      return view('content.form-elements.forms-editors', ['imageLibrary' => []]);
     } catch (\Exception $e) {
       // Handle exception if HTTP request fails
       // Log error or return appropriate response

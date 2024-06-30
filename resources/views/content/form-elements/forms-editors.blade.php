@@ -41,44 +41,19 @@
         }).showToast();
       @endif
 
-      document.addEventListener("DOMContentLoaded", function() {
-        // Function to handle inserting selected images into CKEditor and logging to console
-        function insertImagesIntoEditor() {
-          // Select all checkboxes that are checked
-          const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+      document.getElementById('insert-button').addEventListener('click', function() {
+        // Get all checkboxes
+        let checkboxes = document.querySelectorAll('.select-image.form-check-input:checked');
+        let selectedImages = [];
 
-          // Array to store selected image URLs
-          const selectedImages = [];
+        // Iterate over checked checkboxes
+        checkboxes.forEach(function(checkbox) {
+          selectedImages.push(checkbox.value);
+        });
 
-          checkboxes.forEach(checkbox => {
-              // Extract image URL from the checkbox's data attribute or other relevant attribute
-              const imageUrl = checkbox.parentElement.querySelector('img').src;
-              selectedImages.push(imageUrl); // Push image URL into array
-          });
-
-          // Log selected image URLs to console
-          console.log('Selected Images:', selectedImages);
-
-          // Insert selected images into CKEditor with ID 'full-editor'
-          const editor = document.getElementById('full-editor');
-          selectedImages.forEach(imageUrl => {
-              editor.innerHTML += `<img src="${imageUrl}" alt="image" style="max-width: 100%;" />`;
-          });
-
-          // Close the modal or perform any other necessary actions
-          const modal = document.getElementById('modalAddMedia');
-          const bootstrapModal = bootstrap.Modal.getInstance(modal); // Assuming Bootstrap modal
-          bootstrapModal.hide(); // Hide the modal after insertion
-        }
-
-        // Event listener for the "Insert into post" button
-        const insertButton = document.querySelector('#modalAddMedia .modal-footer button.btn-primary');
-        if (insertButton) {
-            insertButton.addEventListener('click', insertImagesIntoEditor);
-            console.log('Insert imge ne ---- ');
-        }
+        // Log the selected images to the console
+        console.log(selectedImages);
       });
-    });
   </script>
 @endsection
 
