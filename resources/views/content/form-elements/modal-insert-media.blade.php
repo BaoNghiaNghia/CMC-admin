@@ -1,9 +1,9 @@
-<form id="formAddImage">
-  <div class="modal fade" id="modalAddMedia" tabindex="-1" aria-hidden="true">
+@foreach($languages as $language)
+  <div class="modal fade" id="modalAddMedia-{{ $language['iso_code'] }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
         <div class="modal-content ">
           <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel4">Add Media</h4>
+            <h4 class="modal-title" id="exampleModalLabel4">Add Media ({{ $language['name'] }})</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body overflow-hidden" id="vertical-example">
@@ -18,7 +18,7 @@
                   </ul>
                 </div>
                 <div class="tab-content p-0">
-                  <div class="tab-pane fade show active" id="navs-media-library" role="tabpanel">
+                  <div class="tab-pane fade show active" id="navs-media-library-{{ $language['iso_code'] }}" role="tabpanel">
                       <div class="row mt-2">
                           <div class="col-9">
                             <form id="checkboxForm">
@@ -109,9 +109,9 @@
               <div class="modal-footer">
                 <span style="font-size: 12px;">Tổng cộng {{ count($imageLibrary) }} hình ảnh</span>
                 <button type="reset" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" id="addIntoPostButton" class="add-into-post btn btn-sm btn-primary me-sm-3 me-1">Add into post</button>
+                <button type="button" id="addIntoPostButton-{{ $language['iso_code'] }}" class="add-into-post btn btn-sm btn-primary me-sm-3 me-1">Add into post ({{ $language['name'] }})</button>
               </div>
         </div>
     </div>
   </div>
-</form>
+@endforeach
