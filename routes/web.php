@@ -329,6 +329,7 @@ Route::middleware(['checkAuthToken'])->group(function () {
   Route::get('/forms/editors', [Editors::class, 'index'])->name('forms-editors');
   Route::get('/forms/get-list-images-library', [Editors::class, 'getLibraryImages'])->name('api.get-library-images');
   Route::post('/forms/upload-single-image', [Editors::class, 'uploadImage'])->name('api.upload-single-image');
+  Route::post('/forms/publish-multilang-post', [Editors::class, 'publishPost'])->name('api.publish-multilang-post');
 
 
   Route::get('/forms/file-upload', [FileUpload::class, 'index'])->name('forms-file-upload');

@@ -55,14 +55,6 @@ return [
   // Blogs Endpoints
   'IMAGES_LIBRARY_ENDPOINT' => '/library',
   'IMAGE_UPLOAD_ENDPOINT' => '/upload',
+  'PUBLISH_POST_ENDPOINT' => '/admin/news',
   'BLOG_CATEGORIES_ENDPOINT' => '/admin/news/categories',
 ];
-
-
-const VI_LANGUAGE = 'vi';
-const EN_LANGUAGE = 'en';
-const HI_LANGUAGE = 'hi';
-const ZH_LANGUAGE = 'zh';
-const ID_LANGUAGE = 'id';
-const AR_LANGUAGE = 'ar';
-const DEFAULT_LANGUAGE = 'en';

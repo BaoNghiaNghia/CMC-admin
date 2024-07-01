@@ -36,39 +36,6 @@
       </div>
   </div>
 
-  {{-- <div class="accordion-item">
-      <h4 class="accordion-header d-flex align-items-center">
-          <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
-              data-bs-target="#accordionWithIcon-2" aria-expanded="false">
-              <i class="mdi mdi-briefcase me-2"></i>
-              <span style="font-size: 15px; font-weight: 700;">Language</span>
-          </button>
-      </h4>
-      <div id="accordionWithIcon-2" class="accordion-collapse collapse show">
-          <div class="accordion-body">
-            @if(isset($languages) && count($languages) > 0)
-              @foreach($languages as $language)
-                <div class="form-check custom-option custom-option-basic mb-2 p-0">
-                  <label class="form-check-label custom-option-content" for={{ $language['iso_code'] }} style="padding-top: 5px; padding-bottom: 5px;">
-                      <input class="form-check-input" type="checkbox" value="" id={{ $language['iso_code'] }}
-                          checked />
-                      <span class="custom-option-header">
-                          <span class="h6 mb-0">
-                            <img src="{{asset($language['flag_path'])}}" alt="google home" class="w-px-20 mr-1" />
-                            {{ $language['name'] }}
-                          </span>
-                          <span style="font-size: 11px;">{{ $language['iso_code'] }}</span>
-                      </span>
-                  </label>
-                </div>
-              @endforeach
-            @else
-              No languages found
-            @endif
-          </div>
-      </div>
-  </div> --}}
-
   <div class="accordion-item">
       <h4 class="accordion-header d-flex align-items-center">
           <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
@@ -77,17 +44,15 @@
               <span style="font-size: 15px;font-weight: 700;">Category</span>
           </button>
       </h4>
+
       <div id="accordionWithIcon-2" class="accordion-collapse collapse show">
           <div class="accordion-body">
             @if(isset($blogCategories) && count($blogCategories) > 0)
               @foreach($blogCategories as $category)
-                <div class="form-check custom-option custom-option-basic mb-2 p-0">
-                  <label class="form-check-label custom-option-content" for="customCheckTemp1" style="padding-top: 5px; padding-bottom: 5px;">
-                      <input class="form-check-input" type="checkbox" value="" id="customCheckTemp1" checked />
-                      <span class="custom-option-header">
-                          <span class="h6 mb-0">{{ $category['name'] }}</span>
-                          <span style="font-size: 11px; color: gray">{{ $category['alias'] }}</span>
-                      </span>
+                <div class="form-check">
+                  <input name="default-radio-category" class="form-check-input" type="radio" value="{{ $category['id'] }}" id="{{ $category['id'] }}" />
+                  <label class="form-check-label" for="{{ $category['id'] }}">
+                    {{ $category['name'] }}
                   </label>
                 </div>
               @endforeach

@@ -13,4 +13,6 @@ interface BlogServiceInterface
   public function getLibraryImages();
 
   public function uploadImage($file, $additionalData);
+
+  public function publishPost($data);
 }

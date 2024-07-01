@@ -92,7 +92,7 @@ class Editors extends Controller
   {
     try {
       // Validate the file input
-      $validatedData = $request->validate([
+      $request->validate([
         'image_file' => 'required|file|max:10240', // max file size is 10MB
       ], [
         'image_file.required' => 'The file is required.',
@@ -133,6 +133,39 @@ class Editors extends Controller
         'message' => 'Failed to upload image',
         'error' => $e->getMessage()
       ], 500);
+    }
+  }
+
+  public function publishPost(Request $request)
+  {
+    try {
+      // Get all data from the request
+      // Assuming the JSON data is in the body of the request
+      $data = $request->json()->all();
+
+      // Extracting specific fields
+      $categoryId = $data['category_id'];
+      $title = $data['title'];
+      $content = $data['content'];
+      $summary = $data['summary'];
+      $thumbnailId = $data['thumbnail_id'];
+      $languages = $data['languages'];
+      $author = $data['author'];
+
+      // Example of how you can use the extracted data
+      $publishResponse = $this->blogService->publishPost([
+        'category_id' => $categoryId,
+        'title' => $title,
+        'content' => $content,
+        'summary' => $summary,
+        'thumbnail_id' => $thumbnailId,
+        'languages' => $languages,
+        'author' => $author,
+      ]);
+
+
+      return $publishResponse;
+    } catch (\Exception $e) {
     }
   }
 }

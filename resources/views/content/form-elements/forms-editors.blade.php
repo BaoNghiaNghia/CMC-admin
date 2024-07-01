@@ -218,14 +218,48 @@
     // Register the image resize module
     Quill.register('modules/imageResize', ImageResize);
 
+    // Function to get the selected radio button value
+    function getSelectedCategory() {
+      // Query the selected radio button within the category section
+      var selectedRadio = document.querySelector('input[name="default-radio-category"]:checked');
+      // Check if a radio button is selected
+      if (selectedRadio) {
+        // Return the ID and value of the selected radio button
+        return selectedRadio.id;
+      } else {
+        // Return null if no radio button is selected
+        return null;
+      }
+    }
+
     // Add event listener for the "Publish" button
     document.getElementById('publishButton').addEventListener('click', function() {
-      var defaultLang = 'en_US';
+      var defaultLang = 'en';
+
+      var defaultTitle = document.getElementById('post_title_' + defaultLang).value;
+      var defaultSummary = document.getElementById('post_summary_' + defaultLang).value;
+      var defaultEditorContentHtml = editors[defaultLang].root.innerHTML;
+
+      if (!defaultTitle) {
+        alert('No input title with english');
+      }
+      if (!defaultEditorContentHtml) {
+        alert('No input content with english');
+      }
+      if (!defaultSummary) {
+        alert('No input sumary with english');
+      }
+
+      var selectedCategory = getSelectedCategory();
+      if (!selectedCategory) {
+        alert('No category selected');
+      }
+
       var postData = {
-        title: title,
-        category_id: "",
-        content: editorContentHtml,
-        summary: "Spring brings with it blooming flowers, warmer weather, and unfortunately, seasonal allergies in dogs. Much like humans, our furry companions can be affected by allergens present in the air, such as pollen. Understanding the signs and symptoms of seasonal allergies in dogs is crucial for pet parents to ensure your companions stay healthy and happy during this time of the year.",
+        category_id: selectedCategory,
+        title: defaultTitle,
+        content: defaultEditorContentHtml,
+        summary: defaultSummary,
         thumbnail_id: "667cc977037335a623d28ec8",
         languages: {}
       };
@@ -248,14 +282,31 @@
         .then(data => {
           let authorWriter = data.fullname;
           postData.author = authorWriter;
+
+          var formData = new FormData();
+          formData.append('post', JSON.stringify(postData));
+
+          fetch('/forms/publish-multilang-post', {
+            method: 'POST',
+            body: JSON.stringify(postData),
+            headers: {
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+          })
+          .then(response => {
+            console.log('-- response nè ---', response);
+            return response;
+          })
+          .then(data => {
+            console.log('-- response nè ---', data);
+          })
+          .catch(error => {
+            console.log('Error uploading image:', error);
+          });
         })
         .catch(error => console.error('Error fetching data:', error));
-
-      console.log('------- post data --------', postData)
     });
   });
-
-
   </script>
 @endsection
 

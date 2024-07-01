@@ -21,6 +21,7 @@ class CurlRequest
       'Accept' => 'application/json',
       'Access-Control-Allow-Origin' => '*',
       'User-Agent' => 'Swagger-Codegen/1.0.0/go',
+      'Content-Type' => 'application/json',
       'Language' => 'en',
     ], $headers);
   }
@@ -169,7 +170,7 @@ class CurlRequest
     return $this->request('GET', $url . '/' . $id, $extraHeaders);
   }
 
-  public function post($url, $data = [], $extraHeaders = [])
+  public function post($url, $data, $extraHeaders = [])
   {
     return $this->request('POST', $url, $data, $extraHeaders);
   }
