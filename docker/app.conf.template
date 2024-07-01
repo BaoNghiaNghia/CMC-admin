@@ -1,0 +1,96 @@
+server {
+     listen ${HOME_PORT};
+     server_name ${HOME_DOMAIN};
+     underscores_in_headers on; 
+    # Log files for Debugging
+    access_log /var/log/nginx/${HOME_DOMAIN}-access.log;
+    error_log /var/log/nginx/${HOME_DOMAIN}-error.log;
+ 
+    # Webroot Directory for Laravel project
+    
+    root /var/www/home/public;
+    index index.php index.html index.htm;
+
+    # Your Domain Name
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+ 
+    # PHP-FPM Configuration Nginx
+    location ~ \.php$ {
+        set $cors '';
+        if ($http_origin ~* .*) { # yeah, for local development. tailor your regex as needed
+            set $cors "true";
+        }
+        if ($request_method = OPTIONS) {
+            set $cors "${cors}options";
+        }
+        if ($request_method ~* "(GET|POST)") {
+            set $cors "${cors}getpost";
+        }
+
+        if ($cors = 'trueoptions') {
+            #add_header '0' 'OPTIONS' always;
+            add_header 'Access-Control-Allow-Origin' *;
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Allow-Methods' 'GET, HEAD, POST, DELETE, PUT, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'Origin, X-Requested-With, Content-Type, Accept, Authorization, origin, x-requested-with, content-type, device, LANG, IS_ADMIN, Authorization, IS-ADMIN, is-admin';
+            add_header 'Access-Control-Expose-Headers' 'Original-Content-Length';
+            add_header 'Access-Control-Max-Age' '60';
+            
+            add_header 'Content-Type' 'text/html charset=UTF-8';
+            add_header 'Content-Length' 0;
+            return 200;
+        }
+        if ($cors = 'truegetpost') {
+            add_header 'Access-Control-Allow-Origin' *;
+            #add_header 'Access-Control-Allow-Origin' "$http_origin";
+            add_header 'Access-Control-Allow-Headers' 'Origin, X-Requested-With, Content-Type, Accept, Authorization, origin, x-requested-with, content-type, device, LANG, IS_ADMIN, Authorization, IS-ADMIN, is-admin';
+        }
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        include fastcgi_params;
+        fastcgi_read_timeout 600; 
+        fastcgi_send_timeout 600; 
+        set $fastcgi_nocache "true";
+    }
+
+    location ~* .(gif|jpg|jpeg|png|ico|wmv|3gp|avi|mpg|mpeg|mp4|flv|mp3|mid|js|css|wml|swf|ttf|ttc|otf|eot|woff|woff2)$ {
+        add_header Access-Control-Allow-Origin "*";
+        expires max;
+    }
+    
+    gzip on;
+    gzip_disable "msie6";
+
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_buffers 16 8k;
+    gzip_http_version 1.1;
+    gzip_min_length 256;
+    gzip_types
+      application/atom+xml
+      application/geo+json
+      application/javascript
+      application/x-javascript
+      application/json
+      application/ld+json
+      application/manifest+json
+      application/rdf+xml
+      application/rss+xml
+      application/xhtml+xml
+      application/xml
+      font/eot
+      font/otf
+      font/ttf
+      image/svg+xml
+      text/css
+      text/javascript
+      text/plain
+      text/xml;
+}
