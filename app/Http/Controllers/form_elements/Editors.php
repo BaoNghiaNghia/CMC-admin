@@ -168,4 +168,30 @@ class Editors extends Controller
     } catch (\Exception $e) {
     }
   }
+
+  public function getListBlogs()
+  {
+    try {
+      $data = [];
+      $page = 1;
+      $limit = 100;
+
+      $listNews = $this->blogService->getListBlogs([
+        'page' => $page,
+        'limit' => $limit
+      ]);
+      if ($listNews['error_code'] === 0) {
+        $data['blogCategories'] = $listNews['data']['item'];
+        $data['blogCategoriesMeta'] = $listNews['data']['meta'];
+      } else {
+        $data['status'] = [
+          'success' => false,
+          'message' => 'Failed to fetch data'
+        ];
+      }
+
+      return $data;
+    } catch (\Exception $e) {
+    }
+  }
 }

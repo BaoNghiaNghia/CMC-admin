@@ -240,14 +240,8 @@
       var defaultSummary = document.getElementById('post_summary_' + defaultLang).value;
       var defaultEditorContentHtml = editors[defaultLang].root.innerHTML;
 
-      if (!defaultTitle) {
-        alert('No input title with english');
-      }
-      if (!defaultEditorContentHtml) {
-        alert('No input content with english');
-      }
-      if (!defaultSummary) {
-        alert('No input sumary with english');
+      if (!defaultTitle || !defaultEditorContentHtml || !defaultSummary) {
+        alert('Missing input title, content or summary with english');
       }
 
       var selectedCategory = getSelectedCategory();
@@ -328,14 +322,14 @@
           @include('content.form-elements.modal-insert-media', ['languages' => $languages])
 
           @php
-              $defaultLanguage = 'en';
-              $defaultIndex = 0;
-              foreach ($languages as $index => $language) {
-                  if ($language['iso_code'] == $defaultLanguage) {
-                      $defaultIndex = $index;
-                      break;
-                  }
+            $defaultLanguage = 'en';
+            $defaultIndex = 0;
+            foreach ($languages as $index => $language) {
+              if ($language['iso_code'] == $defaultLanguage) {
+                $defaultIndex = $index;
+                break;
               }
+            }
           @endphp
 
           {{-- Navigation tabs --}}

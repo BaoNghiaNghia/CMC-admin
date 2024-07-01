@@ -170,7 +170,7 @@ class CurlRequest
     return $this->request('GET', $url . '/' . $id, $extraHeaders);
   }
 
-  public function post($url, $data, $extraHeaders = [])
+  public function post($url, $data = [], $extraHeaders = [])
   {
     return $this->request('POST', $url, $data, $extraHeaders);
   }

@@ -33,7 +33,6 @@ class LoginCover extends Controller
       $password = $request->input('password');
 
       $response = $this->authenService->loginUser($email, $password);
-
       if ($response['error_code'] === 0) {
         // Save token and user data to cookies
         Cookie::queue('token', $response['data']['token'], Config::get('COOKIES_SESSION_TIME')); // Cookie for 60 minutes

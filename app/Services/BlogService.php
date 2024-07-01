@@ -51,4 +51,12 @@ class BlogService implements BlogServiceInterface
 
     return $response;
   }
+
+  public function getListBlogs($data)
+  {
+    $curl = new CurlRequest();
+    $response = $curl->get(Config::get('constants.PUBLISH_POST_ENDPOINT'), $data, []);
+
+    return $response;
+  }
 }
