@@ -12,9 +12,6 @@
                       <li class="nav-item">
                           <button style="font-size: 13px; padding: 5px;" type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-media-library" aria-controls="navs-media-library" aria-selected="true">Media Library</button>
                       </li>
-                      {{-- <li class="nav-item">
-                          <button style="font-size: 13px; padding: 5px;" type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-upload-files" aria-controls="navs-upload-files" aria-selected="false">Upload files</button>
-                      </li> --}}
                   </ul>
                 </div>
                 <div class="tab-content p-0">
@@ -93,17 +90,6 @@
                           </div>
                       </div>
                   </div>
-                  {{-- <div class="tab-pane fade" id="navs-upload-files" role="tabpanel">
-                    <form action="/upload" class="dropzone needsclick mt-1" id="dropzone-basic">
-                      <div class="dz-message needsclick">
-                        Import feature image
-                        <span class="note needsclick">.png or .jpg</span>
-                      </div>
-                      <div class="fallback">
-                        <input name="file" type="file" />
-                      </div>
-                    </form>
-                  </div> --}}
                 </div>
               </div>
               <div class="modal-footer">

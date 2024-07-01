@@ -197,7 +197,12 @@
         }
 
         // Clear all selected checkboxes
-        checkboxes.forEach(function(checkbox) { checkbox.checked = false; });
+        // checkboxes.forEach(function(checkbox) { checkbox.checked = false; });
+        // Clear all selected checkboxes of all languages
+        @foreach($languages as $lang)
+          var allCheckboxes = document.querySelectorAll('#modalAddMedia-{{ $lang["iso_code"] }} input[type="checkbox"]');
+          allCheckboxes.forEach(function(checkbox) { checkbox.checked = false; });
+        @endforeach
 
         // Close the modal
         var modal = document.getElementById('modalAddMedia-{{ $language["iso_code"] }}');
@@ -212,9 +217,43 @@
 
     // Register the image resize module
     Quill.register('modules/imageResize', ImageResize);
-});
 
+    // Add event listener for the "Publish" button
+    document.getElementById('publishButton').addEventListener('click', function() {
+      var defaultLang = 'en_US';
+      var postData = {
+        title: title,
+        category_id: "",
+        content: editorContentHtml,
+        summary: "Spring brings with it blooming flowers, warmer weather, and unfortunately, seasonal allergies in dogs. Much like humans, our furry companions can be affected by allergens present in the air, such as pollen. Understanding the signs and symptoms of seasonal allergies in dogs is crucial for pet parents to ensure your companions stay healthy and happy during this time of the year.",
+        thumbnail_id: "667cc977037335a623d28ec8",
+        languages: {}
+      };
 
+      @foreach($languages as $language)
+        var languageCode = '{{ $language["iso_code"] }}';
+        var title = document.getElementById('post_title_' + languageCode).value;
+        var summary = document.getElementById('post_summary_' + languageCode).value;
+        var editorContentHtml = editors[languageCode].root.innerHTML;
+
+        postData.languages[languageCode] = {
+            title: title,
+            summary: summary,
+            content: editorContentHtml
+        };
+      @endforeach
+
+      fetch('/auth/get-detail-user')
+        .then(response => response.json())
+        .then(data => {
+          let authorWriter = data.fullname;
+          postData.author = authorWriter;
+        })
+        .catch(error => console.error('Error fetching data:', error));
+
+      console.log('------- post data --------', postData)
+    });
+  });
 
 
   </script>
@@ -238,7 +277,7 @@
           @include('content.form-elements.modal-insert-media', ['languages' => $languages])
 
           @php
-              $defaultLanguage = 'en_US';
+              $defaultLanguage = 'en';
               $defaultIndex = 0;
               foreach ($languages as $index => $language) {
                   if ($language['iso_code'] == $defaultLanguage) {
@@ -286,9 +325,15 @@
                               </div>
                           </div>
 
+                          {{-- Title Input --}}
+                          <div class="form-floating form-floating-outline mb-2">
+                              <textarea rows="7" style="height:100%;" type="text" name="post_summary_{{ $language['iso_code'] }}" id="post_summary_{{ $language['iso_code'] }}" class="form-control" placeholder="Type something...."></textarea>
+                              <label for="post_title_{{ $language['iso_code'] }}">Summary ({{ $language['name'] }})</label>
+                          </div>
+
                           {{-- Add Media Button --}}
                           <button
-                              class="btn btn-xs btn-label-primary mb-2"
+                              class="btn btn-xs btn-label-primary mb-2 mt-4"
                               type="button" id="addMediaButton_{{ $language['iso_code'] }}"
                               data-bs-toggle="modal" data-bs-target="#modalAddMedia-{{ $language['iso_code'] }}"
                           >
@@ -307,9 +352,7 @@
           {{-- Message if no languages found --}}
           <p>No languages found</p>
       @endif
-  </form>
-
-
+    </form>
   </div>
 
   {{-- Pubish --}}
