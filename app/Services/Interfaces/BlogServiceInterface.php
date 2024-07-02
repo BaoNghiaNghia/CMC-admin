@@ -17,4 +17,6 @@ interface BlogServiceInterface
   public function publishPost($data);
 
   public function getListTags($data);
+
+  public function getListAuthor($data);
 }

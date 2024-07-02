@@ -34,6 +34,11 @@ class Editors extends Controller
         'limit' => $limit
       ]);
 
+      $listAuthor = $this->blogService->getListAuthor([
+        'page' => $page,
+        'limit' => $limit
+      ]);
+
       $data = [
         'languages' => Config::get('constants.LANGUAGE_LOCALE'),
         'userCurrent' => json_decode(Cookie::get('user'), true),
@@ -63,11 +68,11 @@ class Editors extends Controller
       if (isset($listTags['error_code']) && $listTags['error_code'] === 0) {
         $data['listTags'] = $listTags['data']['items'];
         $data['listTagsMeta'] = $listTags['data']['meta'];
-      } else {
-        $data['status'] = [
-          'success' => false,
-          'message' => 'Failed to fetch data'
-        ];
+      }
+
+      if (isset($listAuthor['error_code']) && $listAuthor['error_code'] === 0) {
+        $data['listAuthor'] = $listAuthor['data']['items'];
+        $data['listAuthorMeta'] = $listAuthor['data']['meta'];
       }
 
       return view('content.form-elements.forms-editors', $data);
@@ -165,7 +170,8 @@ class Editors extends Controller
       $summary = $data['summary'];
       $thumbnailId = $data['thumbnail_id'];
       $languages = $data['languages'];
-      $author = $data['author'];
+      $author_id = $data['author_id'];
+      $tag_ids = $data['tag_ids'];
 
       // Example of how you can use the extracted data
       $publishResponse = $this->blogService->publishPost([
@@ -175,7 +181,8 @@ class Editors extends Controller
         'summary' => $summary,
         'thumbnail_id' => $thumbnailId,
         'languages' => $languages,
-        'author' => $author,
+        'author_id' => $author_id,
+        'tag_ids' => $tag_ids,
       ]);
 
 

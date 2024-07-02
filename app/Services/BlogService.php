@@ -66,4 +66,12 @@ class BlogService implements BlogServiceInterface
 
     return $response;
   }
+
+  public function getListAuthor($data)
+  {
+    $curl = new CurlRequest();
+    $response = $curl->get(Config::get('constants.AUTHORS_ENDPOINT'), $data, []);
+
+    return $response;
+  }
 }

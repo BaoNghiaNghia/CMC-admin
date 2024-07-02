@@ -108,6 +108,40 @@
       ['clean']
     ];
 
+    const TagPostSelect = document.querySelector('#TagPostSelect');
+
+    var allTagsArr = @json($listTags);
+
+    let TagifyCustomInlineSuggestion = new Tagify(TagPostSelect, {
+      whitelist: allTagsArr.map(childTag => childTag.name),
+      maxTags: 10,
+      dropdown: {
+        maxItems: 20,
+        classname: 'tags-inline',
+        enabled: 0,
+        closeOnSelect: false
+      }
+    });
+
+    // Listen for 'add' and 'remove' tag events
+    TagifyCustomInlineSuggestion.on('add', handleSelectedTags);
+    TagifyCustomInlineSuggestion.on('remove', handleSelectedTags);
+
+    var listSelectedTags = [];
+
+    // Function to handle selected tags
+    function handleSelectedTags(e) {
+      var selectedTags = TagifyCustomInlineSuggestion.value; // Get all selected tags
+
+      // Find and return the corresponding childTag object
+      var selectedTagObjects = selectedTags.map(tag => allTagsArr.find(childTag => childTag.name === tag.value));
+      var arrTagID = selectedTagObjects.map(child=>child.id);
+      console.log('----- ID TAG ARRAY -----', arrTagID);
+
+      listSelectedTags = arrTagID;
+      return arrTagID;
+    }
+
     // Image handler function to manage image uploads
     function imageHandler() {
       const language = this.quill.root.dataset.language;
@@ -271,6 +305,20 @@
         }
       }
 
+      // Function to get the selected radio button value
+      function getSelectedAuthor() {
+        // Query the selected radio button within the category section
+        var selectedRadio = document.querySelector('input[name="default-radio-author"]:checked');
+        // Check if a radio button is selected
+        if (selectedRadio) {
+          // Return the ID and value of the selected radio button
+          return selectedRadio.id;
+        } else {
+          // Return null if no radio button is selected
+          return null;
+        }
+      }
+
       // Add event listener for the "Publish" button
       document.getElementById('publishButton').addEventListener('click', function() {
         var defaultLang = 'en';
@@ -290,12 +338,20 @@
           return;
         }
 
+        var selectedAuthor = getSelectedAuthor();
+        if (!selectedAuthor) {
+          showToast('Warning', 'No author selected', 'warning');
+          return;
+        }
+
         var postData = {
           category_id: selectedCategory,
+          author_id: selectedAuthor,
           title: defaultTitle,
           content: defaultEditorContentHtml,
           summary: defaultSummary,
           thumbnail_id: "667fa694815e2336a944b12b",
+          tag_ids: listSelectedTags,
           languages: {}
         };
 
@@ -312,73 +368,35 @@
           };
         @endforeach
 
-        fetch('/auth/get-detail-user')
-          .then(response => response.json())
-          .then(data => {
-            let authorWriter = data.fullname;
-            postData.author = authorWriter;
+        console.log('--- post ----', postData)
 
-            console.log('--- post ----', postData)
+        var formData = new FormData();
+        formData.append('post', JSON.stringify(postData));
 
-            var formData = new FormData();
-            formData.append('post', JSON.stringify(postData));
+        fetch('/forms/publish-multilang-post', {
+          method: 'POST',
+          body: JSON.stringify(postData),
+          headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error_code === 0) {
+            window.location.href = '/forms/file-upload'; // Redirect to file-upload page
 
-            fetch('/forms/publish-multilang-post', {
-              method: 'POST',
-              body: JSON.stringify(postData),
-              headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-              }
-            })
-            .then(response => response.json())
-            .then(data => {
-              if (data.error_code === 0) {
-                window.location.href = '/forms/file-upload'; // Redirect to file-upload page
-
-                showToast('Published', `Publish post successfully!. Post title: ${data?.data?.title}`, 'success');
-              } else {
-                showToast('Something wrong', data?.message, 'error');
-              }
-              console.log('-- response nè ---', data);
-            })
-            .catch(error => {
-              showToast('Something wrong', error, 'error');
-              console.log('Error uploading image:', error);
-            });
-          })
-          .catch(error => console.error('Error fetching data:', error));
+            showToast('Published', `Publish post successfully!. Post title: ${data?.data?.title}`, 'success');
+          } else {
+            showToast('Something wrong', data?.message, 'error');
+          }
+          console.log('-- response nè ---', data);
+        })
+        .catch(error => {
+          showToast('Something wrong', error, 'error');
+          console.log('Error uploading image:', error);
+        });
       });
     });
-
-    const TagPostSelect = document.querySelector('#TagPostSelect');
-
-    var allTagsArr = @json($listTags);
-
-    let TagifyCustomInlineSuggestion = new Tagify(TagPostSelect, {
-      whitelist: allTagsArr.map(childTag => childTag.name),
-      maxTags: 10,
-      dropdown: {
-        maxItems: 20,
-        classname: 'tags-inline',
-        enabled: 0,
-        closeOnSelect: false
-      }
-    });
-
-    // Function to handle selected tags
-    function handleSelectedTags(e) {
-      var selectedTags = TagifyCustomInlineSuggestion.value; // Get all selected tags
-
-      // Find and return the corresponding childTag object
-      var selectedTagObjects = selectedTags.map(tag => allTagsArr.find(childTag => childTag.name === tag.value));
-      var arrTagID = selectedTagObjects.map(child=>child.id);
-      console.log('----- ID TAG ARRAY -----', arrTagID);
-      return arrTagID;
-    }
-
-    // Listen for 'add' and 'remove' tag events
-    TagifyCustomInlineSuggestion.on('add', handleSelectedTags);
-    TagifyCustomInlineSuggestion.on('remove', handleSelectedTags);
   </script>
 @endsection
 

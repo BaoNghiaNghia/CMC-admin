@@ -83,6 +83,33 @@
   </div>
 
   <div class="accordion-item">
+    <h4 class="accordion-header d-flex align-items-center">
+        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+            data-bs-target="#accordionWithIcon-category" aria-expanded="false">
+            <i class="mdi mdi-briefcase me-2"></i>
+            <span style="font-size: 15px;font-weight: 700;">Author</span>
+        </button>
+    </h4>
+
+    <div id="accordionWithIcon-category" class="accordion-collapse collapse show">
+        <div class="accordion-body">
+          @if(isset($listAuthor) && count($listAuthor) > 0)
+            @foreach($listAuthor as $author)
+              <div class="form-check">
+                <input name="default-radio-author" class="form-check-input" type="radio" value="{{ $author['id'] }}" id="{{ $author['id'] }}" />
+                <label class="form-check-label" for="{{ $author['id'] }}">
+                  {{ $author['name'] }}
+                </label>
+              </div>
+            @endforeach
+          @else
+            No author found
+          @endif
+        </div>
+    </div>
+</div>
+
+  <div class="accordion-item">
       <h4 class="accordion-header d-flex align-items-center">
           <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
               data-bs-target="#accordionWithIcon-3" aria-expanded="false">
