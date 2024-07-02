@@ -36,7 +36,7 @@ class RegisterCover extends Controller
       $response = $this->authenService->registerUser($fullname, $email, $password, $phone);
 
       // Check if registration was successful
-      if ($response['error_code'] === 0) {
+      if (isset($response['error_code']) && $response['error_code'] === 0) {
         // Redirect to the login page with success message
         return redirect()->route('auth-login-cover')->with('status', [
           'success' => true,

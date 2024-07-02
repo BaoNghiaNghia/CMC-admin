@@ -318,7 +318,7 @@
           <!-- Custom Suggestions: Inline -->
           <div class="col-md-6 mb-4">
             <div class="form-floating form-floating-outline">
-              <input id="TagifyCustomInlineSuggestion" name="TagifyCustomInlineSuggestion" class="form-control h-auto" placeholder="select technologies" value="css, html, javascript">
+              <input id="TagifyCustomInlineSuggestion" name="TagifyCustomInlineSuggestion" class="form-control h-auto" placeholder="select tags" value="">
               <label for="TagifyCustomInlineSuggestion">Custom Inline Suggestions</label>
             </div>
           </div>

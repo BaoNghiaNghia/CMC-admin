@@ -59,4 +59,11 @@ class BlogService implements BlogServiceInterface
 
     return $response;
   }
+  public function getListTags($data)
+  {
+    $curl = new CurlRequest();
+    $response = $curl->get(Config::get('constants.BLOG_TAGS_ENDPOINT'), $data, []);
+
+    return $response;
+  }
 }

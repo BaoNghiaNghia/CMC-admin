@@ -4,9 +4,6 @@ namespace App\Services;
 
 use App\Libraries\Curl\CurlRequest;
 use App\Services\Interfaces\BlogCategoryServiceInterface;
-use App\Services\Interfaces\CategoryServiceInterface;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class BlogCategoryService implements BlogCategoryServiceInterface

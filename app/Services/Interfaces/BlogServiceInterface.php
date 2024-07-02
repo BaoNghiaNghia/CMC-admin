@@ -15,4 +15,6 @@ interface BlogServiceInterface
   public function uploadImage($file, $additionalData);
 
   public function publishPost($data);
+
+  public function getListTags($data);
 }

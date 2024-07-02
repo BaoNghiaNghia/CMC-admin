@@ -67,19 +67,7 @@ $(function () {
   var toastCount = 0;
   var $toastlast;
   var getMessage = function () {
-    var msgs = [
-      "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.",
-      '<div class="mb-3"><input class="input-small form-control" value="Textbox"/>&nbsp;<a href="http://johnpapa.net" target="_blank">This is a hyperlink</a></div><div class="d-flex"><button type="button" id="okBtn" class="btn btn-primary btn-sm me-2">Close me</button><button type="button" id="surpriseBtn" class="btn btn-sm btn-secondary">Surprise me</button></div>',
-      'Live the Life of Your Dreams',
-      'Believe in Your Self!',
-      'Be mindful. Be grateful. Be positive.',
-      'Accept yourself, love yourself!'
-    ];
-    i++;
-    if (i === msgs.length) {
-      i = 0;
-    }
-    return msgs[i];
+    return "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.";
   };
   var getMessageWithClearButton = function (msg) {
     msg = msg ? msg : 'Clear itself?';
@@ -94,35 +82,32 @@ $(function () {
       $('#addBehaviorOnToastCloseClick').prop('checked', false);
     }
   });
-  $('#showtoast').on('click', function () {
+  $('#publishToast').on('click', function () {
     var shortCutFunction = $('#toastTypeGroup input:radio:checked').val(),
-      isRtl = $('html').attr('dir') === 'rtl',
-      msg = $('#message').val(),
-      title = $('#title').val() || '',
-      $showDuration = $('#showDuration'),
-      $hideDuration = $('#hideDuration'),
-      $timeOut = $('#timeOut'),
-      $extendedTimeOut = $('#extendedTimeOut'),
-      $showEasing = $('#showEasing'),
-      $hideEasing = $('#hideEasing'),
-      $showMethod = $('#showMethod'),
-      $hideMethod = $('#hideMethod'),
-      toastIndex = toastCount++,
-      addClear = $('#addClear').prop('checked'),
-      prePositionClass = 'toast-top-right';
-
-    prePositionClass =
-      typeof toastr.options.positionClass === 'undefined' ? 'toast-top-right' : toastr.options.positionClass;
+    isRtl = $('html').attr('dir') === 'rtl',
+    msg = $('#message').val(),
+    title = $('#title').val() || '',
+    $showDuration = $('#showDuration'),
+    $hideDuration = $('#hideDuration'),
+    $timeOut = $('#timeOut'),
+    $extendedTimeOut = $('#extendedTimeOut'),
+    $showEasing = $('#showEasing'),
+    $hideEasing = $('#hideEasing'),
+    $showMethod = $('#showMethod'),
+    $hideMethod = $('#hideMethod'),
+    toastIndex = toastCount++,
+    addClear = true,
+    prePositionClass = 'toast-top-center';
 
     toastr.options = {
       maxOpened: 1,
       autoDismiss: true,
-      closeButton: $('#closeButton').prop('checked'),
-      debug: $('#debugInfo').prop('checked'),
-      newestOnTop: $('#newestOnTop').prop('checked'),
-      progressBar: $('#progressBar').prop('checked'),
-      positionClass: $('#positionGroup input:radio:checked').val() || 'toast-top-right',
-      preventDuplicates: $('#preventDuplicates').prop('checked'),
+      closeButton: true,
+      debug: false,
+      newestOnTop: true,
+      progressBar: false,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,
       onclick: null,
       rtl: isRtl
     };

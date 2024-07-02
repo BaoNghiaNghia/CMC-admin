@@ -27,8 +27,7 @@ class FileUpload extends Controller
       'limit' => $limit,
       'created_at_sort' => -1
     ]);
-    if ($listNews['error_code'] === 0) {
-
+    if (isset($listNews['error_code']) && $listNews['error_code'] === 0) {
       return view('content.form-elements.forms-file-upload', [
         'listNews' => $listNews['data']['items'],
         'listNewsMeta' => $listNews['data']['meta'],

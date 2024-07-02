@@ -43,7 +43,6 @@
             <td><img src="${news.thumbnail}" alt="${news.title}" style="width: 100px; height: auto;"></td>
             <td>${news.title}</td>
             <td>${news.summary}</td>
-            <td>${news.id}</td>
             <td>${news.category ? news.category.name : 'N/A'}</td>
             <td>${news.alias}</td>
             <td>${news.author}</td>
@@ -54,8 +53,6 @@
       });
     });
   </script>
-
-
 @endsection
 
 @section('content')
@@ -69,12 +66,11 @@
             <th class="m-0 p-2" style="font-weight: 600;">Thumbnail</th>
             <th class="m-0 p-2" style="font-weight: 600;">Title</th>
             <th class="m-0 p-2" style="font-weight: 600;">Summary</th>
-            <th class="m-0 p-2" style="font-weight: 600;">ID</th>
             <th class="m-0 p-2" style="font-weight: 600;">Category</th>
             <th class="m-0 p-2" style="font-weight: 600;">Alias</th>
             <th class="m-0 p-2" style="font-weight: 600;">Author</th>
-            <th class="m-0 p-2" style="font-weight: 600;">Created At</th>
-            <th class="m-0 p-2" style="font-weight: 600;">Updated At</th>
+            <th class="m-0 p-2" style="font-weight: 600;">Created</th>
+            <th class="m-0 p-2" style="font-weight: 600;">Updated</th>
         </tr>
     </thead>
     <tbody id="data-table-body">

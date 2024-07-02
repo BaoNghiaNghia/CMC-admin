@@ -18,6 +18,8 @@
   <link rel="stylesheet" href="{{asset('assets/vendor/libs/toastr/toastr.css')}}" />
   <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
   <link rel="stylesheet" href="{{asset('assets/vendor/libs/@form-validation/umd/styles/index.min.css')}}" />
+
+  <link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
 @endsection
 
 @section('vendor-script')
@@ -27,6 +29,9 @@
   <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
   <script src="{{asset('assets/vendor/libs/toastr/toastr.js')}}"></script>
   <script src="{{asset('assets/vendor/libs/dropzone/dropzone.js')}}"></script>
+
+  <script src="{{asset('assets/vendor/libs/tagify/tagify.js')}}"></script>
+  <script src="{{asset('assets/vendor/libs/bootstrap-select/bootstrap-select.js')}}"></script>
 
   <script src="{{asset('assets/vendor/libs/@form-validation/umd/bundle/popular.min.js')}}"></script>
   <script src="{{asset('assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js')}}"></script>
@@ -38,269 +43,342 @@
 
 @section('page-script')
   <script src="{{asset('assets/js/forms-file-upload.js')}}"></script>
-  {{-- <script src="{{asset('assets/js/forms-editors.js')}}"></script> --}}
   <script src="{{ asset('assets/js/ui-modals.js') }}"></script>
   <script src="{{asset('assets/js/extended-ui-perfect-scrollbar.js')}}"></script>
   <script src="{{asset('assets/js/ui-toasts.js')}}"></script>
 
+  {{-- <script src="{{asset('assets/js/forms-selects.js')}}"></script> --}}
+  {{-- <script src="{{asset('assets/js/forms-tagify.js')}}"></script> --}}
+
   <script>
-    // Convert PHP data to JSON format
-    var data = @json($imageLibrary);
-
     // Full Toolbar
-  // --------------------------------------------------------------------
-  const fullToolbar = [
-    [
-      {
-        font: []
-      },
-      {
-        size: []
-      }
-    ],
-    ['bold', 'italic', 'underline', 'strike'],
-    [
-      {
-        color: []
-      },
-      {
-        background: []
-      }
-    ],
-    [
-      {
-        script: 'super'
-      },
-      {
-        script: 'sub'
-      }
-    ],
-    [
-      {
-        header: '1'
-      },
-      {
-        header: '2'
-      },
-      'blockquote',
-      'code-block'
-    ],
-    [
-      {
-        list: 'ordered'
-      },
-      {
-        list: 'bullet'
-      },
-      {
-        indent: '-1'
-      },
-      {
-        indent: '+1'
-      }
-    ],
-    [{ direction: 'rtl' }],
-    ['link', 'image', 'video', 'formula'],
-    ['clean']
-  ];
-
-  // Image handler function to manage image uploads
-  function imageHandler() {
-    const language = this.quill.root.dataset.language;
-    const input = document.getElementById('imageInput_' + language);
-    input.click();
-
-    input.onchange = () => {
-      const file = input.files[0];
-      if (file) {
-        const formData = new FormData();
-        formData.append('image_file', file);
-
-        fetch('/forms/upload-single-image', {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-          }
-        })
-        .then(response => response.json())
-        .then(data => {
-          const imageUrl = data.url; // Ensure this is the URL of the uploaded image
-          const range = this.quill.getSelection();
-          if (range) {
-            this.quill.insertEmbed(range.index, 'image', imageUrl);
-          } else {
-            console.log('No selection to insert image');
-          }
-        })
-        .catch(error => {
-          console.log('Error uploading image:', error);
-        });
-      }
-    };
-  }
-
-  document.addEventListener('DOMContentLoaded', (event) => {
-    // Store the active editor for each language
-    var editors = {};
-
-    // Initialize Quill editors for each language
-    @foreach($languages as $language)
-    var editorId = 'full-editor-{{ $language["iso_code"] }}';
-    var placeholderText = 'Type something in {{ $language["name"] }}...';
-    var editor = new Quill('#' + editorId, {
-        bounds: '#' + editorId,
-        placeholder: placeholderText,
-        modules: {
-            formula: true,
-            toolbar: {
-                container: fullToolbar,
-                handlers: {
-                    'image': imageHandler
-                }
-            },
-            imageResize: {
-                modules: ['Resize', 'DisplaySize', 'Toolbar'],
-                displaySize: true
-            },
-            imageDrop: true
+    // --------------------------------------------------------------------
+    const fullToolbar = [
+      [
+        {
+          font: []
         },
-        theme: 'snow'
-    });
-
-    // Store the editor in the editors object
-    editors['{{ $language["iso_code"] }}'] = editor;
-
-    // Associate the editor with the language for the image handler
-    editor.root.dataset.language = '{{ $language["iso_code"] }}';
-
-    // Add event listener for the language-specific "Add into post" button
-    document.getElementById('addIntoPostButton-{{ $language["iso_code"] }}').addEventListener('click', function() {
-        // Get all checkboxes that are selected within this modal
-        var checkboxes = document.querySelectorAll('#modalAddMedia-{{ $language["iso_code"] }} input[type="checkbox"]:checked');
-        var selectedValues = Array.from(checkboxes).map(function(cb) { return cb.value; });
-
-        // Filter out any falsy values
-        var filteredImageList = selectedValues.filter(function(cb) { return cb; });
-
-        if (filteredImageList.length > 0) {
-            filteredImageList.forEach(function(currentImage) {
-                // Find the corresponding editor
-                var editor = editors['{{ $language["iso_code"] }}'];
-
-                if (editor) {
-                    var range = editor.getSelection();
-                    var index = range ? range.index : editor.getLength();
-                    editor.insertEmbed(index, 'image', currentImage);
-                }
-            });
+        {
+          size: []
         }
-
-        // Clear all selected checkboxes
-        // checkboxes.forEach(function(checkbox) { checkbox.checked = false; });
-        // Clear all selected checkboxes of all languages
-        @foreach($languages as $lang)
-          var allCheckboxes = document.querySelectorAll('#modalAddMedia-{{ $lang["iso_code"] }} input[type="checkbox"]');
-          allCheckboxes.forEach(function(checkbox) { checkbox.checked = false; });
-        @endforeach
-
-        // Close the modal
-        var modal = document.getElementById('modalAddMedia-{{ $language["iso_code"] }}');
-        if (modal) {
-            var modalInstance = bootstrap.Modal.getInstance(modal); // Get the instance of the modal
-            if (modalInstance) {
-                modalInstance.hide(); // Hide the modal
-            }
+      ],
+      ['bold', 'italic', 'underline', 'strike'],
+      [
+        {
+          color: []
+        },
+        {
+          background: []
         }
-    });
-    @endforeach
+      ],
+      [
+        {
+          script: 'super'
+        },
+        {
+          script: 'sub'
+        }
+      ],
+      [
+        {
+          header: '1'
+        },
+        {
+          header: '2'
+        },
+        'blockquote',
+        'code-block'
+      ],
+      [
+        {
+          list: 'ordered'
+        },
+        {
+          list: 'bullet'
+        },
+        {
+          indent: '-1'
+        },
+        {
+          indent: '+1'
+        }
+      ],
+      [{ direction: 'rtl' }],
+      ['link', 'image', 'video', 'formula'],
+      ['clean']
+    ];
 
-    // Register the image resize module
-    Quill.register('modules/imageResize', ImageResize);
+    // Image handler function to manage image uploads
+    function imageHandler() {
+      const language = this.quill.root.dataset.language;
+      const input = document.getElementById('imageInput_' + language);
+      input.click();
 
-    // Function to get the selected radio button value
-    function getSelectedCategory() {
-      // Query the selected radio button within the category section
-      var selectedRadio = document.querySelector('input[name="default-radio-category"]:checked');
-      // Check if a radio button is selected
-      if (selectedRadio) {
-        // Return the ID and value of the selected radio button
-        return selectedRadio.id;
-      } else {
-        // Return null if no radio button is selected
-        return null;
-      }
-    }
+      input.onchange = () => {
+        const file = input.files[0];
+        if (file) {
+          const formData = new FormData();
+          formData.append('file', file);
 
-    // Add event listener for the "Publish" button
-    document.getElementById('publishButton').addEventListener('click', function() {
-      var defaultLang = 'en';
-
-      var defaultTitle = document.getElementById('post_title_' + defaultLang).value;
-      var defaultSummary = document.getElementById('post_summary_' + defaultLang).value;
-      var defaultEditorContentHtml = editors[defaultLang].root.innerHTML;
-
-      if (!defaultTitle || !defaultEditorContentHtml || !defaultSummary) {
-        alert('Missing input title, content or summary with english');
-      }
-
-      var selectedCategory = getSelectedCategory();
-      if (!selectedCategory) {
-        alert('No category selected');
-      }
-
-      var postData = {
-        category_id: selectedCategory,
-        title: defaultTitle,
-        content: defaultEditorContentHtml,
-        summary: defaultSummary,
-        thumbnail_id: "667cc977037335a623d28ec8",
-        languages: {}
-      };
-
-      @foreach($languages as $language)
-        var languageCode = '{{ $language["iso_code"] }}';
-        var title = document.getElementById('post_title_' + languageCode).value;
-        var summary = document.getElementById('post_summary_' + languageCode).value;
-        var editorContentHtml = editors[languageCode].root.innerHTML;
-
-        postData.languages[languageCode] = {
-            title: title,
-            summary: summary,
-            content: editorContentHtml
-        };
-      @endforeach
-
-      fetch('/auth/get-detail-user')
-        .then(response => response.json())
-        .then(data => {
-          let authorWriter = data.fullname;
-          postData.author = authorWriter;
-
-          var formData = new FormData();
-          formData.append('post', JSON.stringify(postData));
-
-          fetch('/forms/publish-multilang-post', {
+          fetch('/forms/upload-single-image', {
             method: 'POST',
-            body: JSON.stringify(postData),
+            body: formData,
             headers: {
               'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             }
           })
-          .then(response => {
-            console.log('-- response nè ---', response);
-            return response;
-          })
+          .then(response => response.json())
           .then(data => {
-            console.log('-- response nè ---', data);
+            try {
+              const imageUrl = data.url; // Ensure this is the URL of the uploaded image
+              const range = this.quill.getSelection();
+              if (range) {
+                this.quill.insertEmbed(range.index, 'image', imageUrl);
+              } else {
+                console.log('No selection to insert image');
+              }
+            } catch (error) {
+              console.error('Error parsing JSON:', error);
+            }
           })
           .catch(error => {
             console.log('Error uploading image:', error);
           });
-        })
-        .catch(error => console.error('Error fetching data:', error));
+        }
+      };
+    }
+
+    function showToast(title, message, type = 'info', options = {}) {
+      var defaultOptions = {
+        maxOpened: 1,
+        autoDismiss: true,
+        closeButton: true,
+        debug: false,
+        newestOnTop: true,
+        progressBar: false,
+        positionClass: 'toast-top-right',
+        preventDuplicates: true,
+        onclick: null,
+        rtl: $('html').attr('dir') === 'rtl'
+      };
+
+      // Merge user options with default options
+      var toastOptions = $.extend({}, defaultOptions, options);
+
+      toastr.options = toastOptions;
+
+      var title = title || 'Thông báo';
+      var msg = message || "Don't be pushed around by the fears in your mind.";
+
+      var $toast = toastr[type](msg, title);
+
+      if ($toast && $toast.find('.clear').length) {
+        $toast.delegate('.clear', 'click', function () {
+          toastr.clear($toast, { force: true });
+        });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+      // Store the active editor for each language
+      var editors = {};
+
+      // Initialize Quill editors for each language
+      @foreach($languages as $language)
+      var editorId = 'full-editor-{{ $language["iso_code"] }}';
+      var placeholderText = 'Type something in {{ $language["name"] }}...';
+      var editor = new Quill('#' + editorId, {
+          bounds: '#' + editorId,
+          placeholder: placeholderText,
+          modules: {
+              formula: true,
+              toolbar: {
+                  container: fullToolbar,
+                  handlers: {
+                      'image': imageHandler
+                  }
+              },
+              imageResize: {
+                  modules: ['Resize', 'DisplaySize', 'Toolbar'],
+                  displaySize: true
+              },
+              imageDrop: true
+          },
+          theme: 'snow'
+      });
+
+      // Store the editor in the editors object
+      editors['{{ $language["iso_code"] }}'] = editor;
+
+      // Associate the editor with the language for the image handler
+      editor.root.dataset.language = '{{ $language["iso_code"] }}';
+
+      // Add event listener for the language-specific "Add into post" button
+      document.getElementById('addIntoPostButton-{{ $language["iso_code"] }}').addEventListener('click', function() {
+          // Get all checkboxes that are selected within this modal
+          var checkboxes = document.querySelectorAll('#modalAddMedia-{{ $language["iso_code"] }} input[type="checkbox"]:checked');
+          var selectedValues = Array.from(checkboxes).map(function(cb) { return cb.value; });
+
+          // Filter out any falsy values
+          var filteredImageList = selectedValues.filter(function(cb) { return cb; });
+
+          if (filteredImageList.length > 0) {
+              filteredImageList.forEach(function(currentImage) {
+                  // Find the corresponding editor
+                  var editor = editors['{{ $language["iso_code"] }}'];
+
+                  if (editor) {
+                      var range = editor.getSelection();
+                      var index = range ? range.index : editor.getLength();
+                      editor.insertEmbed(index, 'image', currentImage);
+                  }
+              });
+          }
+
+          // Clear all selected checkboxes
+          // checkboxes.forEach(function(checkbox) { checkbox.checked = false; });
+          // Clear all selected checkboxes of all languages
+          @foreach($languages as $lang)
+            var allCheckboxes = document.querySelectorAll('#modalAddMedia-{{ $lang["iso_code"] }} input[type="checkbox"]');
+            allCheckboxes.forEach(function(checkbox) { checkbox.checked = false; });
+          @endforeach
+
+          // Close the modal
+          var modal = document.getElementById('modalAddMedia-{{ $language["iso_code"] }}');
+          if (modal) {
+              var modalInstance = bootstrap.Modal.getInstance(modal); // Get the instance of the modal
+              if (modalInstance) {
+                  modalInstance.hide(); // Hide the modal
+              }
+          }
+      });
+      @endforeach
+
+      // Register the image resize module
+      Quill.register('modules/imageResize', ImageResize);
+
+      // Function to get the selected radio button value
+      function getSelectedCategory() {
+        // Query the selected radio button within the category section
+        var selectedRadio = document.querySelector('input[name="default-radio-category"]:checked');
+        // Check if a radio button is selected
+        if (selectedRadio) {
+          // Return the ID and value of the selected radio button
+          return selectedRadio.id;
+        } else {
+          // Return null if no radio button is selected
+          return null;
+        }
+      }
+
+      // Add event listener for the "Publish" button
+      document.getElementById('publishButton').addEventListener('click', function() {
+        var defaultLang = 'en';
+
+        var defaultTitle = document.getElementById('post_title_' + defaultLang).value;
+        var defaultSummary = document.getElementById('post_summary_' + defaultLang).value;
+        var defaultEditorContentHtml = editors[defaultLang].root.innerHTML;
+
+        if (!defaultTitle || !defaultEditorContentHtml || !defaultSummary) {
+          showToast('Warning', 'Missing input title, content or summary with english', 'warning');
+          return;
+        }
+
+        var selectedCategory = getSelectedCategory();
+        if (!selectedCategory) {
+          showToast('Warning', 'No category selected', 'warning');
+          return;
+        }
+
+        var postData = {
+          category_id: selectedCategory,
+          title: defaultTitle,
+          content: defaultEditorContentHtml,
+          summary: defaultSummary,
+          thumbnail_id: "667fa694815e2336a944b12b",
+          languages: {}
+        };
+
+        @foreach($languages as $language)
+          var languageCode = '{{ $language["iso_code"] }}';
+          var title = document.getElementById('post_title_' + languageCode).value;
+          var summary = document.getElementById('post_summary_' + languageCode).value;
+          var editorContentHtml = editors[languageCode].root.innerHTML;
+
+          postData.languages[languageCode] = {
+              title: title,
+              summary: summary,
+              content: editorContentHtml
+          };
+        @endforeach
+
+        fetch('/auth/get-detail-user')
+          .then(response => response.json())
+          .then(data => {
+            let authorWriter = data.fullname;
+            postData.author = authorWriter;
+
+            console.log('--- post ----', postData)
+
+            var formData = new FormData();
+            formData.append('post', JSON.stringify(postData));
+
+            fetch('/forms/publish-multilang-post', {
+              method: 'POST',
+              body: JSON.stringify(postData),
+              headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+              }
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.error_code === 0) {
+                window.location.href = '/forms/file-upload'; // Redirect to file-upload page
+
+                showToast('Published', `Publish post successfully!. Post title: ${data?.data?.title}`, 'success');
+              } else {
+                showToast('Something wrong', data?.message, 'error');
+              }
+              console.log('-- response nè ---', data);
+            })
+            .catch(error => {
+              showToast('Something wrong', error, 'error');
+              console.log('Error uploading image:', error);
+            });
+          })
+          .catch(error => console.error('Error fetching data:', error));
+      });
     });
-  });
+
+    const TagPostSelect = document.querySelector('#TagPostSelect');
+
+    var allTagsArr = @json($listTags);
+
+    let TagifyCustomInlineSuggestion = new Tagify(TagPostSelect, {
+      whitelist: allTagsArr.map(childTag => childTag.name),
+      maxTags: 10,
+      dropdown: {
+        maxItems: 20,
+        classname: 'tags-inline',
+        enabled: 0,
+        closeOnSelect: false
+      }
+    });
+
+    // Function to handle selected tags
+    function handleSelectedTags(e) {
+      var selectedTags = TagifyCustomInlineSuggestion.value; // Get all selected tags
+
+      // Find and return the corresponding childTag object
+      var selectedTagObjects = selectedTags.map(tag => allTagsArr.find(childTag => childTag.name === tag.value));
+      var arrTagID = selectedTagObjects.map(child=>child.id);
+      console.log('----- ID TAG ARRAY -----', arrTagID);
+      return arrTagID;
+    }
+
+    // Listen for 'add' and 'remove' tag events
+    TagifyCustomInlineSuggestion.on('add', handleSelectedTags);
+    TagifyCustomInlineSuggestion.on('remove', handleSelectedTags);
   </script>
 @endsection
 

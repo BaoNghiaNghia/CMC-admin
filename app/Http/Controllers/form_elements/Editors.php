@@ -22,22 +22,26 @@ class Editors extends Controller
   public function index()
   {
     try {
-      $blogCategories = $this->blogCategoryService->getCategories(1, 10, 'blog');
+      $page = 1;
+      $limit = 100;
+
+      $blogCategories = $this->blogCategoryService->getCategories($page, $limit, 'blog');
 
       $libraryImg = $this->blogService->getLibraryImages();
+
+      $listTags = $this->blogService->getListTags([
+        'page' => $page,
+        'limit' => $limit
+      ]);
 
       $data = [
         'languages' => Config::get('constants.LANGUAGE_LOCALE'),
         'userCurrent' => json_decode(Cookie::get('user'), true),
         'blogCategories' => [],
         'blogCategoriesMeta' => null,
-        'status' => [
-          'success' => true,
-          'message' => 'Data fetched successfully'
-        ]
       ];
 
-      if ($blogCategories['error_code'] === 0) {
+      if (isset($blogCategories['error_code']) && $blogCategories['error_code'] === 0) {
         $data['blogCategories'] = $blogCategories['data']['item'];
         $data['blogCategoriesMeta'] = $blogCategories['data']['meta'];
       } else {
@@ -47,7 +51,7 @@ class Editors extends Controller
         ];
       }
 
-      if ($libraryImg['error_code'] === 0) {
+      if (isset($libraryImg['error_code']) && $libraryImg['error_code'] === 0) {
         $data['imageLibrary'] = $libraryImg['data'];
       } else {
         $data['status'] = [
@@ -55,6 +59,17 @@ class Editors extends Controller
           'message' => 'Failed to fetch data'
         ];
       }
+
+      if (isset($listTags['error_code']) && $listTags['error_code'] === 0) {
+        $data['listTags'] = $listTags['data']['items'];
+        $data['listTagsMeta'] = $listTags['data']['meta'];
+      } else {
+        $data['status'] = [
+          'success' => false,
+          'message' => 'Failed to fetch data'
+        ];
+      }
+
       return view('content.form-elements.forms-editors', $data);
     } catch (\Exception $e) {
       logger()->error('Failed to fetch data initialize', ['exception' => $e]);
@@ -73,7 +88,7 @@ class Editors extends Controller
     try {
       $libraryImg = $this->blogService->getLibraryImages();
       // Fetch media data from the database or any source
-      if ($libraryImg['error_code'] === 0) {
+      if (isset($libraryImg['error_code']) && $libraryImg['error_code'] === 0) {
         return view('content.form-elements.forms-editors', ['imageLibrary' => $libraryImg['data']]);
       }
 
@@ -93,15 +108,15 @@ class Editors extends Controller
     try {
       // Validate the file input
       $request->validate([
-        'image_file' => 'required|file|max:10240', // max file size is 10MB
+        'file' => 'required|file|max:10240', // max file size is 10MB
       ], [
-        'image_file.required' => 'The file is required.',
-        'image_file.file' => 'The file must be a valid file.',
-        'image_file.max' => 'The file size must not exceed 10MB.'
+        'file.required' => 'The file is required.',
+        'file.file' => 'The file must be a valid file.',
+        'file.max' => 'The file size must not exceed 10MB.'
       ]);
 
-      if ($request->hasFile('image_file')) {
-        $file = $request->file('image_file');
+      if ($request->hasFile('file')) {
+        $file = $request->file('file');
 
         // Additional data to be sent with the file
         $additionalData = [
@@ -180,9 +195,35 @@ class Editors extends Controller
         'page' => $page,
         'limit' => $limit
       ]);
-      if ($listNews['error_code'] === 0) {
-        $data['blogCategories'] = $listNews['data']['item'];
+      if (isset($listNews['error_code']) && $listNews['error_code'] === 0) {
+        $data['blogCategories'] = $listNews['data']['items'];
         $data['blogCategoriesMeta'] = $listNews['data']['meta'];
+      } else {
+        $data['status'] = [
+          'success' => false,
+          'message' => 'Failed to fetch data'
+        ];
+      }
+
+      return $data;
+    } catch (\Exception $e) {
+    }
+  }
+
+  public function getListTags()
+  {
+    try {
+      $data = [];
+      $page = 1;
+      $limit = 100;
+
+      $listTags = $this->blogService->getListTags([
+        'page' => $page,
+        'limit' => $limit
+      ]);
+      if (isset($listTags['error_code']) && $listTags['error_code'] === 0) {
+        $data['listTags'] = $listTags['data']['items'];
+        $data['listTagsMeta'] = $listTags['data']['meta'];
       } else {
         $data['status'] = [
           'success' => false,

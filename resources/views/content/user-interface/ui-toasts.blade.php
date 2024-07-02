@@ -203,7 +203,7 @@
       <div class="text-light small fw-medium mb-3">Default</div>
       <div class="toast-container position-relative">
 
-        <div class="bs-toast toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+        {{-- <div class="bs-toast toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
           <div class="toast-header">
             <i class="mdi mdi-home me-2"></i>
             <div class="me-auto fw-medium">Bootstrap</div>
@@ -297,7 +297,7 @@
           <div class="toast-body">
             Hello, world! This is a toast message.
           </div>
-        </div>
+        </div> --}}
       </div>
     </div>
     <div class="col-md-6 ui-bg-overlay-container p-4">
@@ -305,7 +305,7 @@
       <div class="text-white small fw-medium mb-3">Translucent</div>
 
       <div class="toast-container position-relative">
-        <div class="bs-toast toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+        {{-- <div class="bs-toast toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
           <div class="toast-header">
             <i class="mdi mdi-home me-2"></i>
             <div class="me-auto fw-medium">Bootstrap</div>
@@ -399,7 +399,7 @@
           <div class="toast-body">
             Hello, world! This is a toast message.
           </div>
-        </div>
+        </div> --}}
       </div>
     </div>
   </div>

@@ -39,13 +39,13 @@
   <div class="accordion-item">
       <h4 class="accordion-header d-flex align-items-center">
           <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
-              data-bs-target="#accordionWithIcon-2" aria-expanded="false">
+              data-bs-target="#accordionWithIcon-category" aria-expanded="false">
               <i class="mdi mdi-briefcase me-2"></i>
               <span style="font-size: 15px;font-weight: 700;">Category</span>
           </button>
       </h4>
 
-      <div id="accordionWithIcon-2" class="accordion-collapse collapse show">
+      <div id="accordionWithIcon-category" class="accordion-collapse collapse show">
           <div class="accordion-body">
             @if(isset($blogCategories) && count($blogCategories) > 0)
               @foreach($blogCategories as $category)
@@ -59,6 +59,25 @@
             @else
               No category found
             @endif
+          </div>
+      </div>
+  </div>
+
+  <div class="accordion-item">
+      <h4 class="accordion-header d-flex align-items-center">
+          <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+              data-bs-target="#accordionWithIcon-tags" aria-expanded="false">
+              <i class="mdi mdi-briefcase me-2"></i>
+              <span style="font-size: 15px;font-weight: 700;">Tags</span>
+          </button>
+      </h4>
+
+      <div id="accordionWithIcon-tags" class="accordion-collapse collapse show">
+          <div class="accordion-body">
+            <div class="form-floating form-floating-outline">
+              <input id="TagPostSelect" name="TagPostSelect" class="form-control h-auto" placeholder="select tag" value="">
+              <label for="TagPostSelect">Choose existed tags</label>
+            </div>
           </div>
       </div>
   </div>

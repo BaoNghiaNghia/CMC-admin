@@ -56,5 +56,6 @@ return [
   'IMAGES_LIBRARY_ENDPOINT' => '/library',
   'IMAGE_UPLOAD_ENDPOINT' => '/upload',
   'PUBLISH_POST_ENDPOINT' => '/admin/news',
+  'BLOG_TAGS_ENDPOINT' => '/admin/news/tags',
   'BLOG_CATEGORIES_ENDPOINT' => '/admin/news/categories',
 ];

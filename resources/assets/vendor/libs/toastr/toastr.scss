@@ -6,6 +6,7 @@
 #toast-container {
   > div {
     padding: 12px 10px 12px 40px !important;
+
     opacity: 1;
 
     @include app-rtl {
@@ -23,6 +24,11 @@
     @include app-rtl {
       right: 12px;
       left: auto;
+    }
+  }
+  &.toast-top-center {
+    @include app-rtl {
+      margin-top: 10px
     }
   }
   &.toast-top-right {
@@ -54,6 +60,7 @@
   }
   > .toast {
     max-width: 100%;
+    margin-top: 10px;
     background-size: 20px;
     background-repeat: no-repeat;
   }
@@ -145,6 +152,7 @@
   .dark-style {
     #toast-container {
       z-index: dark.$zindex-notification;
+      margin-top: 15px !important;
 
       .toast-close-button {
         font-weight: dark.$close-font-weight;

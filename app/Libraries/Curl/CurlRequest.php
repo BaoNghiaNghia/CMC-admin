@@ -4,7 +4,6 @@ namespace App\Libraries\Curl;
 
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Session;
 
 class CurlRequest
 {
@@ -103,7 +102,7 @@ class CurlRequest
     }
   }
 
-  private function uploadFile($method, $route, $file, $data = [], $extraHeaders = [])
+  private function uploadFile($route, $file, $data = [], $extraHeaders = [])
   {
     try {
       $token = $this->getToken();
@@ -119,17 +118,13 @@ class CurlRequest
       // Merge headers with token authorization and any extra headers
       $headers = array_merge([
         'Authorization' => 'Bearer ' . $token,
-      ], $this->headers, $extraHeaders);
+      ], $extraHeaders);
 
-      $base_api = env('BASE_API_URL');
-      $route_api = $base_api . $route;
-
-      // Ensure 'from' field is included in the data
-      $data = array_merge($data, ['from' => 'blog']);
+      $route_api = env('BASE_API_URL') . $route;
 
       // Prepare the file and additional data for upload
       $response = Http::withHeaders($headers)
-        ->attach('file', file_get_contents($file->getRealPath()), $file->getClientOriginalName())
+        ->attach('file', fopen($file->getRealPath(), 'r'), $file->getClientOriginalName())
         ->post($route_api, $data);
 
       return $response;
@@ -144,9 +139,10 @@ class CurlRequest
     }
   }
 
+
   public function upload($url, $file, $data, $extraHeaders = [])
   {
-    return $this->uploadFile('POST', $url, $file, $data, $extraHeaders);
+    return $this->uploadFile($url, $file, $data, $extraHeaders);
   }
 
   public function get($url, $data = [], $extraHeaders = [])
