@@ -11,9 +11,6 @@
           <div class="accordion-body">
               <div class="d-flex justify-content-between flex-wrap m-0">
                   <button class="btn btn-xs btn-outline-primary m-0" type="button">Save Draft</button>
-                  {{-- <button class="btn btn-xs btn-outline-primary m-0" type="button">Preview</button> --}}
-
-
               </div>
               <div class="my-2">
                   <ul class="list-group">
@@ -113,11 +110,11 @@
 
   <div class="accordion-item">
       <h4 class="accordion-header d-flex align-items-center">
-          <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
-              data-bs-target="#accordionWithIcon-3" aria-expanded="false">
-              <i class="mdi mdi-gift me-2"></i>
-              <span style="font-size: 15px;font-weight: 700;">Feature Image</span>
-          </button>
+        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+            data-bs-target="#accordionWithIcon-3" aria-expanded="false">
+            <i class="mdi mdi-gift me-2"></i>
+            <span style="font-size: 15px;font-weight: 700;">Feature Image</span>
+        </button>
       </h4>
       <div id="accordionWithIcon-3" class="accordion-collapse collapse show">
           <div class="accordion-body">

@@ -393,7 +393,13 @@
       max-height: 80%; /* Adjust the height as needed */
       overflow-y: auto;
   }
+
+  .preview-scrolling {
+    max-height: 700px; /* Adjust this height as needed */
+    overflow-y: auto;
+  }
 </style>
+
 <h4 class="">
     <span class="text-muted fw-light">Blog /</span> New Post
 </h4>
@@ -461,7 +467,7 @@
 
                           {{-- Summary Input --}}
                           <div class="form-floating form-floating-outline mb-2">
-                              <textarea rows="7" style="height:100%;" type="text" name="post_summary_{{ $language['iso_code'] }}" id="post_summary_{{ $language['iso_code'] }}" class="form-control" placeholder="Type something...."></textarea>
+                              <textarea rows="5" style="height:100%;" type="text" name="post_summary_{{ $language['iso_code'] }}" id="post_summary_{{ $language['iso_code'] }}" class="form-control" placeholder="Type something...."></textarea>
                               <label for="post_summary_{{ $language['iso_code'] }}">Summary ({{ $language['name'] }})</label>
                           </div>
 
