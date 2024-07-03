@@ -55,8 +55,8 @@ return [
   // Blogs Endpoints
   'IMAGES_LIBRARY_ENDPOINT' => '/library',
   'IMAGE_UPLOAD_ENDPOINT' => '/upload',
-  'PUBLISH_POST_ENDPOINT' => '/admin/news',
+  'PUBLISH_POST_ENDPOINT' => '/admin/blog/news',
   'BLOG_TAGS_ENDPOINT' => '/admin/news/tags',
   'AUTHORS_ENDPOINT' => '/admin/news/authors',
-  'BLOG_CATEGORIES_ENDPOINT' => '/admin/news/categories',
+  'BLOG_CATEGORIES_ENDPOINT' => '/admin/blog/categories',
 ];

@@ -20,51 +20,32 @@
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/blog-category.js')}}"></script>
-<script >
-  // Convert PHP data to JSON format
-  var data = @json($blogCategories);
-  var original = @json($languages);
-  const languages = Object.values(original).map(language => language.iso_code);
-  const tableHead = document.querySelector("table thead tr");
+  <script src="{{asset('assets/js/blog-category.js')}}"></script>
+  <script >
+    // Convert PHP data to JSON format
+    var dataBlogCategories = @json($blogCategories);
+    var original = @json($languages);
+    const languages = Object.values(original).map(language => language.iso_code);
+    const tableHead = document.querySelector("table thead tr");
 
-  // // Dynamically create language columns
-  // languages.forEach(language => {
-  //   const th = document.createElement("th");
-  //   th.classList.add("m-0", "p-2");
-  //   th.style.fontWeight = "600";
-  //   th.textContent = language.toUpperCase();
-  //   tableHead.appendChild(th);
-  // });
+    console.log('---- response -----', dataBlogCategories);
 
-  const tableBody = document.getElementById("data-table-body");
+    const tableBody = document.getElementById("data-table-body");
+    if (dataBlogCategories.length > 0) {
+      dataBlogCategories.forEach(dataBlog => {
+        $('#data-table-body').append(`
+          <tr>
+            <td>${dataBlog?.name}</td>
+            <td>${dataBlog?.code}</td>
+            <td>${dataBlog?.alias}</td>
+            <td>${dataBlog?.from}</td>
+          </tr>
+        `);
+      });
+    }
+  </script>
 
-  data.forEach(item => {
-    const row = document.createElement("tr");
 
-    // Add the name column
-    const nameCell = document.createElement("td");
-    nameCell.classList.add("m-0", "p-2");
-    nameCell.textContent = item.name;
-    row.appendChild(nameCell);
-
-    // Add the alias column
-    const aliasCell = document.createElement("td");
-    aliasCell.classList.add("m-0", "p-2");
-    aliasCell.textContent = item.alias;
-    row.appendChild(aliasCell);
-
-    // Add the language-specific columns
-    languages.forEach(language => {
-      const langCell = document.createElement("td");
-      langCell.classList.add("m-0", "p-2");
-      langCell.textContent = item.languages[language] ? item.languages[language].Name : "...";
-      row.appendChild(langCell);
-    });
-
-    tableBody.appendChild(row);
-  });
-</script>
 @endsection
 
 @section('content')
@@ -86,7 +67,7 @@
             <span style="font-weight: 400">The name is how it appears on your site.</span>
           </div>
         </div>
-        <div class="form-password-toggle mb-3">
+        <div class="form-password-toggle mt-0 pt-0">
           <label class="form-label" for="category-section">Section</label>
           <div class="input-group input-group-merge">
             <input type="text" class="form-control" id="category-section" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="basic-default-password32" />
@@ -95,8 +76,7 @@
             <span style="font-weight: 400">The "alias" is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.</span>
           </div>
         </div>
-      </div>
-      <div class="card-body mt-0 pt-0">
+        <hr/>
         @foreach($languages as $index => $language)
           <div class="form-password-toggle">
             <label class="form-label" for="category-language-{{ $language['iso_code'] }}">{{ $language['name'] }}</label>
@@ -115,18 +95,19 @@
       <div class="card-body mt-0 pt-0">
         <table class="table dt-fixedcolumns">
           <thead>
-              <tr>
-                  <th class="m-0 p-2" style="font-weight: 600;">Name</th>
-                  <th class="m-0 p-2" style="font-weight: 600;">alias</th>
-                  @foreach($languages as $index => $language)
-                    <th class="m-0 p-2" style="font-weight: 600;">{{ $language['name'] }}</th>
-                  @endforeach
-              </tr>
+            <tr>
+              <th class="m-0 p-2" style="font-weight: 600;">Name</th>
+              <th class="m-0 p-2" style="font-weight: 600;">Code</th>
+              <th class="m-0 p-2" style="font-weight: 600;">alias</th>
+              <th class="m-0 p-2" style="font-weight: 600;">from</th>
+            </tr>
           </thead>
           <tbody id="data-table-body">
-              <!-- Data will be dynamically populated here -->
           </tbody>
         </table>
+        @if(isset($blogCategories) && empty($blogCategories))
+          <span class="text-center">No Data</span>
+        @endif
       </div>
     </div>
   </div>

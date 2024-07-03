@@ -37,24 +37,42 @@
       return `${formattedTime}  ${formattedDate}`;
     }
 
+    function checkImageUrl(url) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = function() {
+                resolve(true);
+            };
+            img.onerror = function() {
+                resolve(false);
+            };
+            img.src = url;
+        });
+    }
+
     $(document).ready(function() {
       const listNews = @json($listNews);
+      const defaultThumbnail = asset('assets/img/id_ID.png'); // Replace with your default image URL
 
       listNews.forEach(news => {
-        $('#data-table-body').append(`
-          <tr>
-            <td style="margin: 0px auto;"><img class="m-0 p-0" src="${news.thumbnail}" style="width: 70px; height: auto; border-radius: 4px;"></td>
-            <td style="font-weight: 600; color: black;">${news.title}</td>
-            <td>${truncate(news.summary, 100)}</td>
-            <td>${news.category ? news.category.name : 'N/A'}</td>
-            <td>${news.alias}</td>
-            <td>${news?.author?.name || 'Chưa có'}</td>
-            <td>${formatDate(news.created_at)}</td>
-            <td>${formatDate(news.update_at)}</td>
-          </tr>
-        `);
+          checkImageUrl(news.thumbnail).then(isValid => {
+              const thumbnail = isValid ? news.thumbnail : defaultThumbnail;
+              $('#data-table-body').append(`
+                  <tr>
+                      <td style="margin: 0px auto;"><img class="m-0 p-0" src="${thumbnail}" style="width: 70px; height: auto; border-radius: 4px;"></td>
+                      <td style="font-weight: 600; color: black;">${news.title}</td>
+                      <td>${truncate(news.summary, 100)}</td>
+                      <td>${news.category ? news.category.name : 'N/A'}</td>
+                      <td>${news.alias}</td>
+                      <td>${news?.author?.name || 'Chưa có'}</td>
+                      <td>${formatDate(news.created_at)}</td>
+                      <td>${formatDate(news.update_at)}</td>
+                  </tr>
+              `);
+          });
       });
-    });
+  });
+
   </script>
 @endsection
 

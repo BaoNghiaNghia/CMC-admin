@@ -34,6 +34,7 @@ class Editors extends Controller
         'limit' => $limit
       ]);
 
+
       $listAuthor = $this->blogService->getListAuthor([
         'page' => $page,
         'limit' => $limit
@@ -47,7 +48,7 @@ class Editors extends Controller
       ];
 
       if (isset($blogCategories['error_code']) && $blogCategories['error_code'] === 0) {
-        $data['blogCategories'] = $blogCategories['data']['item'];
+        $data['blogCategories'] = $blogCategories['data']['categories'];
         $data['blogCategoriesMeta'] = $blogCategories['data']['meta'];
       } else {
         $data['status'] = [

@@ -66,6 +66,7 @@
             <span style="font-weight: 400">The "alias" is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.</span>
           </div>
         </div>
+        <button class="btn btn-xs btn-outline-primary mt-3 text-right" id="publishButton" type="button">Add New Tag</button>
       </div>
     </div>
   </div>

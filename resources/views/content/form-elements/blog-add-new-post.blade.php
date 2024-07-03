@@ -136,7 +136,6 @@
       // Find and return the corresponding childTag object
       var selectedTagObjects = selectedTags.map(tag => allTagsArr.find(childTag => childTag.name === tag.value));
       var arrTagID = selectedTagObjects.map(child=>child.id);
-      console.log('----- ID TAG ARRAY -----', arrTagID);
 
       listSelectedTags = arrTagID;
       return arrTagID;

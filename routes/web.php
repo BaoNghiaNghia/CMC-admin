@@ -368,11 +368,8 @@ Route::middleware(['checkAuthToken'])->group(function () {
 });
 
 
-
 # ------------------ PUBLIC ROUTE ------------------ #
-// Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
 Route::get('/auth/cmc-login', [LoginCover::class, 'index'])->name('auth-login-cover');
-// Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
 Route::get('/auth/register-cover', [RegisterCover::class, 'index'])->name('auth-register-cover');
 
 Route::post('/auth/submit-register-form', [RegisterCover::class, 'registerUser'])->name('api.registerUser');

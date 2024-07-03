@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Libraries\Curl\CurlRequest;
 use App\Services\Interfaces\BlogCategoryServiceInterface;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
 class BlogCategoryService implements BlogCategoryServiceInterface
@@ -12,7 +13,7 @@ class BlogCategoryService implements BlogCategoryServiceInterface
   {
     try {
       $curl = new CurlRequest();
-      $response = $curl->get('/admin/news/categories', [
+      $response = $curl->get(Config::get('constants.BLOG_CATEGORIES_ENDPOINT'), [
         'page' => $page,
         'limit' => $limit,
         'section' => $section,

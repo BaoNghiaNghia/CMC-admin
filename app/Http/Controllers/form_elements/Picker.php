@@ -31,7 +31,7 @@ class Picker extends Controller
     $blogCategories = $this->blogCategoryService->getCategories(1, 100, 'blog');
 
     if (isset($blogCategories['error_code']) && $blogCategories['error_code'] === 0) {
-      $data['blogCategories'] = $blogCategories['data']['item'];
+      $data['blogCategories'] = $blogCategories['data']['categories'];
       $data['blogCategoriesMeta'] = $blogCategories['data']['meta'];
     } else {
       $data['status'] = [
