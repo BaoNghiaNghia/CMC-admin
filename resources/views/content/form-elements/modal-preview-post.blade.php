@@ -33,7 +33,7 @@
                   <div class="tab-pane fade @if($index == $defaultIndex) show active @endif" id="preview-tab-content-{{ $index }}" role="tabpanel">
                       <div class="mt-3">
                           <h2 id="previewTitle_{{ $language['iso_code'] }}"></h2>
-                          <p id="previewSummary_{{ $language['iso_code'] }}" style="font-style: italic; "></p>
+                          <p id="previewSummary_{{ $language['iso_code'] }}" style="font-style: italic; background-color: #dcdcdc30; padding: 10px; border-radius: 10px;"></p>
                           <hr/>
                           <div id="previewBody_{{ $language['iso_code'] }}"></div>
                       </div>
