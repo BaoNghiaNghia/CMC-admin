@@ -108,6 +108,9 @@
       ['clean']
     ];
 
+    // Store the active editor for each language
+    var editors = {};
+
     const TagPostSelect = document.querySelector('#TagPostSelect');
 
     var allTagsArr = @json($listTags);
@@ -212,10 +215,31 @@
       }
     }
 
-    document.addEventListener('DOMContentLoaded', (event) => {
-      // Store the active editor for each language
-      var editors = {};
+    function previewContent(index, languageCode) {
+        // Get values from the form inputs
+        const title = document.getElementById(`post_title_${languageCode}`).value;
+        const summary = document.getElementById(`post_summary_${languageCode}`).value;
+        // const body = document.getElementById(`full-editor-${languageCode}`).innerHTML;
 
+        const body = editors[languageCode].root.innerHTML;
+        console.log('---- preview -----', body);
+
+        if (!title || !body || !summary || body === "<p><br></p>") {
+          showToast('Warning', 'Missing input title, content or summary with english', 'warning');
+          return;
+        }
+
+        // Set values in the modal
+        document.getElementById(`previewTitle_${languageCode}`).innerText = title;
+        document.getElementById(`previewSummary_${languageCode}`).innerText = summary;
+        document.getElementById(`previewBody_${languageCode}`).innerHTML = body;
+
+        // Show the modal
+        const previewModal = new bootstrap.Modal(document.getElementById('modalPreviewPost'));
+        previewModal.show();
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
       // Initialize Quill editors for each language
       @foreach($languages as $language)
       var editorId = 'full-editor-{{ $language["iso_code"] }}';
@@ -398,6 +422,12 @@
 @endsection
 
 @section('content')
+<style>
+  .scrollable-content {
+      max-height: 80%; /* Adjust the height as needed */
+      overflow-y: auto;
+  }
+</style>
 <h4 class="">
     <span class="text-muted fw-light">Blog /</span> New Post
 </h4>
@@ -463,10 +493,10 @@
                               </div>
                           </div>
 
-                          {{-- Title Input --}}
+                          {{-- Summary Input --}}
                           <div class="form-floating form-floating-outline mb-2">
                               <textarea rows="7" style="height:100%;" type="text" name="post_summary_{{ $language['iso_code'] }}" id="post_summary_{{ $language['iso_code'] }}" class="form-control" placeholder="Type something...."></textarea>
-                              <label for="post_title_{{ $language['iso_code'] }}">Summary ({{ $language['name'] }})</label>
+                              <label for="post_summary_{{ $language['iso_code'] }}">Summary ({{ $language['name'] }})</label>
                           </div>
 
                           {{-- Add Media Button --}}
@@ -477,6 +507,15 @@
                           >
                               <i class="mdi mdi-image-filter-black-white pr-2"></i>
                               Add Media
+                          </button>
+                          <button
+                            class="btn btn-xs btn-label-secondary mb-2 mt-4 ml-2"
+                            type="button" id="previewPost"
+                            {{-- data-bs-toggle="modal" data-bs-target="#modalPreviewPost" --}}
+                            onclick="previewContent('{{ $index }}', '{{ $language['iso_code'] }}')"
+                          >
+                            <i class="mdi mdi-image-filter-black-white pr-2"></i>
+                            Preview
                           </button>
                           <input type="file" id="imageInput_{{ $language['iso_code'] }}" style="display: none;" accept="image/*">
 
@@ -497,5 +536,8 @@
   <div class="col-3">
     @include('content.form-elements.right-element-editor')
   </div>
+
+  {{-- Modal Preview --}}
+  @include('content.form-elements.modal-preview-post', ['languages' => $languages])
 </div>
 @endsection

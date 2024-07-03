@@ -57,6 +57,6 @@ return [
   'IMAGE_UPLOAD_ENDPOINT' => '/upload',
   'PUBLISH_POST_ENDPOINT' => '/admin/blog/news',
   'BLOG_TAGS_ENDPOINT' => '/admin/news/tags',
-  'AUTHORS_ENDPOINT' => '/admin/news/authors',
+  'AUTHORS_ENDPOINT' => '/admin/blog/news/authors',
   'BLOG_CATEGORIES_ENDPOINT' => '/admin/blog/categories',
 ];

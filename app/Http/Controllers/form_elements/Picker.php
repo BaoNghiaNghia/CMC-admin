@@ -5,7 +5,6 @@ namespace App\Http\Controllers\form_elements;
 use App\Http\Controllers\Controller;
 use App\Services\BlogCategoryService;
 use App\Services\BlogService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cookie;
 

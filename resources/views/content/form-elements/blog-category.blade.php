@@ -28,8 +28,6 @@
     const languages = Object.values(original).map(language => language.iso_code);
     const tableHead = document.querySelector("table thead tr");
 
-    console.log('---- response -----', dataBlogCategories);
-
     const tableBody = document.getElementById("data-table-body");
     if (dataBlogCategories.length > 0) {
       dataBlogCategories.forEach(dataBlog => {

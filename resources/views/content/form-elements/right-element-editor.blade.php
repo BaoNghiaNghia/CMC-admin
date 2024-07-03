@@ -11,7 +11,9 @@
           <div class="accordion-body">
               <div class="d-flex justify-content-between flex-wrap m-0">
                   <button class="btn btn-xs btn-outline-primary m-0" type="button">Save Draft</button>
-                  <button class="btn btn-xs btn-outline-primary m-0" type="button">Preview</button>
+                  {{-- <button class="btn btn-xs btn-outline-primary m-0" type="button">Preview</button> --}}
+
+
               </div>
               <div class="my-2">
                   <ul class="list-group">
@@ -85,13 +87,13 @@
   <div class="accordion-item">
     <h4 class="accordion-header d-flex align-items-center">
         <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
-            data-bs-target="#accordionWithIcon-category" aria-expanded="false">
+            data-bs-target="#accordionWithIcon-author" aria-expanded="false">
             <i class="mdi mdi-briefcase me-2"></i>
             <span style="font-size: 15px;font-weight: 700;">Author</span>
         </button>
     </h4>
 
-    <div id="accordionWithIcon-category" class="accordion-collapse collapse show">
+    <div id="accordionWithIcon-author" class="accordion-collapse collapse show">
         <div class="accordion-body">
           @if(isset($listAuthor) && count($listAuthor) > 0)
             @foreach($listAuthor as $author)
