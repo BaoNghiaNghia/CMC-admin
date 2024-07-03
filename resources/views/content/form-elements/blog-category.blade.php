@@ -86,7 +86,7 @@
             <span style="font-weight: 400">The name is how it appears on your site.</span>
           </div>
         </div>
-        <div class="form-password-toggle">
+        <div class="form-password-toggle mb-3">
           <label class="form-label" for="category-section">Section</label>
           <div class="input-group input-group-merge">
             <input type="text" class="form-control" id="category-section" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="basic-default-password32" />
@@ -95,6 +95,8 @@
             <span style="font-weight: 400">The "alias" is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.</span>
           </div>
         </div>
+      </div>
+      <div class="card-body mt-0 pt-0">
         @foreach($languages as $index => $language)
           <div class="form-password-toggle">
             <label class="form-label" for="category-language-{{ $language['iso_code'] }}">{{ $language['name'] }}</label>
@@ -103,6 +105,7 @@
             </div>
           </div>
         @endforeach
+        <button class="btn btn-xs btn-outline-primary mt-3 text-right" id="publishButton" type="button">Add New Category</button>
       </div>
     </div>
   </div>
