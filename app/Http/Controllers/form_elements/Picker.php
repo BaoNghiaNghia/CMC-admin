@@ -40,6 +40,6 @@ class Picker extends Controller
       ];
     }
 
-    return view('content.form-elements.forms-pickers', $data);
+    return view('content.form-elements.blog-category', $data);
   }
 }

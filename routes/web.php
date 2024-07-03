@@ -326,15 +326,15 @@ Route::middleware(['checkAuthToken'])->group(function () {
   Route::get('/forms/input-groups', [InputGroups::class, 'index'])->name('forms-input-groups');
   Route::get('/forms/custom-options', [CustomOptions::class, 'index'])->name('forms-custom-options');
 
-  Route::get('/forms/editors', [Editors::class, 'index'])->name('forms-editors');
+  Route::get('/forms/editors', [Editors::class, 'index'])->name('blog-add-new-post');
   Route::get('/forms/get-list-images-library', [Editors::class, 'getLibraryImages'])->name('api.get-library-images');
   Route::post('/forms/upload-single-image', [Editors::class, 'uploadImage'])->name('api.upload-single-image');
   Route::post('/forms/publish-multilang-post', [Editors::class, 'publishPost'])->name('api.publish-multilang-post');
 
 
-  Route::get('/forms/file-upload', [FileUpload::class, 'index'])->name('forms-file-upload');
-  Route::get('/forms/pickers', [Picker::class, 'index'])->name('forms-pickers');
-  Route::get('/forms/selects', [Selects::class, 'index'])->name('forms-selects');
+  Route::get('/forms/file-upload', [FileUpload::class, 'index'])->name('blog-articles');
+  Route::get('/forms/pickers', [Picker::class, 'index'])->name('blog-category');
+  Route::get('/forms/selects', [Selects::class, 'index'])->name('blog-tags');
   Route::get('/forms/sliders', [Sliders::class, 'index'])->name('forms-sliders');
   Route::get('/forms/switches', [Switches::class, 'index'])->name('forms-switches');
   Route::get('/forms/extras', [Extras::class, 'index'])->name('forms-extras');

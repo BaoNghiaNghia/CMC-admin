@@ -1081,25 +1081,25 @@
               "url": "forms/editors",
               "name": "Editors",
               "icon": "menu-icon tf-icons mdi mdi-circle-medium mdi-20px",
-              "slug": "forms-editors"
+              "slug": "blog-add-new-post"
             },
             {
               "url": "forms/file-upload",
               "name": "File Upload",
               "icon": "menu-icon tf-icons mdi mdi-circle-medium mdi-20px",
-              "slug": "forms-file-upload"
+              "slug": "blog-articles"
             },
             {
               "url": "forms/pickers",
               "name": "Pickers",
               "icon": "menu-icon tf-icons mdi mdi-circle-medium mdi-20px",
-              "slug": "forms-pickers"
+              "slug": "blog-category"
             },
             {
               "url": "forms/selects",
               "name": "Select & Tags",
               "icon": "menu-icon tf-icons mdi mdi-circle-medium mdi-20px",
-              "slug": "forms-selects"
+              "slug": "blog-tags"
             },
             {
               "url": "forms/sliders",

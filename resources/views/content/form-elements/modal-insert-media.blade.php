@@ -6,7 +6,7 @@
             <h4 class="modal-title" id="exampleModalLabel4">Add Media ({{ $language['name'] }})</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body overflow-hidden" id="vertical-example">
+          <div class="modal-body overflow-hidden" id="vertical-scrolling">
                 <div class="nav-align-top">
                   <ul class="nav nav-tabs" role="tablist">
                       <li class="nav-item">

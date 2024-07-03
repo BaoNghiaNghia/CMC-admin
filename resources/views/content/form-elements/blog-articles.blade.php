@@ -16,19 +16,22 @@
 @endsection
 
 @section('page-script')
-  {{-- <script src="{{asset('assets/js/tables-datatables-advanced.js')}}"></script> --}}
   <script>
+    function truncate(str, n){
+      return (str.length > n) ? str.slice(0, n-1) + '&hellip;' : str;
+    };
+
     function formatDate(dateString) {
       let date = new Date(dateString);
 
       // Format hours and minutes
       let timeOptions = { hour: '2-digit', minute: '2-digit', hour12: false };
-      let timeFormatter = new Intl.DateTimeFormat('en-GB', timeOptions);
+      let timeFormatter = new Intl.DateTimeFormat('en-US', timeOptions);
       let formattedTime = timeFormatter.format(date);
 
       // Format day and month
       let dateOptions = { day: '2-digit', month: '2-digit' };
-      let dateFormatter = new Intl.DateTimeFormat('en-GB', dateOptions);
+      let dateFormatter = new Intl.DateTimeFormat('en-US', dateOptions);
       let formattedDate = dateFormatter.format(date);
 
       return `${formattedTime}  ${formattedDate}`;
@@ -40,12 +43,12 @@
       listNews.forEach(news => {
         $('#data-table-body').append(`
           <tr>
-            <td><img src="${news.thumbnail}" alt="${news.title}" style="width: 100px; height: auto;"></td>
-            <td>${news.title}</td>
-            <td>${news.summary}</td>
+            <td style="margin: 0px auto;"><img class="m-0 p-0" src="${news.thumbnail}" style="width: 70px; height: auto; border-radius: 4px;"></td>
+            <td style="font-weight: 600; color: black;">${news.title}</td>
+            <td>${truncate(news.summary, 100)}</td>
             <td>${news.category ? news.category.name : 'N/A'}</td>
             <td>${news.alias}</td>
-            <td>${news.author}</td>
+            <td>${news?.author?.name || 'Chưa có'}</td>
             <td>${formatDate(news.created_at)}</td>
             <td>${formatDate(news.update_at)}</td>
           </tr>
@@ -57,10 +60,12 @@
 
 @section('content')
 <h4 class="">
-  <span class="text-muted fw-light">Blog /</span> Articles
+  <span class="mr-3">
+    <span class="text-muted fw-light">Blog /</span> Articles
+  </span>
+  <button class="btn btn-xs btn-outline-primary" id="publishButton" type="button">Add New Post</button>
 </h4>
-
-<table class="table table-bordered">
+<table class="table dt-fixedcolumns">
     <thead>
         <tr>
             <th class="m-0 p-2" style="font-weight: 600;">Thumbnail</th>
@@ -69,8 +74,8 @@
             <th class="m-0 p-2" style="font-weight: 600;">Category</th>
             <th class="m-0 p-2" style="font-weight: 600;">Alias</th>
             <th class="m-0 p-2" style="font-weight: 600;">Author</th>
-            <th class="m-0 p-2" style="font-weight: 600;">Created</th>
-            <th class="m-0 p-2" style="font-weight: 600;">Updated</th>
+            <th class="m-0 p-2" style="font-weight: 600;">Published</th>
+            <th class="m-0 p-2" style="font-weight: 600;">Modified</th>
         </tr>
     </thead>
     <tbody id="data-table-body">

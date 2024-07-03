@@ -75,11 +75,11 @@ class Editors extends Controller
         $data['listAuthorMeta'] = $listAuthor['data']['meta'];
       }
 
-      return view('content.form-elements.forms-editors', $data);
+      return view('content.form-elements.blog-add-new-post', $data);
     } catch (\Exception $e) {
       logger()->error('Failed to fetch data initialize', ['exception' => $e]);
 
-      return view('content.form-elements.forms-editors')->with('status', [
+      return view('content.form-elements.blog-add-new-post')->with('status', [
         'success' => false,
         'message' => 'Failed to fetch data initialize'
       ])->with('languages', Config::get('constants.LANGUAGE_LOCALE'))
@@ -94,10 +94,10 @@ class Editors extends Controller
       $libraryImg = $this->blogService->getLibraryImages();
       // Fetch media data from the database or any source
       if (isset($libraryImg['error_code']) && $libraryImg['error_code'] === 0) {
-        return view('content.form-elements.forms-editors', ['imageLibrary' => $libraryImg['data']]);
+        return view('content.form-elements.blog-add-new-post', ['imageLibrary' => $libraryImg['data']]);
       }
 
-      return view('content.form-elements.forms-editors', ['imageLibrary' => []]);
+      return view('content.form-elements.blog-add-new-post', ['imageLibrary' => []]);
     } catch (\Exception $e) {
       // Handle exception if HTTP request fails
       // Log error or return appropriate response

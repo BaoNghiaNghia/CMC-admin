@@ -931,22 +931,22 @@
         {
           "url": "forms/editors",
           "name": "Editors",
-          "slug": "forms-editors"
+          "slug": "blog-add-new-post"
         },
         {
           "url": "forms/file-upload",
           "name": "File Upload",
-          "slug": "forms-file-upload"
+          "slug": "blog-articles"
         },
         {
           "url": "forms/pickers",
           "name": "Pickers",
-          "slug": "forms-pickers"
+          "slug": "blog-category"
         },
         {
           "url": "forms/selects",
           "name": "Select & Tags",
-          "slug": "forms-selects"
+          "slug": "blog-tags"
         },
         {
           "url": "forms/sliders",

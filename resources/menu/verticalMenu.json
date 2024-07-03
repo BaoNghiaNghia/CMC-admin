@@ -8,22 +8,22 @@
         {
           "url": "forms/file-upload",
           "name": "Articles",
-          "slug": "forms-file-upload"
+          "slug": "blog-articles"
         },
         {
           "url": "forms/editors",
           "name": "Add New Post",
-          "slug": "forms-editors"
+          "slug": "blog-add-new-post"
         },
         {
           "url": "forms/pickers",
           "name": "Categories",
-          "slug": "forms-pickers"
+          "slug": "blog-category"
         },
         {
           "url": "forms/selects",
           "name": "Tags",
-          "slug": "forms-selects"
+          "slug": "blog-tags"
         }
       ]
     },

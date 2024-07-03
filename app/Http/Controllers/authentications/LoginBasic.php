@@ -41,7 +41,7 @@ class LoginBasic extends Controller
       //   Cookie::queue('user', json_encode($response['data']['user']), Config::get('COOKIES_SESSION_TIME')); // Cookie for 60 minutes
 
       //   // Redirect to the desired path with success message
-      //   return redirect()->route('forms-editors')->with('status', [
+      //   return redirect()->route('blog-add-new-post')->with('status', [
       //     'success' => true,
       //     'message' => 'Login successful'
       //   ]);

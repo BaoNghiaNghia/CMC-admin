@@ -58,7 +58,7 @@ class BlogController extends Controller
         ['id' => 3, 'url' => asset('assets/img/backgrounds/15.jpg')],
         // Add more media items as needed
       ];
-      return view('content.form-elements.forms-editors', ['media' => $media]);
+      return view('content.form-elements.blog-add-new-post', ['media' => $media]);
     } catch (\Exception $e) {
       // Handle exception if HTTP request fails
       // Log error or return appropriate response

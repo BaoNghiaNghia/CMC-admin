@@ -42,12 +42,12 @@
 @endsection
 
 @section('page-script')
-  <script src="{{asset('assets/js/forms-file-upload.js')}}"></script>
+  <script src="{{asset('assets/js/blog-articles.js')}}"></script>
   <script src="{{ asset('assets/js/ui-modals.js') }}"></script>
   <script src="{{asset('assets/js/extended-ui-perfect-scrollbar.js')}}"></script>
   <script src="{{asset('assets/js/ui-toasts.js')}}"></script>
 
-  {{-- <script src="{{asset('assets/js/forms-selects.js')}}"></script> --}}
+  {{-- <script src="{{asset('assets/js/blog-tags.js')}}"></script> --}}
   {{-- <script src="{{asset('assets/js/forms-tagify.js')}}"></script> --}}
 
   <script>
@@ -368,8 +368,6 @@
           };
         @endforeach
 
-        console.log('--- post ----', postData)
-
         var formData = new FormData();
         formData.append('post', JSON.stringify(postData));
 
@@ -402,7 +400,7 @@
 
 @section('content')
 <h4 class="">
-    <span class="text-muted fw-light">Posts /</span> New Post
+    <span class="text-muted fw-light">Blog /</span> New Post
 </h4>
 
 <div class="row">
